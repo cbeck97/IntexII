@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using BYUFagElGamous1_5.Constants
+
+@*Here we will use the IAuthorizationService that comes with ASP.NET Core as part of Authorization. 
+    This is quite helpful when you want to control the Authorization at the View level. *@
+@inject IAuthorizationService AuthorizationService
+
+<h1>Product Management</h1>
+<br />
+asdkl;fjasdkl;fjasdkl;jf
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+{
+<button>Create</button>}
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.View)).Result.Succeeded)
+{
+<button>View</button>}
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Edit)).Result.Succeeded)
+{
+<button>Modify</button>}
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Delete)).Result.Succeeded)
+{
+<button>Delete</button>}
