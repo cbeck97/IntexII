@@ -1,4 +1,5 @@
 ﻿using BYUFagElGamous1_5.Models;
+using BYUFagElGamous1_5.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,12 +27,33 @@ namespace BYUFagElGamous1_5.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Submit(Mummy mum)
+        //Privileged Access ----------------------------------------------------
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin, Researcher")]
+        public IActionResult AddMummy()
         {
-            context.Add(mum);
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Researcher")]
+        public IActionResult AddMummy(AddMummyViewModel entry)
+        {
+            context.Add(entry.Location); //Add the location
             context.SaveChanges();
-            return View("Index");
+            //See if there is a more optimized way of doing this so you dont have to run a query every time
+            //Set the mummies locationID equal to the location being created
+            entry.Mummy.LocationId = context.Location.OrderByDescending(x => x.LocationId).Select(x => x.LocationId).First();
+            entry.Location.HighPairNs = entry.Location.LowPairNs + 10; //Create the high pair plot point
+            entry.Location.HighPairEw = entry.Location.LowPairEw + 10;
+            context.Add(entry.Mummy); //Add the mummy
+            context.SaveChanges();
+            //set the measurement ID equal to the mummy ID 
+            entry.Mummy.MeasurementId = context.Mummy.OrderByDescending(x => x.MummyId).Select(x => x.MummyId).First();
+            context.Update(entry.Mummy);
+            context.SaveChanges();
+
+            return View();
         }
 
         public IActionResult Privacy()

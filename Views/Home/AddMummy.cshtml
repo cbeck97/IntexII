@@ -1,0 +1,61 @@
+﻿@model AddMummyViewModel
+
+<form asp-controller="Home" asp-action="AddMummy" method="post">
+    <label asp-for="Mummy.DayFound">Day Found: </label>
+    <input asp-for="Mummy.DayFound" />
+    <br />
+    <label asp-for="Mummy.MonthFound">Month Found: </label>
+    <input asp-for="Mummy.MonthFound" />
+    <br />
+    <label asp-for="Mummy.YearFound">Year Found:</label>
+    <input asp-for="Mummy.YearFound" />
+    <br />
+    <label asp-for="Mummy.HeadDirection">Head Direction: </label>
+    <input asp-for="Mummy.HeadDirection" />
+    <br />
+    <label asp-for="Location.LowPairNs">Low Pair North/South: </label>
+    <input asp-for="Location.LowPairNs" />
+    <br />
+    <label asp-for="Location.LowPairEw">Low Pair East/West: </label>
+    <input asp-for="Location.LowPairEw" />
+    <br />
+    <label asp-for="Location.Subplot">Subplot: </label>
+    <input asp-for="Location.Subplot" />
+    <br />
+    <label asp-for="Location.BurialNumber">Burial Number: </label>
+    <input asp-for="Location.BurialNumber" />
+    <br />
+    <label asp-for="Location.BurialDepth">Burial Depth: </label>
+    <input asp-for="Location.BurialDepth" />
+    <br />
+    <label asp-for="Location.SouthToHead">South to Head: </label>
+    <input asp-for="Location.SouthToHead" />
+    <br />
+    <label asp-for="Location.SouthToFeet">South to Feet:</label>
+    <input asp-for="Location.SouthToFeet" />
+    <br />
+    <label asp-for="Location.EastToHead">East to Head: </label>
+    <input asp-for="Location.EastToHead" />
+    <br />
+    <label asp-for="Location.EastToFeet">East to Feet: </label>
+    <input asp-for="Location.EastToFeet" />
+    <br />
+    <label asp-for="Location.WestToHead">West to Head: </label>
+    <input asp-for="Location.WestToHead" />
+    <br />
+    <label asp-for="Location.WestToFeet">West to Feet: </label>
+    <input asp-for="Location.WestToFeet" />
+    <br />
+    <label asp-for="Location.BurialSituation">Burial Situation</label>
+    <input asp-for="Location.BurialSituation" />
+    <br />
+    <label asp-for="Location.Tomb">Tomb: </label>
+    <input asp-for="Location.Tomb" />
+    <br />
+    <label asp-for="Location.Area">Area: </label>
+    <input asp-for="Location.Area" />
+    <br />
+    <br />
+
+    <button class="btn btn-primary" type="submit">Enter Mummy</button>
+</form>
