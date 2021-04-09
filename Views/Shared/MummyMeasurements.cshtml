@@ -2,16 +2,16 @@
 
 <h3>Measurements</h3>
 
-<button class="btn" onclick="replaceContents(this.id, @Model.MeasurementId, 'skull')" id="MummySkull">Skull</button>
-<button class="btn" onclick="replaceContents(this.id, @Model.MeasurementId, 'body')" id="MummyBody">Body</button>
-<button class="btn" onclick="replaceContents(this.id, @Model.MeasurementId, 'general')" id="MummyGeneral">General</button>
+<button class="btn" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'skull')" id="MummySkull">Skull</button>
+<button class="btn" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'body')" id="MummyBody">Body</button>
+<button class="btn" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'general')" id="MummyGeneral">General</button>
 
 <div id="measurePartialView">
 </div>
 
 <script>
     //on load select the attributes tab
-    function replaceContents(partialViewToInsert, id, type ) {
+    function replaceMeasureContents(partialViewToInsert, id, type ) {
         $.ajax({
             url: '@Url.Action("MeasurementPartialView", "Home")',
             data: {
@@ -25,10 +25,10 @@
             }
         });
 
-        activateButton(partialViewToInsert);
+        activateMeasureButton(partialViewToInsert);
     }
 
-    function activateButton(id) {
+    function activateMeasureButton(id) {
         $('#MummySkull').removeClass('btn-link').css("color", "black")
         $('#MummyBody').removeClass('btn-link').css("color", "black")
         $('#MummyGeneral').removeClass('btn-link').css("color", "black")
