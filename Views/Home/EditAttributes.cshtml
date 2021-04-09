@@ -1,6 +1,160 @@
 ﻿@model Mummy
 
-<h1>Edit Attributes</h1>
+<h1 class="display-4">Edit Attributes</h1>
 
-<label asp-for="@Model.DayFound">Day Found:</label>
-<input asp-for="@Model.DayFound" />
+<div class="text-center">
+
+    <form asp-controller="Home" asp-action="" method="post" class="card-background p-3">
+        <div class="form-row text-left">
+            <div class="form-group col">
+                <label for="DayFound" asp-for="@Model.DayFound">Day Found</label>
+                <input id="DayFound" class="form-control" asp-for="@Model.DayFound" value="@Model.DayFound" />
+            </div>
+            <div class="form-group col">
+                <label for="MonthFound" asp-for="@Model.MonthFound">Month Found</label>
+                <input id="MonthFound" class="form-control" asp-for="@Model.MonthFound" value="@Model.MonthFound" />
+            </div>
+            <div class="form-group col">
+                <label for="YearFound" asp-for="@Model.YearFound">Year Found</label>
+                <input id="YearFound" class="form-control" asp-for="@Model.YearFound" value="@Model.YearFound" />
+            </div>
+            <div class="form-group col">
+                <label for="HeadDirection" asp-for="@Model.HeadDirection">Head Direction</label>
+                <select id="HeadDirection" class="form-control" asp-for="@Model.HeadDirection">
+                    <option>Select</option>
+                    <option value="E">E</option>
+                    <option value="W">W</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row text-left">
+            <div class="form-group col">
+                <label for="Gender" asp-for="@Model.Gender">Gender</label>
+                <select id="Gender" class="custom-select" asp-for="@Model.Gender">
+                    <option>Select</option>
+                    <option value="F">F</option>
+                    <option value="M">M</option>
+                    <option value="C">C</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="BurialGenderMethod" asp-for="@Model.BurialGenderMethod">Burial Gender Method</label>
+                <select id="BurialGenderMethod" class="custom-select" asp-for="@Model.BurialGenderMethod">
+                    <option>Select</option>
+                    <option value="A">A</option>
+                    <option value="P">P</option>
+                    <option value="S">S</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="AdultChild" asp-for="@Model.AdultChild">Adult/Child</label>
+                <select id="AdultChild" class="custom-select" asp-for="@Model.AdultChild">
+                    <option>Select</option>
+                    <option value="A">A</option>
+                    <option value="C">C</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="AgeRange" asp-for="@Model.AgeRange">Age Range</label>
+                <select id="AgeRange" class="custom-select" asp-for="@Model.AgeRange">
+                    <option>Select</option>
+                    <option value="A">A</option>
+                    <option value="C">C</option>
+                    <option value="I">I</option>
+                    <option value="N">N</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row text-left">
+            <div class="form-group col">
+                <label for="BuriaAgeAtDeath" asp-for="@Model.BurialAgeAtDeath">Burial Age at Death</label>
+                <input id="BurialAgeAtDeath" class="form-control" asp-for="@Model.BurialAgeAtDeath" value="@Model.BurialGenderMethod" placeholder="Age at Death"/>
+            </div>
+            <div class="form-group col">
+                <label for="BurialAgeMethod" asp-for="@Model.BurialAgeMethod">Burial Age Method</label>
+                <select id="BurialAgeMethod" class="custom-select" asp-for="@Model.BurialAgeMethod">
+                    <option>Select</option>
+                    <option value="P">P</option>
+                    <option value="S">S</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="Length" asp-for="@Model.LengthOfRemains">Length</label>
+                <input id="Length" class="form-control" asp-for="@Model.LengthOfRemains" placeholder="Enter Length in Meters"/>
+            </div>
+            <div class="form-group col">
+                <label for="BurialPreservation" asp-for="@Model.BurialPreservation">Burial Preservations</label>
+                <input id="BurialPreservation" class="form-control" asp-for="@Model.BurialPreservation" placeholder="Burial Preservation Notes"/>
+            </div>
+        </div>
+        <div class="form-row text-left">
+            <div class="form-group col">
+                <label for="HairColor" asp-for="@Model.HairColor">Hair Color</label>
+                <select id="HairColor" class="custom-select" asp-for="@Model.HairColor">
+                    <option>Select</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="D">D</option>
+                    <option value="K">K</option>
+                    <option value="R">R</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="FaceBundle" asp-for="@Model.FaceBundle">Burial Age Method</label>
+                <select id="FavceBundle" class="custom-select" asp-for="@Model.FaceBundle">
+                    <option>Select</option>
+                    <option value="Y">Y</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="BurialWrapping" asp-for="@Model.BurialWrapping">Burial Wrapping</label>
+                <select id="BurialWrapping" class="custom-select" asp-for="@Model.BurialWrapping">
+                    <option>Select</option>
+                    <option value="B">B</option>
+                    <option value="H">H</option>
+                    <option value="S">S</option>
+                    <option value="W">W</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="BurialSampleTaken" asp-for="@Model.BurialSampleTaken">Sample Taken</label>
+                <select id="BurialSampleTaken" class="custom-select" asp-for="@Model.BurialSampleTaken">
+                    <option>Select</option>
+                    <option value="Y">Y</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row text-left">
+            <div class="form-group col">
+                <label for="PhotoTaken" asp-for="@Model.PhotoTaken">Photo Taken</label>
+                <select id="PhotoTaken" class="custom-select" asp-for="@Model.PhotoTaken">
+                    <option>Select</option>
+                    <option value="Y">Y</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="Artifact" asp-for="@Model.Artifacts">Artifact</label>
+                <select id="Artifact" class="custom-select" asp-for="@Model.Artifacts">
+                    <option>Select</option>
+                    <option value="Y">Y</option>
+                    <option value="U">U</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <button class="btn btn-secondary" type="submit">Enter Mummy</button>
+            </div>
+        </div>
+    </form>
+</div>
