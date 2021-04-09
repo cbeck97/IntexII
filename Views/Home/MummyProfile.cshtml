@@ -17,7 +17,7 @@
 {
     <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'notes')" id="MummyNotes">Field Notes</button>
     <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'sample')" id="MummySamples">Samples</button>
-    <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Carbon Dating</button>
+    <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'carbon')" id="MummyCarbon">Carbon Dating</button>
 }
 <br />
 <br />
@@ -50,6 +50,7 @@
         $('#MummyMeasurements').removeClass('btn-link').css("color", "black")
         $('#MummyNotes').removeClass('btn-link').css("color", "black")
         $('#MummySamples').removeClass('btn-link').css("color", "black")
+        $('#MummyCarbon').removeClass('btn-link').css("color", "black")
         $('#' + id).addClass('btn-link').css("color", "grey");
     }
 </script>
