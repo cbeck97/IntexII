@@ -1,0 +1,45 @@
+﻿@model MummyProfileViewModel
+
+<h1>
+    Mummy Profile: N @Model.Location.LowPairNs/@Model.Location.HighPairNs E @Model.Location.LowPairEw/@Model.Location.HighPairEw
+    @Model.Location.Subplot #@Model.Location.BurialNumber
+</h1>
+
+<button type="button" class="btn"
+        onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'mummy')" id="MummyAttributes">
+    Attributes
+</button>
+<button class="btn" onclick="replaceContents(this.id, @Model.Location.LocationId, 'location')" id="MummyLocation">Location</button>
+<button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Measurements</button>
+<br />
+<br />
+
+<div id="partialView">
+</div>
+
+<script>
+    function replaceContents(partialViewToInsert, id, type ) {
+        $.ajax({
+            url: '@Url.Action("PartialViewPractice", "Home")',
+            data: {
+                id: partialViewToInsert,
+                selector: id,
+                type: type
+            },
+            type: "POST",
+            success: function(data) {
+                $('#partialView').html(data);
+            }
+        });
+
+        activateButton(partialViewToInsert);
+    }
+
+    function activateButton(id) {
+        $('#MummyAttributes').removeClass('btn-link')
+        $('#MummyLocation').removeClass('btn-link')
+        $('#MummyMeasurements').removeClass('btn-link')
+        $('#' + id).addClass('btn-link');
+
+    }
+</script>

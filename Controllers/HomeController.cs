@@ -74,6 +74,52 @@ namespace BYUFagElGamous1_5.Controllers
             });
         }
 
+        //MUMMY PROFILE -------------------------------------------
+        [HttpPost]
+        public IActionResult MummyProfile(int id)
+        {
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
+            Measurements msr;
+            Location loc = context.Location.Where(x => x.LocationId == mum.LocationId).First();
+            try
+            {
+                msr = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).First();
+            }
+            catch
+            {
+                //If no measurement is found, create a new measurement
+                msr = new Measurements();
+            }
+
+            return View(new MummyProfileViewModel
+            {
+                Mummy = mum,
+                Location = loc,
+                Measurement = msr
+            });
+        }
+
+        [HttpPost]
+        public ActionResult PartialViewPractice(string id, int selector, string type)
+        {
+            if (type == "mummy")
+            {
+                Mummy mummy = context.Mummy.Where(x => x.MummyId == selector).First();
+                return PartialView(id, mummy);
+            }
+            else if (type == "location")
+            {
+                Location loc = context.Location.Where(x => x.LocationId == selector).First();
+                return PartialView(id, loc);
+            }
+            else
+            {
+                Measurements msr = context.Measurements.Where(x => x.MeasurementId == selector).First();
+                return PartialView(id, msr);
+
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

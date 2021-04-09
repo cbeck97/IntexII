@@ -1,0 +1,11 @@
+﻿@model Mummy
+
+<h3>Attributes</h3>
+<h5>Year Found</h5>
+<p>@Model.MonthFound/@Model.DayFound/@Model.YearFound</p>
+<br />
+<h5>Hair Color</h5>
+@if (Model.HairColor == null)
+{<p>Not Available</p>}
+@if (Model.HairColor != null)
+{<p>@Model.HairColor</p>}
