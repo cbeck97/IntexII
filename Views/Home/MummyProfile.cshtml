@@ -11,6 +11,9 @@
 </button>
 <button class="btn" onclick="replaceContents(this.id, @Model.Location.LocationId, 'location')" id="MummyLocation">Location</button>
 <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Measurements</button>
+<button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Field Notes</button>
+<button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Samples</button>
+<button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Carbon Dating</button>
 <br />
 <br />
 
@@ -18,9 +21,11 @@
 </div>
 
 <script>
+    //on load select the attributes tab
+
     function replaceContents(partialViewToInsert, id, type ) {
         $.ajax({
-            url: '@Url.Action("PartialViewPractice", "Home")',
+            url: '@Url.Action("PartialView", "Home")',
             data: {
                 id: partialViewToInsert,
                 selector: id,
@@ -36,10 +41,10 @@
     }
 
     function activateButton(id) {
-        $('#MummyAttributes').removeClass('btn-link')
-        $('#MummyLocation').removeClass('btn-link')
-        $('#MummyMeasurements').removeClass('btn-link')
-        $('#' + id).addClass('btn-link');
+        $('#MummyAttributes').removeClass('btn-link').css("color", "black")
+        $('#MummyLocation').removeClass('btn-link').css("color", "black")
+        $('#MummyMeasurements').removeClass('btn-link').css("color", "black")
+        $('#' + id).addClass('btn-link').css("color", "grey");
 
     }
 </script>
