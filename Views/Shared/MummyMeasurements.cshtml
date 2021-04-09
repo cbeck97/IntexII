@@ -2,22 +2,36 @@
 
 <h3>Measurements</h3>
 
-<h5>Age of Skull</h5>
-@if (Model.AgeSkull2018 == null)
-{
-    <p>Not Available</p>
-}
-else
-{
-    <p>@Model.AgeSkull2018</p>
-}
+<button class="btn" onclick="replaceContents(this.id, @Model.MeasurementId, 'skull')" id="MummySkull">Skull</button>
+<button class="btn" onclick="replaceContents(this.id, @Model.MeasurementId, 'body')" id="MummyBody">Body</button>
+<button class="btn" onclick="replaceContents(this.id, @Model.MeasurementId, 'general')" id="MummyGeneral">General</button>
 
-<h5>Age at Death</h5>
-@if (Model.AgeAtDeath == null)
-{
-    <p>Not Available</p>
-}
-else
-{
-    <p>@Model.AgeAtDeath</p>
-}
+<div id="measurePartialView">
+</div>
+
+<script>
+    //on load select the attributes tab
+    function replaceContents(partialViewToInsert, id, type ) {
+        $.ajax({
+            url: '@Url.Action("MeasurementPartialView", "Home")',
+            data: {
+                id: partialViewToInsert,
+                selector: id,
+                type: type
+            },
+            type: "POST",
+            success: function(data) {
+                $('#measurePartialView').html(data);
+            }
+        });
+
+        activateButton(partialViewToInsert);
+    }
+
+    function activateButton(id) {
+        $('#MummySkull').removeClass('btn-link').css("color", "black")
+        $('#MummyBody').removeClass('btn-link').css("color", "black")
+        $('#MummyGeneral').removeClass('btn-link').css("color", "black")
+        $('#' + id).addClass('btn-link').css("color", "grey");
+    }
+</script>

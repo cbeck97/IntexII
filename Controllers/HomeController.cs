@@ -205,6 +205,28 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
+        public ActionResult MeasurementPartialView(string id, int selector, string type)
+        {
+            if (type == "skull")
+            {
+                Measurements msr = context.Measurements.Where(x => x.MeasurementId == selector).First();
+                return PartialView(id, msr);
+            }
+            else if (type == "body")
+            {
+                Measurements msr = context.Measurements.Where(x => x.MeasurementId == selector).First();
+                return PartialView(id, msr);
+            }
+            else
+            {
+                Measurements msr = context.Measurements.Where(x => x.MeasurementId == selector).First();
+                return PartialView(id, msr);
+            }
+            
+        }
+
+
+        [HttpPost]
         public IActionResult EditAttributes(int id)
         {
             Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
