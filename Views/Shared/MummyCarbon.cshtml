@@ -1,0 +1,8 @@
+﻿@model IEnumerable<CarbonDated>
+
+<h1>CARBON DATING</h1>
+
+@foreach(var x in Model)
+{
+    <p>@x.CarbonDatedId --> @x.Category</p>
+}

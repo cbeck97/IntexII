@@ -192,30 +192,16 @@ namespace BYUFagElGamous1_5.Controllers
                 
                 return PartialView(id, notes);
             }
-            else
+            else if (type == "sample")
             {
                 List<Sample> samples = context.Sample.Where(x => x.MummyId == selector).ToList();
                 return PartialView(id, samples);
             }
-        }
-
-        [HttpGet]
-        public IActionResult TestNotes()
-        {
-            return View();       
-        }
-
-        [HttpPost]
-        public IActionResult TestNotes(Notes note)
-        {
-            note.MummyId = 1;
-            note.MeasurmentsId = 1;
-            note.LocationId = 1;
-            note.SampleId = 1;
-            context.Add(note);
-            context.SaveChanges();
-
-            return View();
+            else
+            {
+                List<CarbonDated> carbons = context.CarbonDated.Where(x => x.MummyId == selector).ToList();
+                return PartialView(id, carbons);
+            }
         }
 
         [HttpPost]
