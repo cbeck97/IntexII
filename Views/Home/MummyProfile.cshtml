@@ -15,7 +15,7 @@
 <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Measurements</button>
 @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
 {
-    <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Field Notes</button>
+    <button class="btn" onclick="replaceContents(this.id, @Model.Notes.NotesId, 'notes')" id="MummyNotes">Field Notes</button>
     <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Samples</button>
     <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Carbon Dating</button>
 }

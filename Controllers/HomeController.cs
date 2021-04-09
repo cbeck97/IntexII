@@ -103,6 +103,7 @@ namespace BYUFagElGamous1_5.Controllers
         {
             Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
             Measurements msr;
+            Notes note;
             Location loc = context.Location.Where(x => x.LocationId == mum.LocationId).First();
             try
             {
@@ -114,11 +115,21 @@ namespace BYUFagElGamous1_5.Controllers
                 msr = new Measurements();
             }
 
+            try
+            {
+                note = context.Notes.Where(x => x.MummyId == mum.MummyId).First();
+            }
+            catch
+            {
+                note = new Notes();
+            }
+
             return View(new MummyProfileViewModel
             {
                 Mummy = mum,
                 Location = loc,
-                Measurement = msr
+                Measurement = msr,
+                Notes = note
             });
         }
 
@@ -135,12 +146,44 @@ namespace BYUFagElGamous1_5.Controllers
                 Location loc = context.Location.Where(x => x.LocationId == selector).First();
                 return PartialView(id, loc);
             }
-            else
+            else if (type == "measurement")
             {
                 Measurements msr = context.Measurements.Where(x => x.MeasurementId == selector).First();
                 return PartialView(id, msr);
-
             }
+            else
+            {
+                Notes note;
+                try
+                {
+                    note = context.Notes.Where(x => x.NotesId == selector).First();
+                }
+                catch
+                {
+                    note = new Notes();
+                }
+                
+                return PartialView(id, note);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult TestNotes()
+        {
+            return View();       
+        }
+
+        [HttpPost]
+        public IActionResult TestNotes(Notes note)
+        {
+            note.MummyId = 1;
+            note.MeasurmentsId = 1;
+            note.LocationId = 1;
+            note.SampleId = 1;
+            context.Add(note);
+            context.SaveChanges();
+
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

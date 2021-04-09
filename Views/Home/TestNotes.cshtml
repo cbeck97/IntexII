@@ -1,0 +1,11 @@
+﻿@model Notes
+
+<form asp-action="TestNotes" method="post">
+    <label asp-for="Category">Category: </label>
+    <input asp-for="Category" />
+    <br />
+    <label asp-for="Text">Text: </label>
+    <input asp-for="Text" />
+    <br />
+    <button type="submit">Enter</button>
+</form>

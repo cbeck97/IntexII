@@ -13,6 +13,7 @@ namespace BYUFagElGamous1_5.Models
         public int? MeasurmentsId { get; set; }
         public int? SampleId { get; set; }
         public int? LocationId { get; set; }
+        public int? MummyId { get; set; }
         public string Category { get; set; }
         public string Text { get; set; }
     }

@@ -415,8 +415,7 @@ namespace BYUFagElGamous1_5.Models
             modelBuilder.Entity<Notes>(entity =>
             {
                 entity.Property(e => e.NotesId)
-                    .HasColumnName("NotesID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("NotesID");
 
                 entity.Property(e => e.Category).HasMaxLength(124);
 
