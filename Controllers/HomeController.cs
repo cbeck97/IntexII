@@ -61,6 +61,12 @@ namespace BYUFagElGamous1_5.Controllers
             context.Update(entry.Mummy);
             context.SaveChanges();
 
+            //Create a note for the mummy
+            Notes note = new Notes();
+            note.MummyId = entry.Mummy.MummyId;
+            context.Add(note);
+            context.SaveChanges();
+
             return View();
         }
 
