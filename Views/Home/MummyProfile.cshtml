@@ -1,5 +1,7 @@
 ﻿@model MummyProfileViewModel
 
+@inject IAuthorizationService AuthorizationService
+
 <h1>
     Mummy Profile: N @Model.Location.LowPairNs/@Model.Location.HighPairNs E @Model.Location.LowPairEw/@Model.Location.HighPairEw
     @Model.Location.Subplot #@Model.Location.BurialNumber
@@ -11,9 +13,12 @@
 </button>
 <button class="btn" onclick="replaceContents(this.id, @Model.Location.LocationId, 'location')" id="MummyLocation">Location</button>
 <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Measurements</button>
-<button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Field Notes</button>
-<button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Samples</button>
-<button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Carbon Dating</button>
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+{
+    <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Field Notes</button>
+    <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Samples</button>
+    <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Carbon Dating</button>
+}
 <br />
 <br />
 
