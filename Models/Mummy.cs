@@ -10,7 +10,7 @@ namespace BYUFagElGamous1_5.Models
     public partial class Mummy
     {
         public int MummyId { get; set; }
-        public int? MeasurementId { get; set; }
+        public int MeasurementId { get; set; }
         public int? DayFound { get; set; }
         public int? MonthFound { get; set; }
         public int? YearFound { get; set; }

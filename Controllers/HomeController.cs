@@ -27,7 +27,7 @@ namespace BYUFagElGamous1_5.Controllers
             return View();
         }
 
-        //Privileged Access ----------------------------------------------------
+        //ADD MUMMY ----------------------------------------------------
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, Researcher")]
         public IActionResult AddMummy()
@@ -39,6 +39,9 @@ namespace BYUFagElGamous1_5.Controllers
         [Authorize(Roles = "SuperAdmin, Researcher")]
         public IActionResult AddMummy(AddMummyViewModel entry)
         {
+            Measurements msr = new Measurements();
+            Sample sample = new Sample();
+
             context.Add(entry.Location); //Add the location
             context.SaveChanges();
             //See if there is a more optimized way of doing this so you dont have to run a query every time
@@ -48,17 +51,81 @@ namespace BYUFagElGamous1_5.Controllers
             entry.Location.HighPairEw = entry.Location.LowPairEw + 10;
             context.Add(entry.Mummy); //Add the mummy
             context.SaveChanges();
+
             //set the measurement ID equal to the mummy ID 
             entry.Mummy.MeasurementId = context.Mummy.OrderByDescending(x => x.MummyId).Select(x => x.MummyId).First();
+            msr.MeasurementId = entry.Mummy.MeasurementId;
+
+            //Add the measurement to the database and update the mummy
+            context.Add(msr);
             context.Update(entry.Mummy);
             context.SaveChanges();
 
             return View();
         }
 
-        public IActionResult Privacy()
+        //VIEW MUMMIES -----------------------------------------
+        [HttpGet]
+        public IActionResult ViewMummies()
         {
-            return View();
+            Dictionary<Mummy, Location> dict = new Dictionary<Mummy, Location>();
+
+            foreach (var x in context.Mummy)
+            {
+                dict.Add(x, context.Location.Where(y => y.LocationId == x.LocationId).First());
+            }
+
+            return View(new ViewMummyViewModel
+            {
+                mumLocs = dict,
+                Mummies = (context.Mummy.Select(x => x)).ToList(),
+            });
+        }
+
+        //MUMMY PROFILE -------------------------------------------
+        [HttpPost]
+        public IActionResult MummyProfile(int id)
+        {
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
+            Measurements msr;
+            Location loc = context.Location.Where(x => x.LocationId == mum.LocationId).First();
+            try
+            {
+                msr = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).First();
+            }
+            catch
+            {
+                //If no measurement is found, create a new measurement
+                msr = new Measurements();
+            }
+
+            return View(new MummyProfileViewModel
+            {
+                Mummy = mum,
+                Location = loc,
+                Measurement = msr
+            });
+        }
+
+        [HttpPost]
+        public ActionResult PartialView(string id, int selector, string type)
+        {
+            if (type == "mummy")
+            {
+                Mummy mummy = context.Mummy.Where(x => x.MummyId == selector).First();
+                return PartialView(id, mummy);
+            }
+            else if (type == "location")
+            {
+                Location loc = context.Location.Where(x => x.LocationId == selector).First();
+                return PartialView(id, loc);
+            }
+            else
+            {
+                Measurements msr = context.Measurements.Where(x => x.MeasurementId == selector).First();
+                return PartialView(id, msr);
+
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,0 +1,23 @@
+﻿@model Measurements
+
+<h3>Measurements</h3>
+
+<h5>Age of Skull</h5>
+@if (Model.AgeSkull2018 == null)
+{
+    <p>Not Available</p>
+}
+else
+{
+    <p>@Model.AgeSkull2018</p>
+}
+
+<h5>Age at Death</h5>
+@if (Model.AgeAtDeath == null)
+{
+    <p>Not Available</p>
+}
+else
+{
+    <p>@Model.AgeAtDeath</p>
+}
