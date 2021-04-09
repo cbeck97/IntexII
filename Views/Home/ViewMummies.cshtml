@@ -1,5 +1,7 @@
 ﻿@model ViewMummyViewModel
 
+@inject IAuthorizationService AuthorizationService
+
 
 <table class="table">
     <thead class="thead-secondary">
@@ -32,18 +34,26 @@
             <td>@x.Gender</td>
             <td>@x.HairColor</td>
             <td>@x.AgeRange</td>
-            <td>
-                <form>
-                    <input type="hidden" value="@x.MummyId" />
-                    <button class="btn btn-secondary" type="submit">Edit</button>
-                </form>
-            </td>
-            <td>
+            @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+            {
+                <td>
+                    <form>
+                        <input type="hidden" value="@x.MummyId" />
+                        <button class="btn btn-secondary" type="submit">Edit</button>
+                    </form>
+                </td>
+            }
+            @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Delete)).Result.Succeeded)
+            {
+                <td>
                 <form>
                     <input type="hidden" value="@x.MummyId" />
                     <button class="btn btn-secondary" type="submit">Delete</button>
                 </form>
             </td>
+            }
+
+            
         </tr>
     }
 </table>
