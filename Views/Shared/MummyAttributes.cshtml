@@ -1,11 +1,111 @@
 ﻿@model Mummy
+<div class="mx-5">
+    <h3 class="display-4">Attributes</h3>
+</div>
+<div class="card-background p-3">
+    <div class="row">
+        <div class="col">
+            <h5>Year Found</h5>
+            @*Adjust for null values*@
+            <p>@Model.MonthFound/@Model.DayFound/@Model.YearFound</p>
+        </div>
+        <div class="col">
+            <h5>Hair Color</h5>
+            @if (Model.HairColor == null)
+            {<p>Not Available</p>}
+            @if (Model.HairColor != null)
+            {<p>@Model.HairColor</p>}
+        </div>
+        <div class="col">
+            <h5>Gender</h5>
+            @if (Model.Gender == null)
+            {<p>Not Available</p>}
+            @if (Model.Gender != null)
+            {<p>@Model.Gender</p>}
+        </div>
+        <div class="col">
+            <h5>BurialWrapping</h5>
+            @if (Model.BurialWrapping == null)
+            {<p>Not Available</p>}
+            @if (Model.BurialWrapping != null)
+            {<p>@Model.BurialWrapping</p>}
+        </div>
+        <div class="col">
+            <h5>Adult/Child</h5>
+            @if (Model.AdultChild == null)
+            {<p>Not Available</p>}
+            @if (Model.AdultChild != null)
+                @if (Model.AdultChild != null)
+                {<p>@Model.AdultChild</p>}
+        </div>
+    </div>
+    <div class="row">
 
-<h3>Attributes</h3>
-<h5>Year Found</h5>
-<p>@Model.MonthFound/@Model.DayFound/@Model.YearFound</p>
-<br />
-<h5>Hair Color</h5>
-@if (Model.HairColor == null)
-{<p>Not Available</p>}
-@if (Model.HairColor != null)
-{<p>@Model.HairColor</p>}
+        <div class="col">
+            <h5>Head Direction</h5>
+            @if (Model.HeadDirection == null)
+            {<p>Not Available</p>}
+            @if (Model.HeadDirection != null)
+            {<p>@Model.HeadDirection</p>}
+        </div>
+        <div class="col">
+            <h5>Age Range</h5>
+            @if (Model.AgeRange == null)
+            {<p>Not Available</p>}
+            @if (Model.AgeRange != null)
+            {<p>@Model.AgeRange</p>}
+        </div>
+        <div class="col">
+            <h5>Artifact</h5>
+            @if (Model.Artifacts == null)
+            {<p>Not Available</p>}
+            @if (Model.Artifacts != null)
+            {<p>@Model.Artifacts</p>}
+        </div>
+        <div class="col">
+            <h5>Burial Preservation</h5>
+            @if (Model.BurialPreservation == null)
+            {<p>Not Available</p>}
+            @if (Model.BurialPreservation != null)
+            {<p>@Model.BurialPreservation</p>}
+        </div>
+        <div class="col">
+            <h5>Burial Gender Method</h5>
+            @if (Model.BurialGenderMethod == null)
+            {<p>Not Available</p>}
+            @if (Model.BurialGenderMethod != null)
+            {<p>@Model.BurialGenderMethod</p>}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h5>Burial Age at Death</h5>
+            @if (Model.BurialAgeAtDeath == null)
+            {<p>Not Available</p>}
+            @if (Model.BurialAgeAtDeath != null)
+            {<p>@Model.BurialAgeAtDeath</p>}
+        </div>
+        <div class="col">
+            <h5>Burial Age Method</h5>
+            @if (Model.BurialAgeMethod == null)
+            {<p>Not Available</p>}
+            @if (Model.BurialAgeMethod != null)
+            {<p>@Model.BurialAgeMethod</p>}
+        </div>
+        <div class="col">
+            <h5>Face Bundle</h5>
+            @if (Model.FaceBundle == null)
+            {<p>Not Available</p>}
+            @if (Model.FaceBundle != null)
+            {<p>@Model.FaceBundle</p>}
+        </div>
+        <div class="col">
+            <h5>Gamous ID</h5>
+            @if (Model.Gamous == null)
+            {<p>Not Available</p>}
+            @if (Model.Gamous != null)
+            {<p>@Model.Gamous</p>}
+        </div>
+
+    </div>
+</div>
