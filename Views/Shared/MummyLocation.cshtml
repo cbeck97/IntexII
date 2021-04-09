@@ -2,7 +2,7 @@
 
 @inject IAuthorizationService AuthorizationService
 
-<h3 class="display-4">Location</h3>
+
 
 
 @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Edit)).Result.Succeeded)
