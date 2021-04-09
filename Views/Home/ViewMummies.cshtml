@@ -5,9 +5,9 @@
 <div class="card-background p-3">
     <form asp-action="ViewMummies" method="get">
         <label>Select Number of Burials on Page: </label>
-        <select id="numberItems" name="numItems" class="form-select form-control col-1" aria-label="Number of Mummies displayed"
+        <select id="numberItems" name="numItems" class="form-select form-control col-1 numberItems" aria-label="Number of Mummies displayed"
                 onchange="javascript:this.form.submit()">
-            <option selected>Number of Burials</option>
+            @*<option selected>Num</option>*@
             <option value="10">10</option>
             <option value="15">15</option>
             <option value="20">20</option>
@@ -84,7 +84,8 @@
 </div>
 
 <script>
-    @*$("numberItems").change(function () {
-        $("pageNumItems").attr("href")
-    });*@
+    $(document).ready(function () {
+        $('#numberItems option[value=@Model.PageNumberInfo.numItems]').prop('selected', 'selected').change());
+    });
+
 </script>
