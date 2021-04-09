@@ -2,6 +2,7 @@
 
 @inject IAuthorizationService AuthorizationService
 
+<<<<<<< Updated upstream
 @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Edit)).Result.Succeeded)
 {
 <div class="card-background-dark p-3 my-2">
@@ -39,6 +40,18 @@
             </form>
         </div>
     </div>
+=======
+<div class="mx-5">
+    <h3 class="display-4">Attributes</h3>
+    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Edit)).Result.Succeeded)
+    {
+     <form asp-action="EditAttributes" method="post">
+         <input type="hidden" name="id" value="@Model.MummyId" />
+         <button class="btn btn-outline-secondary" type="submit">Edit</button>
+     </form>   
+    }
+    <br />
+>>>>>>> Stashed changes
 </div>
 
 }

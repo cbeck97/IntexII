@@ -197,10 +197,13 @@ namespace BYUFagElGamous1_5.Controllers
             return View();
         }
 
-
-        public IActionResult EditAttributes()
+        [HttpPost]
+        public IActionResult EditAttributes(int id)
         {
-            return View();
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
+
+            return View("EditAttributes", mum);
+            
         }
 
 
