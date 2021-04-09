@@ -42,13 +42,16 @@ namespace BYUFagElGamous1_5.Infrastructure
             IUrlHelper urlHelper = urlInfo.GetUrlHelper(ViewContext);
             TagBuilder finishedTag = new TagBuilder("div");
 
+            string numItems = PageInfo.numItems.ToString();
+
             //generates a tag in the div for every page needed
             for (int i = 1; i <= PageInfo.NumPages; i++)
             {
                 TagBuilder individualTag = new TagBuilder("a");
 
                 KeyValuePairs["pageNum"] = i;
-                individualTag.Attributes["href"] = urlHelper.Action("Index", KeyValuePairs);
+                KeyValuePairs["numItems"] = numItems;
+                individualTag.Attributes["href"] = urlHelper.Action("ViewMummies", KeyValuePairs);
 
                 //add styling
                 if (PageClassesEnabled)
