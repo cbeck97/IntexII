@@ -46,6 +46,13 @@ a {
     border-color: gray;
 }
 
+.nav-link-manage{
+    color:gray;
+}
+
+.text-color{
+    color:gray;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
