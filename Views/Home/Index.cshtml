@@ -1,15 +1,43 @@
 ﻿@model Mummy
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<br />
+
+<div class="my-5 text-center">
+    <h1 class="display-4">
+        Fag el-Gamous Excavation Project
+    </h1>
+</div>
+<div class="container my-5 text-center">
+    <div class="row card-background">
+        <div class="col p-4">
+            <img src="~/img/DSC_0007.jpg" style="width: 100%;" />
+        </div>
+        <div class="col text-left my-auto align-middle">
+            <p>
+                Fag el-Gamous (which means Way of the Water Buffalo) is a large and important cemetery in Egypt that has been under archeological investigation (primarily by BYU researchers) for over 25 years. The excavation has garnered international attention because of the interesting insights gained by studying the Fag el-Gamous mummies. Detailed background information on this site can be found in the academic article “Rethinking burial dates at a Graeco-Roman Cemetery: Fag el-Gamous, Fayoum, Egypt.”
+            </p>
+        </div>
+    </div>
+    <div class="my-5 row card-background">
+        <div class="col text-right my-auto align-middle">
+            <p>
+                During multiple years of study, researchers have excavated more than 1,000 mummies and collected data in field notes, spreadsheets, and simple databases about each mummy’s location, physical orientation in the ground, burial depth, hair color, wrapping (including information about the textiles used), gender, age, bone (including skull and teeth) dimensions, items accompanying the mummy, and more. And, of course, there are many, many photographs. Offsite, researchers have performed a variety of analyses on the items excavated including carbon dating, DNA sequencing, and others.
+            </p>
+        </div>
+        <div class="col p-4">
+            <img src="~/img/IMG_0431.jpg" style="width: 100%;" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Browse Database</a>
+        </div>
+    </div>
 </div>
 
-
-<form asp-action="Submit" method="Post">
-    <input asp-for="DayFound" />
-    <button type="submit">Submit</button>
-</form>
 
 
 
