@@ -1,9 +1,173 @@
 ﻿@model Location
 
-<h3>Location</h3>
+@inject IAuthorizationService AuthorizationService
 
-<h5>North</h5>
-<p>@Model.LowPairNs/@Model.HighPairNs</p>
+<h3 class="display-4">Location</h3>
 
-<h5>East</h5>
-<p>@Model.LowPairEw/@Model.HighPairEw</p>
+
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Edit)).Result.Succeeded)
+{
+<div class="card-background-dark p-3 my-2">
+    <div class="row m-2 justify-content-between">
+        <div class="col-auto">
+            <h5>Location ID</h5>
+            <p>@Model.LocationId</p>
+        </div>
+
+
+        <div class="col-auto my-auto">
+            <form asp-controller="Home" asp-action="EditLocation" method="post">
+                <input type="hidden" name="id" value="@Model.LocationId" />
+                <button class="btn btn-outline-light" type="submit">Edit</button>
+            </form>
+        </div>
+    </div>
+</div>
+    
+}
+
+<div class="card-background p-3">
+    <div class="row m-2">
+        <div class="col">
+            <h5>Burial Location NS</h5>
+            @if (Model.BurialLocationNs == null)
+            {<p>Not Available</p>}
+            @if (Model.BurialLocationNs != null)
+            {<p>@Model.BurialLocationNs</p>}
+        </div>
+        <div class="col">
+            <h5>Burial Location EW</h5>
+            @if (Model.BurialLocationEw == null)
+            {<p>Not Available</p>}
+            @if (Model.BurialLocationEw != null)
+            {<p>@Model.BurialLocationEw</p>}
+        </div>
+        <div class="col">
+            <h5>Low Pair NS</h5>
+            @if (Model.LowPairNs == null)
+            {<p>Not Available</p>}
+            @if (Model.LowPairNs != null)
+                @if (Model.LowPairNs != null)
+                {<p>@Model.LowPairNs</p>}
+            </div>
+
+            <div class="col">
+                <h5>High Pair NS</h5>
+                @if (Model.HighPairNs == null)
+                {<p>Not Available</p>}
+                @if (Model.HighPairNs != null)
+                    @if (Model.HighPairNs != null)
+                    {<p>@Model.HighPairNs</p>}
+                </div>
+
+
+                <div class="col">
+                    <h5>Low Pair EW</h5>
+                    @if (Model.LowPairEw == null)
+                    {<p>Not Available</p>}
+                    @if (Model.LowPairEw != null)
+                    {<p>@Model.LowPairEw</p>}
+                </div>
+                <div class="col">
+                    <h5>High Pair EW</h5>
+                    @if (Model.HighPairEw == null)
+                    {<p>Not Available</p>}
+                    @if (Model.HighPairEw != null)
+                    {<p>@Model.HighPairEw</p>}
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col">
+                    <h5>Subplot</h5>
+                    @if (Model.Subplot == null)
+                    {<p>Not Available</p>}
+                    @if (Model.Subplot != null)
+                    {<p>@Model.Subplot</p>}
+                </div>
+                <div class="col">
+                    <h5>Burial Number</h5>
+                    @if (Model.BurialNumber == null)
+                    {<p>Not Available</p>}
+                    @if (Model.BurialNumber != null)
+                    {<p>@Model.BurialNumber</p>}
+                </div>
+
+
+                <div class="col">
+                    <h5>Burial Depth</h5>
+                    @if (Model.BurialDepth == null)
+                    {<p>Not Available</p>}
+                    @if (Model.BurialDepth != null)
+                    {<p>@Model.BurialDepth</p>}
+                </div>
+                <div class="col">
+                    <h5>South to Head</h5>
+                    @if (Model.SouthToHead == null)
+                    {<p>Not Available</p>}
+                    @if (Model.SouthToHead != null)
+                    {<p>@Model.SouthToHead</p>}
+                </div>
+                <div class="col">
+                    <h5>South to Feet</h5>
+                    @if (Model.SouthToFeet == null)
+                    {<p>Not Available</p>}
+                    @if (Model.SouthToFeet != null)
+                    {<p>@Model.SouthToFeet</p>}
+                </div>
+                <div class="col">
+                    <h5>East to Head</h5>
+                    @if (Model.EastToHead == null)
+                    {<p>Not Available</p>}
+                    @if (Model.EastToHead != null)
+                    {<p>@Model.EastToHead</p>}
+                </div>
+            </div>
+           
+            <div class="row m-2">
+                <div class="col">
+                    <h5>East to Feet</h5>
+                    @if (Model.EastToFeet == null)
+                    {<p>Not Available</p>}
+                    @if (Model.EastToFeet != null)
+                    {<p>@Model.EastToFeet</p>}
+                </div>
+                <div class="col">
+                    <h5>West to Head</h5>
+                    @if (Model.WestToHead == null)
+                    {<p>Not Available</p>}
+                    @if (Model.WestToHead != null)
+                    {<p>@Model.WestToHead</p>}
+                </div>
+                <div class="col">
+                    <h5>West to Feet</h5>
+                    @if (Model.WestToFeet == null)
+                    {<p>Not Available</p>}
+                    @if (Model.WestToFeet != null)
+                    {<p>@Model.WestToFeet</p>}
+                </div>
+                <div class="col">
+                    <h5>Burial Situation</h5>
+                    @if (Model.BurialSituation == null)
+                    {<p>Not Available</p>}
+                    @if (Model.BurialSituation != null)
+                    {<p>@Model.BurialSituation</p>}
+                </div>
+            
+            
+                <div class="col">
+                    <h5>Tomb</h5>
+                    @if (Model.Tomb == null)
+                    {<p>Not Available</p>}
+                    @if (Model.Tomb != null)
+                    {<p>@Model.Tomb</p>}
+                </div>
+                <div class="col">
+                    <h5>Area</h5>
+                    @if (Model.Area == null)
+                    {<p>Not Available</p>}
+                    @if (Model.Area != null)
+                    {<p>@Model.Area</p>}
+                </div>
+
+            </div>
+        </div>
