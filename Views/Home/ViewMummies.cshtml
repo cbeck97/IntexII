@@ -1,0 +1,49 @@
+﻿@model ViewMummyViewModel
+
+
+<table class="table">
+    <thead class="thead-secondary">
+        <tr>
+            <th>Burial ID</th>
+            <th>Date Found</th>
+            <th>Head Direction</th>
+            <th>Gender</th>
+            <th>Hair Color</th>
+            <th>Age</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var x in Model.Mummies)
+    {
+        <tr>
+            <td>
+                <form asp-action="MummyProfile" method="post">
+                    <button class="btn btn-link my-0" type="submit" style="text-decoration: none">
+                        N @Model.mumLocs[x].LowPairNs/@Model.mumLocs[x].HighPairNs E @Model.mumLocs[x].LowPairEw/@Model.mumLocs[x].HighPairEw
+                        @Model.mumLocs[x].Subplot #@Model.mumLocs[x].BurialNumber
+                    </button>
+                    <input type="hidden" name="id" value="@x.MummyId" />
+                </form>
+            </td>
+
+            <td class="my-2">@x.MonthFound/@x.DayFound/@x.YearFound</td>
+            <td>@x.HeadDirection</td>
+            <td>@x.Gender</td>
+            <td>@x.HairColor</td>
+            <td>@x.AgeRange</td>
+            <td>
+                <form>
+                    <input type="hidden" value="@x.MummyId" />
+                    <button class="btn btn-secondary" type="submit">Edit</button>
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input type="hidden" value="@x.MummyId" />
+                    <button class="btn btn-secondary" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

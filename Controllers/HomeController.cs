@@ -27,7 +27,7 @@ namespace BYUFagElGamous1_5.Controllers
             return View();
         }
 
-        //Privileged Access ----------------------------------------------------
+        //ADD MUMMY ----------------------------------------------------
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, Researcher")]
         public IActionResult AddMummy()
@@ -56,9 +56,22 @@ namespace BYUFagElGamous1_5.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        //VIEW MUMMIES -----------------------------------------
+        [HttpGet]
+        public IActionResult ViewMummies()
         {
-            return View();
+            Dictionary<Mummy, Location> dict = new Dictionary<Mummy, Location>();
+
+            foreach (var x in context.Mummy)
+            {
+                dict.Add(x, context.Location.Where(y => y.LocationId == x.LocationId).First());
+            }
+
+            return View(new ViewMummyViewModel
+            {
+                mumLocs = dict,
+                Mummies = (context.Mummy.Select(x => x)).ToList(),
+            });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
