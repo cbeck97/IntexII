@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -221,9 +222,37 @@ namespace BYUFagElGamous1_5.Controllers
         public IActionResult EditAttributes(int id)
         {
             Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
+            if (mum == null)
+            {
+                return NotFound();
+            }
 
             return View("EditAttributes", mum);
-            
+        }
+        [HttpPost("UpdateMummy")]
+        public async Task<IActionResult> UpdateMummy(Mummy mummy)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.Update(mummy);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+
+                return View("MummyProfile", new MummyProfileViewModel
+                {
+                    Mummy = mummy,
+                    Location = context.Location.Where(x => x.LocationId == mummy.LocationId).FirstOrDefault(),
+                    Measurement = context.Measurements.Where(x => x.MeasurementId == mummy.MeasurementId).FirstOrDefault(),
+                    Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+                });
+            }
+            return View("UpdateMummy", mummy);
         }
         [AllowAnonymous]
         public IActionResult UploadFiles()
