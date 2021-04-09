@@ -85,7 +85,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-image: url('~/img/DSCN0004.jpg');
+    background-image: url("../img/DSCN0004.jpg");
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-attachment: fixed;
