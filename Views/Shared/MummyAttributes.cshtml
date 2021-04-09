@@ -2,58 +2,44 @@
 
 @inject IAuthorizationService AuthorizationService
 
-<<<<<<< Updated upstream
 @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Edit)).Result.Succeeded)
 {
-<div class="card-background-dark p-3 my-2">
-    <div class="row m-2 justify-content-between">
-        <div class="col-auto">
-            <h5>Mummy ID</h5>
-            <p>@Model.MummyId</p>
-        </div>
-        <div class="col-auto">
-            <h5>Measurement ID</h5>
-            <p>@Model.MeasurementId</p>
-        </div>
-        <div class="col-auto">
-            <h5>Location ID</h5>
-            <p>@Model.LocationId</p>
-        </div>
-        <div class="col-auto">
-            <h5>Cluster ID</h5>
-            @if (Model.ClusterId == null)
-            {<p>Not Available</p>}
-            @if (Model.ClusterId != null)
-            {<p>@Model.ClusterId</p>}
-        </div>
-        <div class="col-auto">
-            <h5>Gamous ID</h5>
-            @if (Model.Gamous == null)
-            {<p>Not Available</p>}
-            @if (Model.Gamous != null)
-            {<p>@Model.Gamous</p>}
-        </div>
-        <div class="col-auto my-auto">
-            <form asp-controller="Home" asp-action="EditAttributes" method="post">
-                <input type="hidden" name="id" value="@Model.MummyId" />
-                <button class="btn btn-outline-light" type="submit">Edit</button>
-            </form>
+    <div class="card-background-dark p-3 my-2">
+        <div class="row m-2 justify-content-between">
+            <div class="col-auto">
+                <h5>Mummy ID</h5>
+                <p>@Model.MummyId</p>
+            </div>
+            <div class="col-auto">
+                <h5>Measurement ID</h5>
+                <p>@Model.MeasurementId</p>
+            </div>
+            <div class="col-auto">
+                <h5>Location ID</h5>
+                <p>@Model.LocationId</p>
+            </div>
+            <div class="col-auto">
+                <h5>Cluster ID</h5>
+                @if (Model.ClusterId == null)
+                {<p>Not Available</p>}
+                @if (Model.ClusterId != null)
+                {<p>@Model.ClusterId</p>}
+            </div>
+            <div class="col-auto">
+                <h5>Gamous ID</h5>
+                @if (Model.Gamous == null)
+                {<p>Not Available</p>}
+                @if (Model.Gamous != null)
+                {<p>@Model.Gamous</p>}
+            </div>
+            <div class="col-auto my-auto">
+                <form asp-controller="Home" asp-action="EditAttributes" method="post">
+                    <input type="hidden" name="id" value="@Model.MummyId" />
+                    <button class="btn btn-outline-light" type="submit">Edit</button>
+                </form>
+            </div>
         </div>
     </div>
-=======
-<div class="mx-5">
-    <h3 class="display-4">Attributes</h3>
-    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Edit)).Result.Succeeded)
-    {
-     <form asp-action="EditAttributes" method="post">
-         <input type="hidden" name="id" value="@Model.MummyId" />
-         <button class="btn btn-outline-secondary" type="submit">Edit</button>
-     </form>   
-    }
-    <br />
->>>>>>> Stashed changes
-</div>
-
 }
 
 <div class="card-background p-3">
@@ -62,13 +48,6 @@
             <h5>Year Found</h5>
             @*Adjust for null values*@
             <p>@Model.MonthFound/@Model.DayFound/@Model.YearFound</p>
-        </div>
-        <div class="col">
-            <h5>Hair Color</h5>
-            @if (Model.HairColor == null)
-            {<p>Not Available</p>}
-            @if (Model.HairColor != null)
-            {<p>@Model.HairColor</p>}
         </div>
         <div class="col">
             <h5>Gender</h5>
@@ -91,88 +70,97 @@
             @if (Model.AdultChild != null)
                 @if (Model.AdultChild != null)
                 {<p>@Model.AdultChild</p>}
+            </div>
         </div>
-        <div class="col">
-            <h5>Head Direction</h5>
-            @if (Model.HeadDirection == null)
-            {<p>Not Available</p>}
-            @if (Model.HeadDirection != null)
-            {<p>@Model.HeadDirection</p>}
+        <div class="row m-2">
+            <div class="col">
+                <h5>Age Range</h5>
+                @if (Model.AgeRange == null)
+                {<p>Not Available</p>}
+                @if (Model.AgeRange != null)
+                {<p>@Model.AgeRange</p>}
+            </div>
+            <div class="col">
+                <h5>Burial Age at Death</h5>
+                @if (Model.BurialAgeAtDeath == null)
+                {<p>Not Available</p>}
+                @if (Model.BurialAgeAtDeath != null)
+                {<p>@Model.BurialAgeAtDeath</p>}
+            </div>
+            <div class="col">
+                <h5>Burial Age Method</h5>
+                @if (Model.BurialAgeMethod == null)
+                {<p>Not Available</p>}
+                @if (Model.BurialAgeMethod != null)
+                {<p>@Model.BurialAgeMethod</p>}
+            </div>
+            <div class="col">
+                <h5>Length</h5>
+                @if (Model.LengthOfRemains == null)
+                {<p>Not Available</p>}
+                @if (Model.LengthOfRemains != null)
+                {<p>@Model.LengthOfRemains</p>}
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col">
+                <h5>Burial Preservation</h5>
+                @if (Model.BurialPreservation == null)
+                {<p>Not Available</p>}
+                @if (Model.BurialPreservation != null)
+                {<p>@Model.BurialPreservation</p>}
+            </div>
+            <div class="col">
+                <h5>Hair Color</h5>
+                @if (Model.HairColor == null)
+                {<p>Not Available</p>}
+                @if (Model.HairColor != null)
+                {<p>@Model.HairColor</p>}
+            </div>
+            <div class="col">
+                <h5>Face Bundle</h5>
+                @if (Model.FaceBundle == null)
+                {<p>Not Available</p>}
+                @if (Model.FaceBundle != null)
+                {<p>@Model.FaceBundle</p>}
+            </div>
+            <div class="col">
+                <h5>Head Direction</h5>
+                @if (Model.HeadDirection == null)
+                {<p>Not Available</p>}
+                @if (Model.HeadDirection != null)
+                {<p>@Model.HeadDirection</p>}
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col">
+                <h5>Burial Wrapping</h5>
+                @if (Model.BurialWrapping == null)
+                {<p>Not Available</p>}
+                @if (Model.BurialWrapping != null)
+                {<p>@Model.BurialWrapping</p>}
+            </div>
+            <div class="col">
+                <h5>Artifact</h5>
+                @if (Model.Artifacts == null)
+                {<p>Not Available</p>}
+                @if (Model.Artifacts != null)
+                {<p>@Model.Artifacts</p>}
+            </div>
+            <div class="col">
+                <h5>Photo Taken</h5>
+                @if (Model.PhotoTaken == null)
+                {<p>Not Available</p>}
+                @if (Model.PhotoTaken != null)
+                {<p>@Model.PhotoTaken</p>}
+            </div>
+            <div class="col">
+                <h5>Sample Taken</h5>
+                @if (Model.BurialSampleTaken == null)
+                {<p>Not Available</p>}
+                @if (Model.BurialSampleTaken != null)
+                {<p>@Model.BurialSampleTaken</p>}
+            </div>
         </div>
     </div>
-    <div class="row m-2">
-        <div class="col">
-            <h5>Age Range</h5>
-            @if (Model.AgeRange == null)
-            {<p>Not Available</p>}
-            @if (Model.AgeRange != null)
-            {<p>@Model.AgeRange</p>}
-        </div>
-        <div class="col">
-            <h5>Burial Age at Death</h5>
-            @if (Model.BurialAgeAtDeath == null)
-            {<p>Not Available</p>}
-            @if (Model.BurialAgeAtDeath != null)
-            {<p>@Model.BurialAgeAtDeath</p>}
-        </div>
-        <div class="col">
-            <h5>Burial Age Method</h5>
-            @if (Model.BurialAgeMethod == null)
-            {<p>Not Available</p>}
-            @if (Model.BurialAgeMethod != null)
-            {<p>@Model.BurialAgeMethod</p>}
-        </div>
-        <div class="col">
-            <h5>Length</h5>
-            @if (Model.LengthOfRemains == null)
-            {<p>Not Available</p>}
-            @if (Model.LengthOfRemains != null)
-            {<p>@Model.LengthOfRemains</p>}
-        </div>
-        <div class="col">
-            <h5>Sample Taken</h5>
-            @if (Model.BurialSampleTaken == null)
-            {<p>Not Available</p>}
-            @if (Model.BurialSampleTaken != null)
-            {<p>@Model.BurialSampleTaken</p>}
-        </div>
-    </div>
-    <div class="row m-2">
-        <div class="col">
-            <h5>Burial Preservation</h5>
-            @if (Model.BurialPreservation == null)
-            {<p>Not Available</p>}
-            @if (Model.BurialPreservation != null)
-            {<p>@Model.BurialPreservation</p>}
-        </div>
-        <div class="col">
-            <h5>Artifact</h5>
-            @if (Model.Artifacts == null)
-            {<p>Not Available</p>}
-            @if (Model.Artifacts != null)
-            {<p>@Model.Artifacts</p>}
-        </div>
-        <div class="col">
-            <h5>Face Bundle</h5>
-            @if (Model.FaceBundle == null)
-            {<p>Not Available</p>}
-            @if (Model.FaceBundle != null)
-            {<p>@Model.FaceBundle</p>}
-        </div>
-        <div class="col">
-            <h5>Burial Wrapping</h5>
-            @if (Model.BurialWrapping == null)
-            {<p>Not Available</p>}
-            @if (Model.BurialWrapping != null)
-            {<p>@Model.BurialWrapping</p>}
-        </div>
-        <div class="col">
-            <h5>Photo Taken</h5>
-            @if (Model.PhotoTaken == null)
-            {<p>Not Available</p>}
-            @if (Model.PhotoTaken != null)
-            {<p>@Model.PhotoTaken</p>}
-        </div>
-    </div>
-</div>
 
