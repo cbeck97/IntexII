@@ -1,7 +1,7 @@
 ﻿@model BYUFagElGamous1_5.Models.PermissionViewModel
-<h1>Permissions</h1>
+<h4>Permissions</h4>
 <br />
-<div class="card">
+<div class="card-background p-3">
     <div id="viewAll" class="card-body table-responsive">
         <form asp-controller="permission" method="post" asp-action="Update" class="d-inline">
             <input asp-for="@Model.RoleId" type="hidden" />
@@ -43,7 +43,7 @@
             </table>
 
             <div class="col-sm-12" style="padding: 20px 20px 0px 0px">
-                <button type="submit" id="save" class="btn bg-primary">
+                <button type="submit" id="save" class="btn btn-secondary">
                     <i class="fa fa-check"></i>
                     Save
                 </button>
