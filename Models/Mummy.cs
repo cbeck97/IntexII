@@ -32,5 +32,7 @@ namespace BYUFagElGamous1_5.Models
         public string FaceBundle { get; set; }
         public int? Gamous { get; set; }
         public int? ClusterId { get; set; }
+        public double? LengthOfRemains { get; set; }
+        public bool? PhotoTaken { get; set; }
     }
 }

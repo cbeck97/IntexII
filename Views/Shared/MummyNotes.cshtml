@@ -1,4 +1,11 @@
 ﻿@model Notes
 
+@inject IAuthorizationService AuthorizationService
+
 <h1>These are notes</h1>
-<p>@Model.MummyId</p>
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+{
+    <button class="btn btn-secondary">Add Plus sign here</button>
+}
+
+    <p>@Model.MummyId</p>

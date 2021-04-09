@@ -46,7 +46,6 @@ namespace BYUFagElGamous1_5.Models
         public double? HumerusLength { get; set; }
         public double? IliacCrest { get; set; }
         public double? InterorbitalBreadth { get; set; }
-        public double? LengthOfRemains { get; set; }
         public bool? LinearHypoplasiaEnamel { get; set; }
         public double? MaximumCranialBreadth { get; set; }
         public double? MaximumCranialLength { get; set; }
