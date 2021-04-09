@@ -1,58 +1,79 @@
 ﻿@model ViewMummyViewModel
 
 @inject IAuthorizationService AuthorizationService
-<h1>View Burials</h1>
-<div class="card-background p-3">
-    <table class="table">
-        <thead class="thead-secondary">
-            <tr>
-                <th>Burial ID</th>
-                <th>Date Found</th>
-                <th>Head Direction</th>
-                <th>Gender</th>
-                <th>Hair Color</th>
-                <th>Age</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        @foreach (var x in Model.Mummies)
-        {
-            <tr>
+
+<form asp-action="Index" method="get">
+    <select class="form-select" aria-label="Number of Mummies displayed">
+        <option selected value="@ViewBag.numItems=10">10</option>
+        <option value="@ViewBag.numItems=15">15</option>
+        <option value="@ViewBag.numItems=20">20</option>
+        <option value="@ViewBag.numItems=25">25</option>
+        <option value="@ViewBag.numItems=35">35</option>
+        <option value="@ViewBag.numItems=50">50</option>
+    </select>
+</form>
+
+<table class="table">
+    <thead class="thead-secondary">
+        <tr>
+            <th>Burial ID</th>
+            <th>Date Found</th>
+            <th>Head Direction</th>
+            <th>Gender</th>
+            <th>Hair Color</th>
+            <th>Age</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var x in Model.Mummies)
+    {
+        <tr>
+            <td>
+                <form asp-action="MummyProfile" method="post">
+                    <button class="btn btn-link my-0" type="submit" style="text-decoration: none">
+                        N @Model.mumLocs[x].LowPairNs/@Model.mumLocs[x].HighPairNs E @Model.mumLocs[x].LowPairEw/@Model.mumLocs[x].HighPairEw
+                        @Model.mumLocs[x].Subplot #@Model.mumLocs[x].BurialNumber
+                    </button>
+                    <input type="hidden" name="id" value="@x.MummyId" />
+                </form>
+            </td>
+
+            <td class="my-2">@x.MonthFound/@x.DayFound/@x.YearFound</td>
+            <td>@x.HeadDirection</td>
+            <td>@x.Gender</td>
+            <td>@x.HairColor</td>
+            <td>@x.AgeRange</td>
+            @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+            {
                 <td>
-                    <form asp-action="MummyProfile" method="post">
-                        <button class="btn btn-link my-0" type="submit" style="text-decoration: none">
-                            N @Model.mumLocs[x].LowPairNs/@Model.mumLocs[x].HighPairNs E @Model.mumLocs[x].LowPairEw/@Model.mumLocs[x].HighPairEw
-                            @Model.mumLocs[x].Subplot #@Model.mumLocs[x].BurialNumber
-                        </button>
-                        <input type="hidden" name="id" value="@x.MummyId" />
+                    <form>
+                        <input type="hidden" value="@x.MummyId" />
+                        <button class="btn btn-secondary" type="submit">Edit</button>
                     </form>
                 </td>
+            }
+            @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Delete)).Result.Succeeded)
+            {
+                <td>
+                    <form>
+                        <input type="hidden" value="@x.MummyId" />
+                        <button class="btn btn-secondary" type="submit">Delete</button>
+                    </form>
+                </td>
+            }
 
-                <td class="my-2">@x.MonthFound/@x.DayFound/@x.YearFound</td>
-                <td>@x.HeadDirection</td>
-                <td>@x.Gender</td>
-                <td>@x.HairColor</td>
-                <td>@x.AgeRange</td>
-                @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
-                {
-                    <td>
-                        <form>
-                            <input type="hidden" value="@x.MummyId" />
-                            <button class="btn btn-secondary" type="submit">Edit</button>
-                        </form>
-                    </td>
-                }
-                @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Delete)).Result.Succeeded)
-                {
-                    <td>
-                        <form>
-                            <input type="hidden" value="@x.MummyId" />
-                            <button class="btn btn-secondary" type="submit">Delete</button>
-                        </form>
-                    </td>
-                }
 
+        </tr>
+    }
+</table>
+
+<div page-info="@Model.PageNumberInfo" page-classes-enabled="true"
+        page-class="btn" page-class-normal="btn-outline-dark"
+        page-class-selected="btn-primary"
+        class="btn-group pull-right m-1">
+
+</div>
 
             </tr>
         }

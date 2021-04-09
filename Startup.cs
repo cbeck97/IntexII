@@ -65,6 +65,10 @@ namespace BYUFagElGamous1_5
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("pagination",
+                    "Mummies/{pageNum}",
+                    new { Controller = "Home", action = "Index", pageNum = 1 });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

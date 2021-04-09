@@ -66,19 +66,34 @@ namespace BYUFagElGamous1_5.Controllers
 
         //VIEW MUMMIES -----------------------------------------
         [HttpGet]
-        public IActionResult ViewMummies()
+        public IActionResult ViewMummies(int pageNum = 1)
         {
+            //Dictionary to line up each mummy with location based on location
             Dictionary<Mummy, Location> dict = new Dictionary<Mummy, Location>();
 
             foreach (var x in context.Mummy)
             {
                 dict.Add(x, context.Location.Where(y => y.LocationId == x.LocationId).First());
             }
+            int pageItems = ViewBag.numItems = 10;
 
             return View(new ViewMummyViewModel
             {
                 mumLocs = dict,
-                Mummies = (context.Mummy.Select(x => x)).ToList(),
+                Mummies = context.Mummy
+                    .OrderBy(x => x.MummyId)
+                    .Skip((pageNum - 1) * pageItems)
+                    .Take(pageItems)
+                    .ToList(),
+
+                PageNumberInfo = new PageNumberInfo
+                {
+                    NumItemsPerPage = pageItems,
+                    CurrentPage = pageNum,
+
+                    //return total count of mummies
+                    TotalNumItems = context.Mummy.Count()
+                }
             });
         }
 

@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\img\" />
-    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\img\IMG_0431.JPG" />

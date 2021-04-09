@@ -9,5 +9,6 @@ namespace BYUFagElGamous1_5.Models.ViewModels
         //public List<Location> Locations { get; set; }
 
         public Dictionary<Mummy, Location> mumLocs { get; set; }
+        public PageNumberInfo PageNumberInfo { get; set; }
     }
 }
