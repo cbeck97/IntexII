@@ -1,5 +1,7 @@
 ﻿@model MummyProfileViewModel
 
+@inject IAuthorizationService AuthorizationService
+
 <h1>
     Mummy Profile: N @Model.Location.LowPairNs/@Model.Location.HighPairNs E @Model.Location.LowPairEw/@Model.Location.HighPairEw
     @Model.Location.Subplot #@Model.Location.BurialNumber
@@ -11,6 +13,12 @@
 </button>
 <button class="btn" onclick="replaceContents(this.id, @Model.Location.LocationId, 'location')" id="MummyLocation">Location</button>
 <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Measurements</button>
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+{
+    <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Field Notes</button>
+    <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Samples</button>
+    <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Carbon Dating</button>
+}
 <br />
 <br />
 
@@ -18,9 +26,11 @@
 </div>
 
 <script>
+    //on load select the attributes tab
+
     function replaceContents(partialViewToInsert, id, type ) {
         $.ajax({
-            url: '@Url.Action("PartialViewPractice", "Home")',
+            url: '@Url.Action("PartialView", "Home")',
             data: {
                 id: partialViewToInsert,
                 selector: id,
@@ -36,10 +46,10 @@
     }
 
     function activateButton(id) {
-        $('#MummyAttributes').removeClass('btn-link')
-        $('#MummyLocation').removeClass('btn-link')
-        $('#MummyMeasurements').removeClass('btn-link')
-        $('#' + id).addClass('btn-link');
+        $('#MummyAttributes').removeClass('btn-link').css("color", "black")
+        $('#MummyLocation').removeClass('btn-link').css("color", "black")
+        $('#MummyMeasurements').removeClass('btn-link').css("color", "black")
+        $('#' + id).addClass('btn-link').css("color", "grey");
 
     }
 </script>

@@ -24,7 +24,7 @@ a {
 .btn-primary {
     color: black;
     background-color: transparent;
-    border-color: none; /*set the color you want here*/
+    border-color: gray; /*set the color you want here*/
 }
 
 .btn-signin {
@@ -42,8 +42,8 @@ a {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: gray;
+    border-color: gray;
 }
 
 /* Sticky footer styles
