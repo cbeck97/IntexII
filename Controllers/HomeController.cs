@@ -262,6 +262,48 @@ namespace BYUFagElGamous1_5.Controllers
             }
             return View("UpdateMummy", mummy);
         }
+
+        [HttpPost]
+        public IActionResult EditLocation(int id)
+        {
+            Location loc = context.Location.Where(x => x.LocationId == id).First();
+            if (loc == null)
+            {
+                return NotFound();
+            }
+            return View("EditLocation", loc);
+        }
+
+        [HttpPost("UpdateLocation")]
+        public async Task<IActionResult> UpdateLocation(Location location)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.Update(location);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+                
+                Mummy mummy = context.Mummy.Where(x => x.LocationId == location.LocationId).FirstOrDefault();
+                return View("MummyProfile", new MummyProfileViewModel
+                {
+                    Mummy = mummy,
+                    Location = location, 
+                    Measurement = context.Measurements.Where(x => x.MeasurementId == mummy.MeasurementId).FirstOrDefault(),
+                    Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+                });
+            }
+            return View("UpdateMummy", location);
+        }
+
+        //---------------------------------------
+        // Image Uploading
+        // --------------------------------------
         [AllowAnonymous]
         public IActionResult UploadFiles()
         {
@@ -297,6 +339,7 @@ namespace BYUFagElGamous1_5.Controllers
 
             return RedirectToAction("ViewMummies", "Home");
         }
+
         public async Task UploadImage(IFormFile file)
         {
             var credentials = new BasicAWSCredentials("access", "secret key");
@@ -319,9 +362,6 @@ namespace BYUFagElGamous1_5.Controllers
             var fileTransferUtility = new TransferUtility(client);
             await fileTransferUtility.UploadAsync(uploadRequest);
         }
-
-
-
         public void uploadToS3(string filePath)
         {
             try
@@ -341,12 +381,9 @@ namespace BYUFagElGamous1_5.Controllers
                     bucketName = _bucketName + @"/" + _bucketSubdirectory;
                 }
 
-
                 // 1. Upload a file, file name is used as the object key name.
                 fileTransferUtility.Upload(filePath, bucketName);
                 Console.WriteLine("Upload 1 completed");
-
-
             }
             catch (AmazonS3Exception s3Exception)
             {
@@ -354,16 +391,8 @@ namespace BYUFagElGamous1_5.Controllers
                                   s3Exception.InnerException);
             }
         }
-
-        [HttpPost]
-        public IActionResult EditLocation(int id)
-        {
-            Location loc = context.Location.Where(x => x.LocationId == id).First();
-
-            return View("EditLocation", loc);
-
-        }
-
+        // End Image Uploading
+        //----------------------------------------
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -5,7 +5,7 @@
 
 <div class="text-center">
 
-    <form asp-controller="Home" asp-action="" method="post" class="card-background p-3">
+    <form asp-controller="Home" asp-action="UpdateLocation" method="post" class="card-background p-3">
         <div class="form-row text-left">
             <div class="form-group col">
                 <label for="BurialLocationNs" asp-for="@Model.BurialLocationNs">Location N/S</label>
@@ -98,6 +98,7 @@
 
             </div>
         </div>
+        <input hidden asp-for="LocationId" />
         
         <div class="form-row">
             <div class="col">
