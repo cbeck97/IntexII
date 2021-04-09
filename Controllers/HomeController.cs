@@ -67,7 +67,12 @@ namespace BYUFagElGamous1_5.Controllers
             context.Add(note);
             context.SaveChanges();
 
-            return View();
+            return View("MummyProfile", new MummyProfileViewModel {
+                Mummy = context.Mummy.OrderByDescending(x => x.MummyId).Select(x => x).First(),
+                Location = context.Location.OrderByDescending(x => x.LocationId).Select(x => x).First(),
+                Measurement = context.Measurements.OrderByDescending(x => x.MeasurementId).Select(x => x).First(),
+                Notes = context.Notes.OrderByDescending(x=>x.NotesId).Select(x=>x).First()
+            });
         }
 
         //VIEW MUMMIES -----------------------------------------
@@ -191,6 +196,13 @@ namespace BYUFagElGamous1_5.Controllers
 
             return View();
         }
+
+
+        public IActionResult EditAttributes()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
