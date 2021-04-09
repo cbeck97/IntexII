@@ -14,14 +14,24 @@ namespace BYUFagElGamous1_5.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private FagElGamousContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, FagElGamousContext ctx)
         {
             _logger = logger;
+            context = ctx;
         }
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Submit(Mummy mum)
+        {
+            context.Add(mum);
+            context.SaveChanges();
+            return View("Index");
         }
 
         public IActionResult Privacy()
