@@ -77,7 +77,7 @@ namespace BYUFagElGamous1_5.Controllers
 
         //VIEW MUMMIES -----------------------------------------
         [HttpGet]
-        public IActionResult ViewMummies(int numItems = 10, int pageNum = 1)
+        public IActionResult ViewMummies(int pageNum = 1)
         {
             //Dictionary to line up each mummy with location based on location
             Dictionary<Mummy, Location> dict = new Dictionary<Mummy, Location>();
@@ -86,21 +86,21 @@ namespace BYUFagElGamous1_5.Controllers
             {
                 dict.Add(x, context.Location.Where(y => y.LocationId == x.LocationId).First());
             }
+            int pageItems = ViewBag.numItems = 10;
 
             return View(new ViewMummyViewModel
             {
                 mumLocs = dict,
                 Mummies = context.Mummy
                     .OrderBy(x => x.MummyId)
-                    .Skip((pageNum - 1) * numItems)
-                    .Take(numItems)
+                    .Skip((pageNum - 1) * pageItems)
+                    .Take(pageItems)
                     .ToList(),
 
                 PageNumberInfo = new PageNumberInfo
                 {
-                    NumItemsPerPage = numItems,
+                    NumItemsPerPage = pageItems,
                     CurrentPage = pageNum,
-                    numItems = numItems,
 
                     //return total count of mummies
                     TotalNumItems = context.Mummy.Count()
@@ -162,19 +162,24 @@ namespace BYUFagElGamous1_5.Controllers
                 Measurements msr = context.Measurements.Where(x => x.MeasurementId == selector).First();
                 return PartialView(id, msr);
             }
-            else
+            else if (type == "notes")
             {
-                Notes note;
+                List<Notes> notes;
                 try
                 {
-                    note = context.Notes.Where(x => x.NotesId == selector).First();
+                    notes = context.Notes.Where(x => x.MummyId == selector).ToList();
                 }
                 catch
                 {
-                    note = new Notes();
+                    notes = new List<Notes>();
                 }
                 
-                return PartialView(id, note);
+                return PartialView(id, notes);
+            }
+            else
+            {
+                List<Sample> samples = context.Sample.Where(x => x.MummyId == selector).ToList();
+                return PartialView(id, samples);
             }
         }
 

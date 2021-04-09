@@ -1,11 +1,18 @@
-﻿@model Notes
+﻿@model IEnumerable<Notes>
 
 @inject IAuthorizationService AuthorizationService
 
-<h1>These are notes</h1>
-@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
-{
-    <button class="btn btn-secondary">Add Plus sign here</button>
-}
+<div class="row">
+    <h1>Notes</h1>
+    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+    {
+        <button class="btn btn-secondary">Edit</button>
+    }
+</div>
 
-    <p>@Model.MummyId</p>
+
+@foreach(var x in Model)
+{
+    <p>@x.Text</p>
+}
+    

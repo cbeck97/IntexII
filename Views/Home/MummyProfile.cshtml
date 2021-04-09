@@ -15,8 +15,8 @@
 <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Measurements</button>
 @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
 {
-    <button class="btn" onclick="replaceContents(this.id, @Model.Notes.NotesId, 'notes')" id="MummyNotes">Field Notes</button>
-    <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Samples</button>
+    <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'notes')" id="MummyNotes">Field Notes</button>
+    <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'sample')" id="MummySamples">Samples</button>
     <button class="btn" onclick="replaceContents(this.id, @Model.Measurement.MeasurementId, 'measurement')" id="MummyMeasurements">Carbon Dating</button>
 }
 <br />
@@ -27,7 +27,6 @@
 
 <script>
     //on load select the attributes tab
-
     function replaceContents(partialViewToInsert, id, type ) {
         $.ajax({
             url: '@Url.Action("PartialView", "Home")',
@@ -50,7 +49,7 @@
         $('#MummyLocation').removeClass('btn-link').css("color", "black")
         $('#MummyMeasurements').removeClass('btn-link').css("color", "black")
         $('#MummyNotes').removeClass('btn-link').css("color", "black")
+        $('#MummySamples').removeClass('btn-link').css("color", "black")
         $('#' + id).addClass('btn-link').css("color", "grey");
-
     }
 </script>

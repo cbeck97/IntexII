@@ -11,6 +11,7 @@ namespace BYUFagElGamous1_5.Models
     {
         public int SampleId { get; set; }
         public int? SampleNumber { get; set; }
+        public int? MummyId { get; set; }
         public int? RackNumber { get; set; }
         public int? Bag { get; set; }
         public int? Date { get; set; }
