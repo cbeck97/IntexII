@@ -211,6 +211,15 @@ namespace BYUFagElGamous1_5.Controllers
             
         }
 
+        [HttpPost]
+        public IActionResult EditLocation(int id)
+        {
+            Location loc = context.Location.Where(x => x.LocationId == id).First();
+
+            return View("EditLocation", loc);
+
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
