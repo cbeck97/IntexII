@@ -1,3 +1,278 @@
 ﻿@model Measurements
 
-<h5>Mummy Skull</h5>
+@inject IAuthorizationService AuthorizationService
+<div class="card-background p-3">
+    <h4 class="display-4 my-2 mx-2">Skull</h4>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Year Found</h5>
+            @*Adjust for null values*@
+            @if (Model.DateOnSkull == null && Model.MonthSkull == null && Model.YearOnSkull == null)
+            {
+                <p>Date not Available</p>
+            }
+            else
+            { <p>@Model.MonthSkull/@Model.DateOnSkull/@Model.YearOnSkull</p>}
+
+        </div>
+        <div class="col">
+            <h5>Skull Age</h5>
+            @if (Model.AgeSkull2018 == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.AgeSkull2018</p>}
+        </div>
+        <div class="col">
+            <h5>Basilar Suture</h5>
+            @if (Model.BasilarSutureOpen == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BasilarSutureOpen</p>}
+        </div>
+        <div class="col">
+            <h5>Basion Bregma Height</h5>
+            @if (Model.BasionBregmaHeight == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BasionBregmaHeight</p>}
+        </div>
+        <div class="col">
+            <h5>Basion Nasion</h5>
+            @if (Model.BasionNasion == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BasionNasion</p>}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Basion Prosthion Length</h5>
+            @if (Model.BasionProsthionLength == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BasionProsthionLength</p>}
+        </div>
+        <div class="col">
+            <h5>Bizygomatic Diameter</h5>
+            @if (Model.BizygomaticDiameter == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BizygomaticDiameter</p>}
+        </div>
+        <div class="col">
+            <h5>Button Osteoma</h5>
+            @if (Model.ButtonOsteomad == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.ButtonOsteomad</p>}
+        </div>
+        <div class="col">
+            <h5>Cranial Suture</h5>
+            @if (Model.CranialSutureOpen == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.CranialSutureOpen</p>}
+        </div>
+        <div class="col">
+            <h5>Epiphyseal Union</h5>
+            @if (Model.EpiphysealUnion == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.EpiphysealUnion</p>}
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Interorbital Breadth</h5>
+            @if (Model.InterorbitalBreadth == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.InterorbitalBreadth</p>}
+        </div>
+        <div class="col">
+            <h5>Max Cranial Breadth</h5>
+            @if (Model.MaximumCranialBreadth == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.MaximumCranialBreadth</p>}
+        </div>
+        <div class="col">
+            <h5>Max Cranial Length</h5>
+            @if (Model.MaximumCranialLength == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.MaximumCranialLength</p>}
+        </div>
+        <div class="col">
+            <h5>Max Nasal Breadth</h5>
+            @if (Model.MaximumNasalBreadth == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.MaximumNasalBreadth</p>}
+        </div>
+        <div class="col">
+            <h5>Metopic Suture</h5>
+            @if (Model.MetopicSuture == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.MetopicSuture</p>}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Nasion Prosthion</h5>
+            @if (Model.NasionProsthion == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.NasionProsthion</p>}
+        </div>
+        <div class="col">
+            <h5>Nuchal Crest</h5>
+            @if (Model.NuchalCrest == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.NuchalCrest</p>}
+        </div>
+        <div class="col">
+            <h5>Orbit Edge</h5>
+            @if (Model.OrbitEdge == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.OrbitEdge</p>}
+        </div>
+        <div class="col">
+            <h5>Parietal Bossing</h5>
+            @if (Model.ParietalBossing == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.ParietalBossing</p>}
+        </div>
+        <div class="col">
+            <h5>Porotic Hyperostosis Location</h5>
+            @if (Model.PoroticHyperostosisLocation == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.PoroticHyperostosisLocation</p>}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Porotic Hyperostosis</h5>
+            @if (Model.PoroticHyperostosis == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.PoroticHyperostosis</p>}
+        </div>
+        <div class="col">
+            <h5>Postcrania Magazine</h5>
+            @if (Model.PostcraniaMagazine == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.PostcraniaMagazine</p>}
+        </div>
+        <div class="col">
+            <h5>Postcrania Trauma</h5>
+            @if (Model.PostcraniaTrauma == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.PostcraniaTrauma</p>}
+        </div>
+        <div class="col">
+            <h5>Skull Sex</h5>
+            @if (Model.SexSkull2018 == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.SexSkull2018</p>}
+        </div>
+        <div class="col">
+            <h5>Skull At Magazine</h5>
+            @if (Model.SkullAtMagazine == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.SkullAtMagazine</p>}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Upraorbital Ridges</h5>
+            @if (Model.UpraorbitalRidges == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.UpraorbitalRidges</p>}
+        </div>
+        <div class="col">
+            <h5>Zygomatic Crest</h5>
+            @if (Model.ZygomaticCrest == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.ZygomaticCrest</p>}
+        </div>
+    </div>
+</div>
+
+
+    @*Jaw/Dental*@
+    <div class="card-background p-3 my-3">
+        <h4 class="display-4 my-2 mx-2">Dental/Jaw</h4>
+        <div class="row m-2">
+            <div class="col">
+                <h5>Linear Hypoplasia Enamel</h5>
+                @if (Model.LinearHypoplasiaEnamel == null)
+                {<p>Not Available</p>}
+                else
+                {<p>@Model.LinearHypoplasiaEnamel</p>}
+            </div>
+            <div class="col">
+                <h5>Tooth Attrition</h5>
+                @if (Model.ToothAttrition == null)
+                {<p>Not Available</p>}
+                else
+                {<p>@Model.ToothAttrition</p>}
+            </div>
+            <div class="col">
+                <h5>Tooth Eruption</h5>
+                @if (Model.ToothEruption == null)
+                {<p>Not Available</p>}
+                else
+                {<p>@Model.ToothEruption</p>}
+            </div>
+            <div class="col">
+                <h5>Cribra Orbitalia</h5>
+                @if (Model.CribraOrbitala == null)
+                {<p>Not Available</p>}
+                else
+                {<p>@Model.CribraOrbitala</p>}
+            </div>
+            <div class="col">
+                <h5>Gonian</h5>
+                @if (Model.Gonian == null)
+                {<p>Not Available</p>}
+                else
+                {<p>@Model.Gonian</p>}
+            </div>
+            <div class="col">
+                <h5>Medial P Ramus</h5>
+                @if (Model.MedialIpramus == null)
+                {<p>Not Available</p>}
+                else
+                {<p>@Model.MedialIpramus</p>}
+            </div>
+            <div class="col">
+                <h5>TMJ Osteoarthritis</h5>
+                @if (Model.Tmjosteoarthritis == null)
+                {<p>Not Available</p>}
+                else
+                {<p>@Model.Tmjosteoarthritis</p>}
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col">
+                <h5>Pathology Anomalies</h5>
+                @if (Model.PathologyAnomalies == null)
+                {<p>Not Available</p>}
+                else
+                {<p>@Model.PathologyAnomalies</p>}
+            </div>
+        </div>
+    </div>

@@ -1,3 +1,165 @@
 ﻿@model Measurements
 
-<h5>Mummy Body</h5>
+<div class="card-background p-3">
+    <h4 class="display-4 my-2 mx-2">Upper Body</h4>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Body Analysis</h5>
+            @if (Model.BodyAnalysis == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BodyAnalysis</p>}
+        </div>
+        <div class="col">
+            <h5>Bone Length</h5>
+            @if (Model.BoneLength == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BoneLength</p>}
+        </div>
+        <div class="col">
+            <h5>Humerus</h5>
+            @if (Model.Humerus == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.Humerus</p>}
+        </div>
+        <div class="col">
+            <h5>Humerus Head</h5>
+            @if (Model.HumerusHead == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.HumerusHead</p>}
+        </div>
+        <div class="col">
+            <h5>Humerus Length</h5>
+            @if (Model.HumerusLength == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.HumerusLength</p>}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Medial Clavicle</h5>
+            @if (Model.MedialClavicle == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.MedialClavicle</p>}
+        </div>
+        <div class="col">
+            <h5>Osteophytosis</h5>
+            @if (Model.Osteophytosis == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.Osteophytosis</p>}
+        </div>
+        <div class="col">
+            <h5>Preservation Index</h5>
+            @if (Model.PreservationIndex == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.PreservationIndex</p>}
+        </div>
+        <div class="col">
+            <h5>Preservation</h5>
+            @if (Model.Preveservation == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.Preveservation</p>}
+        </div>
+    </div>
+</div>
+
+@*Lower Body*@
+<div class="card-background p-3 my-3">
+    <h4 class="display-4 my-2 mx-2">Lower Body</h4>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Dorsal Pitting</h5>
+            @if (Model.DorsalPitting == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.DorsalPitting</p>}
+        </div>
+        <div class="col">
+            <h5>Femur Diameter</h5>
+            @if (Model.FemurDiameter == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.FemurDiameter</p>}
+        </div>
+        <div class="col">
+            <h5>Femur Head</h5>
+            @if (Model.FemurHead == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.FemurHead</p>}
+        </div>
+        <div class="col">
+            <h5>Femur Length</h5>
+            @if (Model.FemurLength == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.FemurLength</p>}
+        </div>
+        <div class="col">
+            <h5>Iliac Crest</h5>
+            @if (Model.IliacCrest == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.IliacCrest</p>}
+        </div>
+        <div class="col">
+            <h5>Preaur Sulcus</h5>
+            @if (Model.PreaurSulcus == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.PreaurSulcus</p>}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Pubic Bone</h5>
+            @if (Model.PubicBone == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.PubicBone</p>}
+        </div>
+        <div class="col">
+            <h5>Pubic Symphysis</h5>
+            @if (Model.PubicSymphysis == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.PubicSymphysis</p>}
+        </div>
+        <div class="col">
+            <h5>Subpubic Angle</h5>
+            @if (Model.SubpubicAngle == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.SubpubicAngle</p>}
+        </div>
+        <div class="col">
+            <h5>Sciatic Notch</h5>
+            @if (Model.SciaticNotch == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.SciaticNotch</p>}
+        </div>
+        <div class="col">
+            <h5>Tibia Length</h5>
+            @if (Model.TibiaLength == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.TibiaLength</p>}
+        </div>
+        <div class="col">
+            <h5>Ventral Arc</h5>
+            @if (Model.VentralArc == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.VentralArc</p>}
+        </div>
+    </div>
+</div>

@@ -1,11 +1,34 @@
 ﻿@model Measurements
 
-<h3>Measurements</h3>
+@inject IAuthorizationService AuthorizationService
 
-<button class="btn" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'skull')" id="MummySkull">Skull</button>
-<button class="btn" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'body')" id="MummyBody">Body</button>
-<button class="btn" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'general')" id="MummyGeneral">General</button>
+<div class="card-background-dark p-3 my-2">
+    <div class="row m-2 justify-content-between">
+        <div class="col-auto">
+            <button class="btn text-light" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'skull')" id="MummySkull"><h5>Skull</h5></button>
+        </div>
+        <div class="col-auto">
+            <button class="btn text-light" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'body')" id="MummyBody"><h5>Body</h5></button>
+        </div>
+        <div class="col-auto">
+            <button class="btn text-light" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'general')" id="MummyGeneral"><h5>General</h5></button>
+        </div>
+        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Edit)).Result.Succeeded)
+        {
+            <div class="col-auto my-auto">
+                <form asp-controller="Home" asp-action="EditMeasurements" method="post">
+                    <input type="hidden" name="id" value="@Model.MeasurementId" />
+                    <button class="btn btn-outline-light" type="submit">Edit</button>
+                </form>
+            </div>
+        }
+    </div>
+</div>
+@*<button class="btn" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'skull')" id="MummySkull">Skull</button>
+    <button class="btn" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'body')" id="MummyBody">Body</button>
+    <button class="btn" onclick="replaceMeasureContents(this.id, @Model.MeasurementId, 'general')" id="MummyGeneral">General</button>*@
 
+@*Load Measurement Section Partial View*@
 <div id="measurePartialView">
 </div>
 

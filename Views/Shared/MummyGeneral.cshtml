@@ -1,3 +1,183 @@
 ﻿@model Measurements
+@*General*@
+<div class="card-background p-3 my-3">
+    <h4 class="display-4 my-2 mx-2">General</h4>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Age at Death</h5>
+            @if (Model.AgeAtDeath == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.AgeAtDeath</p>}
+        </div>
+        <div class="col">
+            <h5>Age Method</h5>
+            @if (Model.AgeMethod == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.AgeMethod</p>}
+        </div>
+        <div class="col">
+            <h5>BYU Sample</h5>
+            @if (Model.Byusample == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.Byusample</p>}
+        </div>
+        <div class="col">
+            <h5>Estimate Age</h5>
+            @if (Model.EstimateAge == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.EstimateAge</p>}
+        </div>
+        <div class="col">
+            <h5>GE Function Total</h5>
+            @if (Model.GeFunctionTotal == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.GeFunctionTotal</p>}
+        </div>
+        <div class="col">
+            <h5>Gender Body Col</h5>
+            @if (Model.GenderBodyCol == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.GenderBodyCol</p>}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Gender GE</h5>
+            @if (Model.GenderGe == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.GenderGe</p>}
+        </div>
+        <div class="col">
+            <h5>Osteology Comment</h5>
+            @if (Model.OsteologyUnknownComment == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.PubicSymphysis</p>}
+        </div>
+        <div class="col">
+            <h5>Rack and Shelf</h5>
+            @if (Model.RackAndShelf == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.RackAndShelf</p>}
+        </div>
+        <div class="col">
+            <h5>Sex</h5>
+            @if (Model.Sex == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.Sex</p>}
+        </div>
+        <div class="col">
+            <h5>Sex Method</h5>
+            @if (Model.SexMethod == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.SexMethod</p>}
+        </div>
+        <div class="col">
+            <h5>To Be Confirmed</h5>
+            @if (Model.ToBeConfirmed == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.ToBeConfirmed</p>}
+        </div>
+    </div>
+</div>
 
-<h5>Mummy General</h5>
+@*Samples*@
+<div class="card-background p-3">
+    <h4 class="display-4 my-2 mx-2">Samples</h4>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Artifact Found</h5>
+            @if (Model.ArtifactFound == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.ArtifactFound</p>}
+        </div>
+        <div class="col">
+            <h5>Burial Icon</h5>
+            @if (Model.BurialIcon == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BurialIcon</p>}
+        </div>
+        <div class="col">
+            <h5>Burial Icon 2</h5>
+            @if (Model.BurialIcon2 == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BurialIcon2</p>}
+        </div>
+        <div class="col">
+            <h5>Sample</h5>
+            @if (Model.Sample == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.Sample</p>}
+        </div>
+        <div class="col">
+            <h5>Sample Number</h5>
+            @if (Model.SampleNumber == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.Sample</p>}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Bone Taken</h5>
+            @if (Model.BoneTaken == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.BoneTaken</p>}
+        </div>
+        <div class="col">
+            <h5>Hair Taken</h5>
+            @if (Model.HairTaken == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.HairTaken</p>}
+        </div>
+        <div class="col">
+            <h5>Soft Tissue Taken</h5>
+            @if (Model.SoftTissueTaken == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.SoftTissueTaken</p>}
+        </div>
+        <div class="col">
+            <h5>Textile Taken</h5>
+            @if (Model.TextileTaken == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.TextileTaken</p>}
+        </div>
+        <div class="col">
+            <h5>Tooth Taken</h5>
+            @if (Model.ToothTaken == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.ToothTaken</p>}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col">
+            <h5>Description of Taken</h5>
+            @if (Model.DescriptionOfTaken == null)
+            {<p>Not Available</p>}
+            else
+            {<p>@Model.DescriptionOfTaken</p>}
+        </div>
+    </div>
+</div>
+
+
