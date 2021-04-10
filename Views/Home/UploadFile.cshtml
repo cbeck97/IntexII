@@ -1,17 +1,13 @@
-﻿<h1>UPLOAD PHUN</h1>
+﻿@model FileUpload
 
-@{
-    ViewBag.Title = "Upload a file to S3 Bucket";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
-<p>Use this area to browse image and upload to S3 bucket.</p>
-@using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <div>
-        @Html.TextBox("file", "", new { type = "file" }) <br />
-        <input type="submit" value="Upload" />
-        @ViewBag.Message
-    </div>
-} 
+<form asp-action="UploadFile" enctype="multipart/form-data" method="post">
+    <dl>
+        <dt>
+            <label asp-for="FormFile"></label>
+        </dt>
+        <dd>
+            <input asp-for="FormFile" type="file">
+        </dd>
+    </dl>
+    <input asp-page-handler="Upload" class="btn" type="submit" value="Upload">
+</form>
