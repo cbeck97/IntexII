@@ -34,5 +34,7 @@ namespace BYUFagElGamous1_5.Models
         public int? ClusterId { get; set; }
         public double? LengthOfRemains { get; set; }
         public bool? PhotoTaken { get; set; }
+        public virtual Location Location { get; set; }
+        public virtual Notes Notes { get; set; }
     }
 }

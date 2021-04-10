@@ -83,7 +83,8 @@ namespace BYUFagElGamous1_5.Controllers
             //context.Add(note);
             //context.SaveChanges();
 
-            return View("MummyProfile", new MummyProfileViewModel {
+            return View("MummyProfile", new MummyProfileViewModel
+            {
                 Mummy = context.Mummy.OrderByDescending(x => x.MummyId).Select(x => x).First(),
                 Location = context.Location.OrderByDescending(x => x.LocationId).Select(x => x).First(),
                 Measurement = context.Measurements.OrderByDescending(x => x.MeasurementId).Select(x => x).First(),
@@ -123,6 +124,107 @@ namespace BYUFagElGamous1_5.Controllers
                 }
             });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ViewMummies([FromForm] ViewMummyViewModel viewMummy,
+            string searchFor, string inputDateFilter) //Dictionary<Mummy, Location> mumLocs, Mummy dummyMummy, PageNumberInfo pageNumberInfo,
+        {
+            //Dictionary to line up each mummy with location based on location
+            Dictionary<Mummy, Location> dict = new Dictionary<Mummy, Location>();
+
+            foreach (var x in context.Mummy)
+            {
+                dict.Add(x, context.Location.Where(y => y.LocationId == x.LocationId).First());
+            }
+            Mummy dummyMummy = viewMummy.mummy;
+            PageNumberInfo pageNumberInfo = viewMummy.PageNumberInfo;
+
+            var field = searchFor; //Create variables and assign them values of parameter
+            var value = searchFor;
+
+            DateTime fromdate = new DateTime();
+            DateTime todate = new DateTime();
+            if (!string.IsNullOrEmpty(inputDateFilter))
+            {
+                fromdate = DateTime.Parse(inputDateFilter.Split('-')[0].Trim());
+                todate = DateTime.Parse(inputDateFilter.Split('-')[1].Trim());
+                todate = new DateTime(todate.Year, todate.Month, todate.Day, 23, 59, 59);
+                if (fromdate == todate)
+                {
+                    fromdate = DateTime.Now.AddDays(-30);//last 30 days
+                    todate = DateTime.Now;
+                }
+            }
+
+            var results = (from m in context.Mummy
+                           .Include(x => x.Location)
+                           .Include(x => x.Notes)
+                           select m);
+
+            if (!string.IsNullOrEmpty(inputDateFilter))
+            {
+                results = from m in results
+                           .Where(m => m.DayFound >= fromdate.Day && m.DayFound <= todate.Day)
+                           .Where(m => m.MonthFound >= fromdate.Month && m.MonthFound <= todate.Month)
+                           .Where(m => m.YearFound >= fromdate.Year && m.YearFound <= todate.Year)
+                          select m;
+            }
+
+            if (dummyMummy.AdultChild != null) { results = from m in results.Where(x => x.AdultChild == dummyMummy.AdultChild) select m; }
+            if (dummyMummy.AgeRange != null) { results = from m in results.Where(x => x.AgeRange == dummyMummy.AgeRange) select m; }
+            if (dummyMummy.Artifacts != null) { results = from m in results.Where(x => x.Artifacts == dummyMummy.Artifacts) select m; }
+            if (dummyMummy.BurialAgeAtDeath != null) { results = from m in results.Where(x => x.BurialAgeAtDeath == dummyMummy.BurialAgeAtDeath) select m; }
+            if (dummyMummy.BurialAgeMethod != null) { results = from m in results.Where(x => x.BurialAgeMethod == dummyMummy.BurialAgeMethod) select m; }
+            if (dummyMummy.BurialGenderMethod != null) { results = from m in results.Where(x => x.BurialGenderMethod == dummyMummy.BurialGenderMethod) select m; }
+            if (dummyMummy.BurialPreservation != null) { results = from m in results.Where(x => x.BurialPreservation == dummyMummy.BurialPreservation) select m; }
+            if (dummyMummy.BurialSampleTaken != null) { results = from m in results.Where(x => x.BurialSampleTaken == dummyMummy.BurialSampleTaken) select m; }
+            if (dummyMummy.BurialWrapping != null) { results = from m in results.Where(x => x.BurialWrapping == dummyMummy.BurialWrapping) select m; }
+            if (dummyMummy.FaceBundle != null) { results = from m in results.Where(x => x.FaceBundle == dummyMummy.FaceBundle) select m; }
+            if (dummyMummy.Gamous != null) { results = from m in results.Where(x => x.Gamous == dummyMummy.Gamous) select m; }
+            if (dummyMummy.Gender != null) { results = from m in results.Where(x => x.Gender == dummyMummy.Gender) select m; }
+            if (dummyMummy.HairColor != null) { results = from m in results.Where(x => x.HairColor == dummyMummy.HairColor) select m; }
+            if (dummyMummy.HeadDirection != null) { results = from m in results.Where(x => x.HeadDirection == dummyMummy.HeadDirection) select m; }
+            if (dummyMummy.Images != null) { results = from m in results.Where(x => x.Images == dummyMummy.Images) select m; }
+            if (dummyMummy.LengthOfRemains != null) { results = from m in results.Where(x => x.LengthOfRemains == dummyMummy.LengthOfRemains) select m; }
+            if (dummyMummy.PhotoTaken != null) { results = from m in results.Where(x => x.PhotoTaken == dummyMummy.PhotoTaken) select m; }
+
+            if (!string.IsNullOrEmpty(searchFor))
+            {
+                List<string> _search = searchFor.Split(' ').ToList();
+
+                results = (from c in results
+                           where _search.Contains(c.Location.LowPairNs.ToString())
+                           || _search.Contains(c.Location.HighPairNs.ToString())
+                           || _search.Contains(c.Location.LowPairEw.ToString())
+                           || _search.Contains(c.Location.HighPairEw.ToString())
+                           || _search.Contains(c.Location.Subplot)
+                           || _search.Contains(c.Location.BurialNumber.ToString())
+                           || _search.Contains(c.AdultChild)
+                           || _search.Contains(c.AgeRange)
+                           || _search.Contains(c.Artifacts)
+                           || _search.Contains(c.BurialAgeAtDeath)
+                           || _search.Contains(c.BurialAgeMethod)
+                           || _search.Contains(c.BurialGenderMethod)
+                           || _search.Contains(c.BurialPreservation)
+                           || _search.Contains(c.BurialWrapping)
+                           || _search.Contains(c.FaceBundle)
+                           || _search.Contains(c.Gamous.ToString())
+                           || _search.Contains(c.Gender)
+                           || _search.Contains(c.HairColor)
+                           || _search.Contains(c.HeadDirection)
+                           || _search.Contains(c.LengthOfRemains.ToString()) //+add all colums that we need to search
+                           select c);
+            }
+            int pageItems = ViewBag.numItems = 10;
+            return View("ViewMummies", new ViewMummyViewModel
+            {
+                mumLocs = dict,
+                Mummies = results.ToList(),
+                PageNumberInfo = pageNumberInfo
+            });
+        }
+
 
         //MUMMY PROFILE -------------------------------------------
         [HttpPost]
@@ -227,7 +329,7 @@ namespace BYUFagElGamous1_5.Controllers
                 Measurements msr = context.Measurements.Where(x => x.MeasurementId == selector).First();
                 return PartialView(id, msr);
             }
-            
+
         }
 
 
@@ -293,12 +395,12 @@ namespace BYUFagElGamous1_5.Controllers
                 {
                     return NotFound();
                 }
-                
+
                 Mummy mummy = context.Mummy.Where(x => x.LocationId == location.LocationId).FirstOrDefault();
                 return View("MummyProfile", new MummyProfileViewModel
                 {
                     Mummy = mummy,
-                    Location = location, 
+                    Location = location,
                     Measurement = context.Measurements.Where(x => x.MeasurementId == mummy.MeasurementId).FirstOrDefault(),
                     //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
                 });
