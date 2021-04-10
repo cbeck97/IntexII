@@ -15,58 +15,58 @@
             <div class="col">
                 <label asp-for="@Model.NewSample.SampleNumber"><h5>Sample Number: </h5></label>
                 <br />
-                <input type="number" asp-for="@Model.NewSample.SampleNumber" />
+                <input class="form-control" type="number" asp-for="@Model.NewSample.SampleNumber" />
                 
             </div>
             <div class="form-group col">
                 <label asp-for="@Model.NewSample.RackNumber"><h5>Rack Number: </h5></label>
                 <br />
-                <input type="number" asp-for="@Model.NewSample.RackNumber" />
+                <input class="form-control" type="number" asp-for="@Model.NewSample.RackNumber" />
 
             </div>
             <div class="form-group col">
                 <label asp-for="@Model.NewSample.Bag"><h5>Bag: </h5></label>
                 <br />
-                <input type="number" asp-for="@Model.NewSample.Bag" />
+                <input class="form-control" type="number" asp-for="@Model.NewSample.Bag" />
 
             </div>
             <div class="form-group col">
                 <label asp-for="@Model.NewSample.Date"><h5>Date: </h5></label>
                 <br />
-                <input asp-for="@Model.NewSample.Date" />
+                <input class="form-control" asp-for="@Model.NewSample.Date" />
 
             </div>
         </div>
         <div class="form-row justify-content-between">
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewSample.PreviouslySampled"><h5>Previously Sampled: </h5></label>
                 <br />
-                <input asp-for="@Model.NewSample.PreviouslySampled" />
+                <input class="form-control" asp-for="@Model.NewSample.PreviouslySampled" />
 
             </div>
             <div class="form-group col">
                 <label asp-for="@Model.NewSample.Initials"><h5>Initials: </h5></label>
                 <br />
-                <input asp-for="@Model.NewSample.Initials" />
+                <input class="form-control" asp-for="@Model.NewSample.Initials" />
                 
             </div>
             <div class="form-group col">
                 <label asp-for="@Model.NewSample.ClusterNumber"><h5>Cluster Number: </h5></label>
                 <br />
-                <input type="number" asp-for="@Model.NewSample.ClusterNumber" />
+                <input class="form-control" type="number" asp-for="@Model.NewSample.ClusterNumber" />
 
             </div>
             <div class="form-group col">
                 <label asp-for="@Model.NewSample.Area"><h5>Area: </h5></label>
                 <br />
-                <input asp-for="@Model.NewSample.Area" />
+                <input class="form-control" asp-for="@Model.NewSample.Area" />
 
             </div>
         </div>
-        <div class="text-right">
+        
             <button type="submit" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
             <input type="hidden" name="id" value="@Model.MummyId" />
-        </div>
+        
     </form>
 
     }
@@ -74,6 +74,7 @@
 <br />
 <br />
 <div class="card-background p-3">
+    <h1 class="display-4">Samples: </h1>
     <div class="col">
         <div class="row text-center">
             @foreach (var x in Model.Samples)
