@@ -158,8 +158,7 @@ namespace BYUFagElGamous1_5.Controllers
             }
 
             var results = (from m in context.Mummy
-                           .Include(x => x.Location)
-                           .Include(x => x.Notes)
+                           .Distinct()
                            select m);
 
             if (!string.IsNullOrEmpty(inputDateFilter))
@@ -216,7 +215,6 @@ namespace BYUFagElGamous1_5.Controllers
                            || _search.Contains(c.LengthOfRemains.ToString()) //+add all colums that we need to search
                            select c);
             }
-            int pageItems = ViewBag.numItems = 10;
             return View("ViewMummies", new ViewMummyViewModel
             {
                 mumLocs = dict,
