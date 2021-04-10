@@ -1,6 +1,7 @@
 ﻿using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
+using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using BYUFagElGamous1_5.Models;
 using BYUFagElGamous1_5.Models.ViewModels;
@@ -27,6 +28,16 @@ namespace BYUFagElGamous1_5.Controllers
         private AmazonS3Client _s3Client = new AmazonS3Client(RegionEndpoint.EUWest2);
         private string _bucketName = "mis-pdf-library";//this is my Amazon Bucket name
         private static string _bucketSubdirectory = String.Empty;
+
+        //upload creds
+        private const string keyName = "updatedtestfile.txt";
+        private const string filePath = null;
+        // Specify your bucket region (an example region is shown).  
+        private static readonly string bucketName = "intex-2";
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
+        private static readonly string accesskey = "AKIAUFFI6OS7E2BABOGY";
+        private static readonly string secretkey = "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";
+
 
         private readonly ILogger<HomeController> _logger;
         private FagElGamousContext context;
@@ -485,48 +496,37 @@ namespace BYUFagElGamous1_5.Controllers
         //---------------------------------------
         // Image Uploading
         // --------------------------------------
-        [AllowAnonymous]
-        public IActionResult UploadFiles()
+
+        [HttpGet]
+        public ActionResult UploadFile()
         {
-            return View(new UploadFilesViewModel());
+            return View();
         }
 
-        [HttpPost("UploadFiles")]
-        [AllowAnonymous]
-        public IActionResult UploadFiles(UploadFilesViewModel uploadFiles)
+        [HttpPost]
+        public async Task UploadFile(IFormFile file)
         {
-            long size = uploadFiles.files.Sum(f => f.Length);
+            //var s3Client = new AmazonS3Client(accesskey, secretkey, bucketRegion);
 
-            foreach (var formFile in uploadFiles.files)
-            {
-                if (formFile.Length > 0)
-                {
-                    var filename = ContentDispositionHeaderValue
-                            .Parse(formFile.ContentDisposition)
-                            .FileName
-                            .TrimStart().ToString();
-                    filename = _hostingEnvironment.WebRootPath + $@"\uploads" + $@"\{formFile.FileName}";
-                    size += formFile.Length;
-                    using (var fs = System.IO.File.Create(filename))
-                    {
-                        formFile.CopyTo(fs);
-                        fs.Flush();
-                    }//these code snippets saves the uploaded files to the project directory
+            //var fileTransferUtility = new TransferUtility(s3Client);
 
-                    uploadToS3(filename);//this is the method to upload saved file to S3
+            //await using var newMemoryStream = new MemoryStream();
+            //file.CopyTo(newMemoryStream);
 
-                }
-            }
+            //var uploadRequest = new TransferUtilityUploadRequest
+            //{
+            //    InputStream = newMemoryStream,
+            //    Key = file.FileName,
+            //    BucketName = bucketName,
+            //    CannedACL = S3CannedACL.PublicRead
+            //};
+            //await fileTransferUtility.UploadAsync(uploadRequest);
+            //-----
 
-            return RedirectToAction("ViewMummies", "Home");
-        }
-
-        public async Task UploadImage(IFormFile file)
-        {
-            var credentials = new BasicAWSCredentials("access", "secret key");
+            var credentials = new BasicAWSCredentials(accesskey, secretkey);
             var config = new AmazonS3Config
             {
-                RegionEndpoint = Amazon.RegionEndpoint.EUNorth1
+                RegionEndpoint = Amazon.RegionEndpoint.USEast1
             };
             using var client = new AmazonS3Client(credentials, config);
             await using var newMemoryStream = new MemoryStream();
@@ -536,42 +536,106 @@ namespace BYUFagElGamous1_5.Controllers
             {
                 InputStream = newMemoryStream,
                 Key = file.FileName,
-                BucketName = "your-bucket-name",
+                BucketName = bucketName,
                 CannedACL = S3CannedACL.PublicRead
             };
 
             var fileTransferUtility = new TransferUtility(client);
             await fileTransferUtility.UploadAsync(uploadRequest);
         }
-        public void uploadToS3(string filePath)
-        {
-            try
-            {
-                TransferUtility fileTransferUtility = new
-                    TransferUtility(new AmazonS3Client(Amazon.RegionEndpoint.EUWest2));
 
-                string bucketName;
+        //public IActionResult UploadPractice()
+        //{
+        //    return View();
+        //}
+
+        //[AllowAnonymous]
+        //public IActionResult UploadFiles()
+        //{
+        //    return View(new UploadFilesViewModel());
+        //}
+
+        //[HttpPost("UploadFiles")]
+        //[AllowAnonymous]
+        //public IActionResult UploadFiles(UploadFilesViewModel uploadFiles)
+        //{
+        //    long size = uploadFiles.files.Sum(f => f.Length);
+
+        //    foreach (var formFile in uploadFiles.files)
+        //    {
+        //        if (formFile.Length > 0)
+        //        {
+        //            var filename = ContentDispositionHeaderValue
+        //                    .Parse(formFile.ContentDisposition)
+        //                    .FileName
+        //                    .TrimStart().ToString();
+        //            filename = _hostingEnvironment.WebRootPath + $@"\uploads" + $@"\{formFile.FileName}";
+        //            size += formFile.Length;
+        //            using (var fs = System.IO.File.Create(filename))
+        //            {
+        //                formFile.CopyTo(fs);
+        //                fs.Flush();
+        //            }//these code snippets saves the uploaded files to the project directory
+
+        //            uploadToS3(filename);//this is the method to upload saved file to S3
+
+        //        }
+        //    }
+
+        //    return RedirectToAction("ViewMummies", "Home");
+        //}
+
+        //public async Task UploadImage(IFormFile file)
+        //{
+        //    var credentials = new BasicAWSCredentials("access", "secret key");
+        //    var config = new AmazonS3Config
+        //    {
+        //        RegionEndpoint = Amazon.RegionEndpoint.EUNorth1
+        //    };
+        //    using var client = new AmazonS3Client(credentials, config);
+        //    await using var newMemoryStream = new MemoryStream();
+        //    file.CopyTo(newMemoryStream);
+
+        //    var uploadRequest = new TransferUtilityUploadRequest
+        //    {
+        //        InputStream = newMemoryStream,
+        //        Key = file.FileName,
+        //        BucketName = "your-bucket-name",
+        //        CannedACL = S3CannedACL.PublicRead
+        //    };
+
+        //    var fileTransferUtility = new TransferUtility(client);
+        //    await fileTransferUtility.UploadAsync(uploadRequest);
+        //}
+        //public void uploadToS3(string filePath)
+        //{
+        //    try
+        //    {
+        //        TransferUtility fileTransferUtility = new
+        //            TransferUtility(new AmazonS3Client(Amazon.RegionEndpoint.EUWest2));
+
+        //        string bucketName;
 
 
-                if (_bucketSubdirectory == "" || _bucketSubdirectory == null)
-                {
-                    bucketName = _bucketName; //no subdirectory just bucket name  
-                }
-                else
-                {   // subdirectory and bucket name  
-                    bucketName = _bucketName + @"/" + _bucketSubdirectory;
-                }
+        //        if (_bucketSubdirectory == "" || _bucketSubdirectory == null)
+        //        {
+        //            bucketName = _bucketName; //no subdirectory just bucket name  
+        //        }
+        //        else
+        //        {   // subdirectory and bucket name  
+        //            bucketName = _bucketName + @"/" + _bucketSubdirectory;
+        //        }
 
-                // 1. Upload a file, file name is used as the object key name.
-                fileTransferUtility.Upload(filePath, bucketName);
-                Console.WriteLine("Upload 1 completed");
-            }
-            catch (AmazonS3Exception s3Exception)
-            {
-                Console.WriteLine(s3Exception.Message,
-                                  s3Exception.InnerException);
-            }
-        }
+        //        // 1. Upload a file, file name is used as the object key name.
+        //        fileTransferUtility.Upload(filePath, bucketName);
+        //        Console.WriteLine("Upload 1 completed");
+        //    }
+        //    catch (AmazonS3Exception s3Exception)
+        //    {
+        //        Console.WriteLine(s3Exception.Message,
+        //                          s3Exception.InnerException);
+        //    }
+        //}
         // End Image Uploading
         //----------------------------------------
 

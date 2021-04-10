@@ -23,5 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\img\IMG_0431.JPG" />
+    <Content Remove="Views\Home\UploadPractice.cshtml" />
   </ItemGroup>
 </Project>
