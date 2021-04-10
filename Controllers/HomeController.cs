@@ -428,6 +428,13 @@ namespace BYUFagElGamous1_5.Controllers
             });
         }
 
+        [HttpPost]
+        public IActionResult EditMeasurements(int id)
+        {
+            Measurements msr = context.Measurements.Where(x => x.MeasurementId == id).First();
+            return View(msr);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

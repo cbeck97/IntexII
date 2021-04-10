@@ -1,8 +1,17 @@
-﻿@model IEnumerable<Sample>
+﻿@*@model MummySamplesViewModel
 
-<h1>SAMPLES</h1>
+@inject IAuthorizationService AuthorizationService
 
-@foreach(var x in Model)
+
+<h1>Notes</h1>
+
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
 {
-    <p>@x.SampleId</p>
-}
+    <form asp-action="AddNote" method="post">
+
+        <button type="submit" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+        <input type="hidden" name="id" value="@Model.MummyId" />
+        <textarea rows="10" asp-for="@Model.NewNote.Text"></textarea>
+    </form>
+
+}*@
