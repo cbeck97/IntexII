@@ -1,18 +1,27 @@
-﻿@model IEnumerable<Notes>
+﻿@model MummyNotesViewModel
 
 @inject IAuthorizationService AuthorizationService
 
-<div class="row">
-    <h1>Notes</h1>
-    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
-    {
-        <button class="btn btn-secondary">Edit</button>
-    }
-</div>
 
+<h1>Notes</h1>
 
-@foreach(var x in Model)
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
 {
-    <p>@x.Text</p>
+    <form asp-action="AddNote" method="post">
+
+        <button type="submit" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+        <input type="hidden" name="id" value="@Model.MummyId" />
+        <textarea rows="10" asp-for="@Model.NewNote.Text"></textarea>
+    </form>
+
 }
-    
+
+
+@foreach(var x in Model.Notes)
+{
+    <p>Note ID: @x.NotesId</p>
+    <p>TEXT: @x.Text </p>
+}
+
+
+

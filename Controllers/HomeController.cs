@@ -78,16 +78,16 @@ namespace BYUFagElGamous1_5.Controllers
             context.SaveChanges();
 
             //Create a note for the mummy
-            Notes note = new Notes();
-            note.MummyId = entry.Mummy.MummyId;
-            context.Add(note);
-            context.SaveChanges();
+            //Notes note = new Notes();
+            //note.MummyId = entry.Mummy.MummyId;
+            //context.Add(note);
+            //context.SaveChanges();
 
             return View("MummyProfile", new MummyProfileViewModel {
                 Mummy = context.Mummy.OrderByDescending(x => x.MummyId).Select(x => x).First(),
                 Location = context.Location.OrderByDescending(x => x.LocationId).Select(x => x).First(),
                 Measurement = context.Measurements.OrderByDescending(x => x.MeasurementId).Select(x => x).First(),
-                Notes = context.Notes.OrderByDescending(x=>x.NotesId).Select(x=>x).First()
+                //Notes = context.Notes.OrderByDescending(x=>x.NotesId).Select(x=>x).First()
             });
         }
 
@@ -142,21 +142,21 @@ namespace BYUFagElGamous1_5.Controllers
                 msr = new Measurements();
             }
 
-            try
-            {
-                note = context.Notes.Where(x => x.MummyId == mum.MummyId).First();
-            }
-            catch
-            {
-                note = new Notes();
-            }
+            //try
+            //{
+            //    note = context.Notes.Where(x => x.MummyId == mum.MummyId).First();
+            //}
+            //catch
+            //{
+            //    note = new Notes();
+            //}
 
             return View(new MummyProfileViewModel
             {
                 Mummy = mum,
                 Location = loc,
                 Measurement = msr,
-                Notes = note
+                //Notes = note
             });
         }
 
@@ -189,8 +189,13 @@ namespace BYUFagElGamous1_5.Controllers
                 {
                     notes = new List<Notes>();
                 }
-                
-                return PartialView(id, notes);
+
+                return PartialView(id, new MummyNotesViewModel
+                {
+                    Notes = notes,
+                    MummyId = selector,
+                    NewNote = null
+                });
             }
             else if (type == "sample")
             {
@@ -257,7 +262,7 @@ namespace BYUFagElGamous1_5.Controllers
                     Mummy = mummy,
                     Location = context.Location.Where(x => x.LocationId == mummy.LocationId).FirstOrDefault(),
                     Measurement = context.Measurements.Where(x => x.MeasurementId == mummy.MeasurementId).FirstOrDefault(),
-                    Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+                    //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
                 });
             }
             return View("UpdateMummy", mummy);
@@ -393,6 +398,36 @@ namespace BYUFagElGamous1_5.Controllers
         }
         // End Image Uploading
         //----------------------------------------
+
+        [HttpPost]
+        public IActionResult AddNote(int id, MummyNotesViewModel note)
+        {
+            note.NewNote.MummyId = id;
+            context.Add(note.NewNote);
+            context.SaveChanges();
+
+            List<Notes> notes;
+            try
+            {
+                notes = context.Notes.Where(x => x.MummyId == id).ToList();
+            }
+            catch
+            {
+                notes = new List<Notes>();
+            }
+
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).FirstOrDefault();
+
+            return View("MummyProfile", new MummyProfileViewModel
+            {
+
+                Mummy = mum,
+                Location = context.Location.Where(x => x.LocationId == mum.LocationId).FirstOrDefault(),
+                Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).FirstOrDefault(),
+                //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+            });
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

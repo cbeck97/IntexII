@@ -29,7 +29,6 @@
                 <th>Hair Color</th>
                 <th>Age</th>
                 <th></th>
-                <th></th>
             </tr>
         </thead>
         @foreach (var x in Model.Mummies)
@@ -50,15 +49,6 @@
                 <td>@x.Gender</td>
                 <td>@x.HairColor</td>
                 <td>@x.AgeRange</td>
-                @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
-                {
-                    <td>
-                        <form>
-                            <input type="hidden" value="@x.MummyId" />
-                            <button class="btn btn-secondary" type="submit">Edit</button>
-                        </form>
-                    </td>
-                }
                 @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Delete)).Result.Succeeded)
                 {
                     <td>
