@@ -363,6 +363,7 @@ namespace BYUFagElGamous1_5.Controllers
 
             return View("EditAttributes", mum);
         }
+
         [HttpPost("UpdateMummy")]
         public async Task<IActionResult> UpdateMummy(Mummy mummy)
         {
@@ -639,6 +640,13 @@ namespace BYUFagElGamous1_5.Controllers
             }
             return View("UpdateMummy", measurements);
         }
+        [HttpPost]
+        public IActionResult EditCarbon(int id)
+        {
+            CarbonDated carbon = context.CarbonDated.Where(x => x.CarbonDatedId == id).First();
+            return View(carbon);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
