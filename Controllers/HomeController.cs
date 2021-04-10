@@ -200,7 +200,12 @@ namespace BYUFagElGamous1_5.Controllers
             else if (type == "sample")
             {
                 List<Sample> samples = context.Sample.Where(x => x.MummyId == selector).ToList();
-                return PartialView(id, samples);
+                return PartialView(id, new MummySamplesViewModel
+                {
+                    Samples = samples,
+                    MummyId = selector,
+                    NewSample = null
+                });
             }
             else
             {
@@ -427,6 +432,36 @@ namespace BYUFagElGamous1_5.Controllers
                 //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
             });
         }
+
+        [HttpPost]
+        public IActionResult AddSample(int id, MummySamplesViewModel sample)
+        {
+            sample.NewSample.MummyId = id;
+            context.Add(sample.NewSample);
+            context.SaveChanges();
+
+            List<Sample> sp;
+            try
+            {
+                sp = context.Sample.Where(x => x.MummyId == id).ToList();
+            }
+            catch
+            {
+                sp = new List<Sample>();
+            }
+
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).FirstOrDefault();
+
+            return View("MummyProfile", new MummyProfileViewModel
+            {
+
+                Mummy = mum,
+                Location = context.Location.Where(x => x.LocationId == mum.LocationId).FirstOrDefault(),
+                Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).FirstOrDefault(),
+                //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+            });
+        }
+
 
         [HttpPost]
         public IActionResult EditMeasurements(int id)

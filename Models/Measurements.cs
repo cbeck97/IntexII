@@ -66,7 +66,7 @@ namespace BYUFagElGamous1_5.Models
         public bool? PostcraniaMagazine { get; set; }
         public bool? PostcraniaTrauma { get; set; }
         public int? PreaurSulcus { get; set; }
-        public string Preveservation { get; set; }
+        public string Preservation { get; set; }
         public string PreservationIndex { get; set; }
         public int? PubicBone { get; set; }
         public double? PubicSymphysis { get; set; }
