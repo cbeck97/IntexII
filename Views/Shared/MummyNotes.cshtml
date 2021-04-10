@@ -7,23 +7,49 @@
 <div class="container">
     <div class="card-background-dark p-3 my-2">
         <div class="row my-2">
-            <div class="col">
+            
                 @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
                 {
-                    <form asp-action="AddNote" method="post">
+            <form class="p-3" asp-action="AddNote" method="post">
+                <div class="form-row">
+                    <div class="col-4">
 
-                        <input type="hidden" name="id" value="@Model.MummyId" />
-                        <textarea class="form-control" rows="5" cols="150" asp-for="@Model.NewNote.Text"></textarea>
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-secondary mt-3 text-center"><i class="fas fa-plus"></i></button>
+                        <label asp-for="@Model.NewNote.NoteTitle"><h5>Note Title: </h5></label>
+
+                        <input class="form-control" asp-for="@Model.NewNote.NoteTitle" />
+
+
+                    </div>
+
+
+
+
+
+                </div>
+                <br />
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="hidden" name="id" value="@Model.MummyId" />
+                            <textarea class="form-control" rows="5" cols="150" asp-for="@Model.NewNote.Text"></textarea>
                         </div>
-                    </form>
+                    </div>
 
-                }
+                </div>
+                
+                    <button type="submit" class="btn btn-secondary text-center "><i class="fas fa-plus"></i></button>
+
+                
+
+
+            </form>
+
+            }
+
             </div>
-        </div>
     </div>
     <div class="card-background p-3">
+        <h1 class="display-4">Notes: </h1>
         <div class="col">
             <div class="row text-center">
                 @foreach (var x in Model.Notes)
@@ -34,7 +60,7 @@
 
                     <div class="col-3">
                         <button type="button" class="btn btn-primary btn-lg my-3" data-toggle="modal" data-target="#Notes-@x.NotesId">
-                            Note: @x.NotesId
+                            @x.NoteTitle
                         </button>
                     </div>
 
@@ -45,7 +71,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
 
-                                    <h5 class="modal-title" id="exampleModalLabel">Note @x.NotesId</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">@x.NoteTitle</h5>
 
 
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
