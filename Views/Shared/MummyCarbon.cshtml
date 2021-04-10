@@ -1,8 +1,72 @@
-﻿@model IEnumerable<CarbonDated>
+﻿@model MummyCarbonViewModel
+
+@inject IAuthorizationService AuthorizationService
 
 <h1>CARBON DATING</h1>
 
-@foreach(var x in Model)
+@foreach (var x in Model.Carbons)
 {
     <p>@x.CarbonDatedId --> @x.Category</p>
+}
+
+@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+{
+    <form asp-action="AddCarbon" method="post">
+
+        <button type="submit" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+        <input type="hidden" name="id" value="@Model.MummyId" />
+
+        <label asp-for="@Model.NewCarbon.RackNumber">Rack Number: </label>
+        <input type="number" asp-for="@Model.NewCarbon.RackNumber" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.Size">Size: </label>
+        <input type="number" asp-for="@Model.NewCarbon.Size" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.Foci">Foci: </label>
+        <input type="number" asp-for="@Model.NewCarbon.Foci" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.C14sample">C14Sample: </label>
+        <input asp-for="@Model.NewCarbon.C14sample" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.Location">Location: </label>
+        <input asp-for="@Model.NewCarbon.Location" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.Questions">Questions: </label>
+        <input asp-for="@Model.NewCarbon.Questions" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.ConventionalAgeBp">Conventional Age BP: </label>
+        <input type="number" asp-for="@Model.NewCarbon.ConventionalAgeBp" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.CalendarDate">Calendar Date: </label>
+        <input asp-for="@Model.NewCarbon.CalendarDate" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.Calibrated95CalendarDateMin">Calibrated Min: </label>
+        <input asp-for="@Model.NewCarbon.Calibrated95CalendarDateMin" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.Calibrated95CalendarDateMax">Calibrated Max: </label>
+        <input asp-for="@Model.NewCarbon.Calibrated95CalendarDateMax" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.Calibrated95CalendarDateSpan">Calibrated Span: </label>
+        <input asp-for="@Model.NewCarbon.Calibrated95CalendarDateSpan" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.Calibrated95CalendarDateAvg">Calibrated Avg: </label>
+        <input asp-for="@Model.NewCarbon.Calibrated95CalendarDateAvg" />
+        <br />
+
+        <label asp-for="@Model.NewCarbon.Category">Category: </label>
+        <input asp-for="@Model.NewCarbon.Category" />
+        <br />
+    </form>
+
 }

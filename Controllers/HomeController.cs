@@ -302,12 +302,22 @@ namespace BYUFagElGamous1_5.Controllers
             else if (type == "sample")
             {
                 List<Sample> samples = context.Sample.Where(x => x.MummyId == selector).ToList();
-                return PartialView(id, samples);
+                return PartialView(id, new MummySamplesViewModel
+                {
+                    Samples = samples,
+                    MummyId = selector,
+                    NewSample = null
+                });
             }
             else
             {
                 List<CarbonDated> carbons = context.CarbonDated.Where(x => x.MummyId == selector).ToList();
-                return PartialView(id, carbons);
+                return PartialView(id, new MummyCarbonViewModel
+                {
+                    Carbons = carbons,
+                    MummyId = selector,
+                    NewCarbon = null
+                });
             }
         }
 
@@ -528,6 +538,72 @@ namespace BYUFagElGamous1_5.Controllers
                 Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).FirstOrDefault(),
                 //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
             });
+        }
+
+        [HttpPost]
+        public IActionResult AddSample(int id, MummySamplesViewModel sample)
+        {
+            sample.NewSample.MummyId = id;
+            context.Add(sample.NewSample);
+            context.SaveChanges();
+
+            List<Sample> sp;
+            try
+            {
+                sp = context.Sample.Where(x => x.MummyId == id).ToList();
+            }
+            catch
+            {
+                sp = new List<Sample>();
+            }
+
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).FirstOrDefault();
+
+            return View("MummyProfile", new MummyProfileViewModel
+            {
+
+                Mummy = mum,
+                Location = context.Location.Where(x => x.LocationId == mum.LocationId).FirstOrDefault(),
+                Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).FirstOrDefault(),
+                //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+            });
+        }
+
+        [HttpPost]
+        public IActionResult AddCarbon(int id, MummyCarbonViewModel carbon)
+        {
+            carbon.NewCarbon.MummyId = id;
+            context.Add(carbon.NewCarbon);
+            context.SaveChanges();
+
+            List<CarbonDated> carb;
+            try
+            {
+                carb = context.CarbonDated.Where(x => x.MummyId == id).ToList();
+            }
+            catch
+            {
+                carb = new List<CarbonDated>();
+            }
+
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).FirstOrDefault();
+
+            return View("MummyProfile", new MummyProfileViewModel
+            {
+
+                Mummy = mum,
+                Location = context.Location.Where(x => x.LocationId == mum.LocationId).FirstOrDefault(),
+                Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).FirstOrDefault(),
+                //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+            });
+        }
+
+
+        [HttpPost]
+        public IActionResult EditMeasurements(int id)
+        {
+            Measurements msr = context.Measurements.Where(x => x.MeasurementId == id).First();
+            return View(msr);
         }
 
 

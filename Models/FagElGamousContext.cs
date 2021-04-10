@@ -198,8 +198,7 @@ namespace BYUFagElGamous1_5.Models
             modelBuilder.Entity<CarbonDated>(entity =>
             {
                 entity.Property(e => e.CarbonDatedId)
-                    .HasColumnName("CarbonDatedID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("CarbonDatedID");
 
                 entity.Property(e => e.C14sample).HasColumnName("C14Sample");
 
@@ -341,7 +340,7 @@ namespace BYUFagElGamous1_5.Models
 
                 entity.Property(e => e.PreservationIndex).HasMaxLength(10);
 
-                entity.Property(e => e.Preveservation).HasMaxLength(124);
+                entity.Property(e => e.Preservation).HasMaxLength(124);
 
                 entity.Property(e => e.RackAndShelf).HasMaxLength(124);
 
@@ -443,8 +442,7 @@ namespace BYUFagElGamous1_5.Models
             modelBuilder.Entity<Sample>(entity =>
             {
                 entity.Property(e => e.SampleId)
-                    .HasColumnName("SampleID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("SampleID");
 
                 entity.Property(e => e.Area).HasMaxLength(124);
 
