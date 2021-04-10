@@ -3,27 +3,29 @@
 @inject IAuthorizationService AuthorizationService
 
 
-<h1 class="display-4">Notes</h1>
+
 <div class="container">
-    <div class="row">
-        <div class="col-3">
-            @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
-            {
-                <form asp-action="AddNote" method="post">
+    <div class="card-background-dark p-3 my-2">
+        <div class="row my-2">
+            <div class="col">
+                @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+                {
+                    <form asp-action="AddNote" method="post">
 
-                    <button type="submit" class="btn btn-secondary">Add New Note: <i class="fas fa-plus"></i></button>
-                    <br />
-                    <br />
+                        <input type="hidden" name="id" value="@Model.MummyId" />
+                        <textarea class="form-control" rows="5" cols="150" asp-for="@Model.NewNote.Text"></textarea>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-secondary mt-3 text-center"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </form>
 
-                    <input type="hidden" name="id" value="@Model.MummyId" />
-                    <textarea rows="10" cols="20" asp-for="@Model.NewNote.Text"></textarea>
-                </form>
-
-            }
+                }
+            </div>
         </div>
-
-        <div class="col-9">
-            <div class="row">
+    </div>
+    <div class="card-background p-3">
+        <div class="col">
+            <div class="row text-center">
                 @foreach (var x in Model.Notes)
                 {
 
@@ -65,10 +67,11 @@
 
 
                 }
-                </div>
             </div>
         </div>
+
     </div>
+</div>
 
 
 

@@ -3,59 +3,123 @@
 @inject IAuthorizationService AuthorizationService
 
 
-<h1>Samples</h1>
 
-@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
-{
+
+<div class="card-background-dark p-3 my-2">
+    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
+    {
     <form asp-action="AddSample" method="post">
 
-        <button type="submit" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
-        <input type="hidden" name="id" value="@Model.MummyId" />
 
-        <label asp-for="@Model.NewSample.SampleNumber">Sample Number: </label>
-        <input type="number" asp-for="@Model.NewSample.SampleNumber" />
-        <br />
+        <div class="form-row justify-content-between">
+            <div class="col">
+                <label asp-for="@Model.NewSample.SampleNumber"><h5>Sample Number: </h5></label>
+                <br />
+                <input type="number" asp-for="@Model.NewSample.SampleNumber" />
+                
+            </div>
+            <div class="form-group col">
+                <label asp-for="@Model.NewSample.RackNumber"><h5>Rack Number: </h5></label>
+                <br />
+                <input type="number" asp-for="@Model.NewSample.RackNumber" />
 
-        <label asp-for="@Model.NewSample.RackNumber">Rack Number: </label>
-        <input type="number" asp-for="@Model.NewSample.RackNumber" />
-        <br />
+            </div>
+            <div class="form-group col">
+                <label asp-for="@Model.NewSample.Bag"><h5>Bag: </h5></label>
+                <br />
+                <input type="number" asp-for="@Model.NewSample.Bag" />
 
-        <label asp-for="@Model.NewSample.Bag">Bag: </label>
-        <input type="number" asp-for="@Model.NewSample.Bag" />
-        <br />
+            </div>
+            <div class="form-group col">
+                <label asp-for="@Model.NewSample.Date"><h5>Date: </h5></label>
+                <br />
+                <input asp-for="@Model.NewSample.Date" />
 
-        <label asp-for="@Model.NewSample.Date">Date: </label>
-        <input asp-for="@Model.NewSample.Date" />
-        <br />
+            </div>
+        </div>
+        <div class="form-row justify-content-between">
+            <div class="col">
+                <label asp-for="@Model.NewSample.PreviouslySampled"><h5>Previously Sampled: </h5></label>
+                <br />
+                <input asp-for="@Model.NewSample.PreviouslySampled" />
 
-        <label asp-for="@Model.NewSample.PreviouslySampled">Previously Sampled: </label>
-        <input asp-for="@Model.NewSample.PreviouslySampled" />
-        <br />
+            </div>
+            <div class="form-group col">
+                <label asp-for="@Model.NewSample.Initials"><h5>Initials: </h5></label>
+                <br />
+                <input asp-for="@Model.NewSample.Initials" />
+                
+            </div>
+            <div class="form-group col">
+                <label asp-for="@Model.NewSample.ClusterNumber"><h5>Cluster Number: </h5></label>
+                <br />
+                <input type="number" asp-for="@Model.NewSample.ClusterNumber" />
 
-        <label asp-for="@Model.NewSample.Initials">Initials: </label>
-        <input asp-for="@Model.NewSample.Initials" />
-        <br />
+            </div>
+            <div class="form-group col">
+                <label asp-for="@Model.NewSample.Area"><h5>Area: </h5></label>
+                <br />
+                <input asp-for="@Model.NewSample.Area" />
 
-        <label asp-for="@Model.NewSample.ClusterNumber">Cluster Number: </label>
-        <input type="number" asp-for="@Model.NewSample.ClusterNumber" />
-        <br />
-
-        <label asp-for="@Model.NewSample.Area">Area: </label>
-        <input asp-for="@Model.NewSample.Area" />
-        <br />
+            </div>
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+            <input type="hidden" name="id" value="@Model.MummyId" />
+        </div>
     </form>
 
-}
+    }
+</div>
+<br />
+<br />
+<div class="card-background p-3">
+    <div class="col">
+        <div class="row text-center">
+            @foreach (var x in Model.Samples)
+            {
 
-@foreach (var x in Model.Samples)
-{
-    <p>Sample ID: @x.SampleId</p>
-    <p>Sample Number: @x.SampleNumber</p>
-    <p>Rack Number: @x.RackNumber</p>
-    <p>Bag: @x.Bag</p>
-    <p>Date: @x.Date</p>
-    <p>Previously Sampled: @x.PreviouslySampled</p>
-    <p>Initials: @x.Initials</p>
-    <p>Cluster: @x.ClusterNumber</p>
-    <p>Area: @x.Area</p>
-}
+                <div class="col-3">
+                    <button type="button" class="btn btn-primary btn-lg my-3" data-toggle="modal" data-target="#Sample-@x.SampleId">
+                        Sample Number: @x.SampleNumber
+                    </button>
+                </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="Sample-@x.SampleId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-height" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h5 class="modal-title" id="exampleModalLabel">Sample @x.SampleId</h5>
+
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Sample ID: @x.SampleId</p>
+                                <p>Sample Number: @x.SampleNumber</p>
+                                <p>Rack Number: @x.RackNumber</p>
+                                <p>Bag: @x.Bag</p>
+                                <p>Date: @x.Date</p>
+                                <p>Previously Sampled: @x.PreviouslySampled</p>
+                                <p>Initials: @x.Initials</p>
+                                <p>Cluster: @x.ClusterNumber</p>
+                                <p>Area: @x.Area</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+        </div>
+
