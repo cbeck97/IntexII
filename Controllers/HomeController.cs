@@ -428,6 +428,33 @@ namespace BYUFagElGamous1_5.Controllers
             return View("UpdateMummy", location);
         }
 
+        [HttpPost("UpdateCarbon")]
+        public async Task<IActionResult> UpdateCarbon(CarbonDated carbon)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.Update(carbon);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+
+                Mummy mummy = context.Mummy.Where(x => x.MummyId == carbon.MummyId).FirstOrDefault();
+                return View("MummyProfile", new MummyProfileViewModel
+                {
+                    Mummy = mummy,
+                    Location = context.Location.Where(x => x.LocationId == mummy.LocationId).First(),
+                    Measurement = context.Measurements.Where(x => x.MeasurementId == mummy.MeasurementId).FirstOrDefault(),
+                    //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+                }) ;
+            }
+            return View("UpdateMummy", carbon);
+        }
+
         //---------------------------------------
         // Image Uploading
         // --------------------------------------

@@ -2,9 +2,6 @@
 
 @inject IAuthorizationService AuthorizationService
 
-
-
-
 <div class="card-background-dark p-3 my-2">
     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
     {
@@ -126,5 +123,5 @@
             }
         </div>
     </div>
-        </div>
+</div>
 
