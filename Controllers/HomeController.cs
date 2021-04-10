@@ -615,6 +615,30 @@ namespace BYUFagElGamous1_5.Controllers
             return View(msr);
         }
 
+        [HttpPost("UpdateMeasurements")]
+        public async Task<IActionResult> UpdateMeasurements(Measurements measurements)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.Update(measurements);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+                Mummy mum = context.Mummy.Where(x => x.MeasurementId == measurements.MeasurementId).FirstOrDefault();
+                return View("MummyProfile", new MummyProfileViewModel
+                {
+                    Mummy = mum,
+                    Location = context.Location.Where(x => x.LocationId == mum.LocationId).FirstOrDefault(),
+                    Measurement = context.Measurements.Where(x => x.MeasurementId == measurements.MeasurementId).FirstOrDefault()
+                });
+            }
+            return View("UpdateMummy", measurements);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
