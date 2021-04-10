@@ -300,7 +300,7 @@ namespace BYUFagElGamous1_5.Controllers
                     Mummy = mummy,
                     Location = location, 
                     Measurement = context.Measurements.Where(x => x.MeasurementId == mummy.MeasurementId).FirstOrDefault(),
-                    Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+                    //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
                 });
             }
             return View("UpdateMummy", location);
