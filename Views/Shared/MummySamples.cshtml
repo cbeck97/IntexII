@@ -13,12 +13,49 @@
         <input type="hidden" name="id" value="@Model.MummyId" />
 
         <label asp-for="@Model.NewSample.SampleNumber">Sample Number: </label>
-        <input asp-for="@Model.NewSample.SampleNumber" />
+        <input type="number" asp-for="@Model.NewSample.SampleNumber" />
+        <br />
+
+        <label asp-for="@Model.NewSample.RackNumber">Rack Number: </label>
+        <input type="number" asp-for="@Model.NewSample.RackNumber" />
+        <br />
+
+        <label asp-for="@Model.NewSample.Bag">Bag: </label>
+        <input type="number" asp-for="@Model.NewSample.Bag" />
+        <br />
+
+        <label asp-for="@Model.NewSample.Date">Date: </label>
+        <input asp-for="@Model.NewSample.Date" />
+        <br />
+
+        <label asp-for="@Model.NewSample.PreviouslySampled">Previously Sampled: </label>
+        <input asp-for="@Model.NewSample.PreviouslySampled" />
+        <br />
+
+        <label asp-for="@Model.NewSample.Initials">Initials: </label>
+        <input asp-for="@Model.NewSample.Initials" />
+        <br />
+
+        <label asp-for="@Model.NewSample.ClusterNumber">Cluster Number: </label>
+        <input type="number" asp-for="@Model.NewSample.ClusterNumber" />
+        <br />
+
+        <label asp-for="@Model.NewSample.Area">Area: </label>
+        <input asp-for="@Model.NewSample.Area" />
+        <br />
     </form>
 
 }
 
 @foreach(var x in Model.Samples)
 {
-    <p>@x.SampleId</p>
+    <p>Sample ID: @x.SampleId</p>
+    <p>Sample Number: @x.SampleNumber</p>
+    <p>Rack Number: @x.RackNumber</p>
+    <p>Bag: @x.Bag</p>
+    <p>Date: @x.Date</p>
+    <p>Previously Sampled: @x.PreviouslySampled</p>
+    <p>Initials: @x.Initials</p>
+    <p>Cluster: @x.ClusterNumber</p>
+    <p>Area: @x.Area</p>
 }
