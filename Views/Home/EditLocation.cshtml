@@ -5,7 +5,7 @@
 
 <div class="text-center">
 
-    <form asp-controller="Home" asp-action="" method="post" class="card-background p-3">
+    <form asp-controller="Home" asp-action="UpdateLocation" method="post" class="card-background p-3">
         <div class="form-row text-left">
             <div class="form-group col">
                 <label for="BurialLocationNs" asp-for="@Model.BurialLocationNs">Location N/S</label>
@@ -28,13 +28,13 @@
         <div class="form-row text-left">
             <div class="form-group col">
                 <label for="LowPairEw" asp-for="@Model.LowPairEw">Low Pair E/W</label>
-                <input type="number" id="LowPairEw" class="custom-select" asp-for="@Model.LowPairEw" placeholder="i.e 10"/>
-                  
+                <input type="number" id="LowPairEw" class="custom-select" asp-for="@Model.LowPairEw" placeholder="i.e 10" />
+
             </div>
             <div class="form-group col">
                 <label for="HighPairEw" asp-for="@Model.HighPairEw">High Pair E/W</label>
-                <input type="number" id="HighPairEw" class="custom-select" asp-for="@Model.HighPairEw" placeholder="i.e 10"/>
-                    
+                <input type="number" id="HighPairEw" class="custom-select" asp-for="@Model.HighPairEw" placeholder="i.e 10" />
+
             </div>
             <div class="form-group col">
                 <label for="Subplot" asp-for="@Model.Subplot">Subplot</label>
@@ -49,8 +49,12 @@
 
             </div>
             <div class="form-group col">
+                <label for="BurialNumber" asp-for="@Model.BurialNumber">Burial Number</label>
+                <input type="number" id="BurialNumber" class="custom-select" asp-for="@Model.BurialNumber" placeholder="i.e 10" />
+            </div>
+            <div class="form-group col">
                 <label for="BurialDepth" asp-for="@Model.BurialDepth">Burial Depth</label>
-                <input type="number" id="BurialDepth" class="custom-select" asp-for="@Model.BurialDepth" placeholder="i.e 10"/>
+                <input type="number" id="BurialDepth" class="custom-select" asp-for="@Model.BurialDepth" placeholder="i.e 10" />
             </div>
         </div>
         <div class="form-row text-left">
@@ -98,6 +102,7 @@
 
             </div>
         </div>
+        <input hidden asp-for="LocationId" />
         
         <div class="form-row">
             <div class="col">

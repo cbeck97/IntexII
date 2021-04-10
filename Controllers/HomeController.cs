@@ -78,16 +78,16 @@ namespace BYUFagElGamous1_5.Controllers
             context.SaveChanges();
 
             //Create a note for the mummy
-            Notes note = new Notes();
-            note.MummyId = entry.Mummy.MummyId;
-            context.Add(note);
-            context.SaveChanges();
+            //Notes note = new Notes();
+            //note.MummyId = entry.Mummy.MummyId;
+            //context.Add(note);
+            //context.SaveChanges();
 
             return View("MummyProfile", new MummyProfileViewModel {
                 Mummy = context.Mummy.OrderByDescending(x => x.MummyId).Select(x => x).First(),
                 Location = context.Location.OrderByDescending(x => x.LocationId).Select(x => x).First(),
                 Measurement = context.Measurements.OrderByDescending(x => x.MeasurementId).Select(x => x).First(),
-                Notes = context.Notes.OrderByDescending(x=>x.NotesId).Select(x=>x).First()
+                //Notes = context.Notes.OrderByDescending(x=>x.NotesId).Select(x=>x).First()
             });
         }
 
@@ -142,21 +142,21 @@ namespace BYUFagElGamous1_5.Controllers
                 msr = new Measurements();
             }
 
-            try
-            {
-                note = context.Notes.Where(x => x.MummyId == mum.MummyId).First();
-            }
-            catch
-            {
-                note = new Notes();
-            }
+            //try
+            //{
+            //    note = context.Notes.Where(x => x.MummyId == mum.MummyId).First();
+            //}
+            //catch
+            //{
+            //    note = new Notes();
+            //}
 
             return View(new MummyProfileViewModel
             {
                 Mummy = mum,
                 Location = loc,
                 Measurement = msr,
-                Notes = note
+                //Notes = note
             });
         }
 
@@ -189,8 +189,13 @@ namespace BYUFagElGamous1_5.Controllers
                 {
                     notes = new List<Notes>();
                 }
-                
-                return PartialView(id, notes);
+
+                return PartialView(id, new MummyNotesViewModel
+                {
+                    Notes = notes,
+                    MummyId = selector,
+                    NewNote = null
+                });
             }
             else if (type == "sample")
             {
@@ -257,11 +262,53 @@ namespace BYUFagElGamous1_5.Controllers
                     Mummy = mummy,
                     Location = context.Location.Where(x => x.LocationId == mummy.LocationId).FirstOrDefault(),
                     Measurement = context.Measurements.Where(x => x.MeasurementId == mummy.MeasurementId).FirstOrDefault(),
-                    Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+                    //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
                 });
             }
             return View("UpdateMummy", mummy);
         }
+
+        [HttpPost]
+        public IActionResult EditLocation(int id)
+        {
+            Location loc = context.Location.Where(x => x.LocationId == id).First();
+            if (loc == null)
+            {
+                return NotFound();
+            }
+            return View("EditLocation", loc);
+        }
+
+        [HttpPost("UpdateLocation")]
+        public async Task<IActionResult> UpdateLocation(Location location)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.Update(location);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+                
+                Mummy mummy = context.Mummy.Where(x => x.LocationId == location.LocationId).FirstOrDefault();
+                return View("MummyProfile", new MummyProfileViewModel
+                {
+                    Mummy = mummy,
+                    Location = location, 
+                    Measurement = context.Measurements.Where(x => x.MeasurementId == mummy.MeasurementId).FirstOrDefault(),
+                    //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+                });
+            }
+            return View("UpdateMummy", location);
+        }
+
+        //---------------------------------------
+        // Image Uploading
+        // --------------------------------------
         [AllowAnonymous]
         public IActionResult UploadFiles()
         {
@@ -297,6 +344,7 @@ namespace BYUFagElGamous1_5.Controllers
 
             return RedirectToAction("ViewMummies", "Home");
         }
+
         public async Task UploadImage(IFormFile file)
         {
             var credentials = new BasicAWSCredentials("access", "secret key");
@@ -319,9 +367,6 @@ namespace BYUFagElGamous1_5.Controllers
             var fileTransferUtility = new TransferUtility(client);
             await fileTransferUtility.UploadAsync(uploadRequest);
         }
-
-
-
         public void uploadToS3(string filePath)
         {
             try
@@ -341,12 +386,9 @@ namespace BYUFagElGamous1_5.Controllers
                     bucketName = _bucketName + @"/" + _bucketSubdirectory;
                 }
 
-
                 // 1. Upload a file, file name is used as the object key name.
                 fileTransferUtility.Upload(filePath, bucketName);
                 Console.WriteLine("Upload 1 completed");
-
-
             }
             catch (AmazonS3Exception s3Exception)
             {
@@ -354,14 +396,36 @@ namespace BYUFagElGamous1_5.Controllers
                                   s3Exception.InnerException);
             }
         }
+        // End Image Uploading
+        //----------------------------------------
 
         [HttpPost]
-        public IActionResult EditLocation(int id)
+        public IActionResult AddNote(int id, MummyNotesViewModel note)
         {
-            Location loc = context.Location.Where(x => x.LocationId == id).First();
+            note.NewNote.MummyId = id;
+            context.Add(note.NewNote);
+            context.SaveChanges();
 
-            return View("EditLocation", loc);
+            List<Notes> notes;
+            try
+            {
+                notes = context.Notes.Where(x => x.MummyId == id).ToList();
+            }
+            catch
+            {
+                notes = new List<Notes>();
+            }
 
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).FirstOrDefault();
+
+            return View("MummyProfile", new MummyProfileViewModel
+            {
+
+                Mummy = mum,
+                Location = context.Location.Where(x => x.LocationId == mum.LocationId).FirstOrDefault(),
+                Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).FirstOrDefault(),
+                //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+            });
         }
 
 

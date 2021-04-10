@@ -6,6 +6,6 @@ namespace BYUFagElGamous1_5.Models.ViewModels
         public Mummy Mummy { get; set; }
         public Location Location { get; set; }
         public Measurements Measurement { get; set; }
-        public Notes Notes { get; set; }
+        //public Notes Notes { get; set; }
     } 
 }
