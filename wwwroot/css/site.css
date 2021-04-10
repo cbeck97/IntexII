@@ -130,3 +130,7 @@ img {
     border-radius: 10px;
     color: #fff;
 }
+
+.modal-height {
+    height: 1000px;
+}
