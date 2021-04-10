@@ -94,7 +94,7 @@ namespace BYUFagElGamous1_5.Controllers
 
         //VIEW MUMMIES -----------------------------------------
         [HttpGet]
-        public IActionResult ViewMummies(int pageNum = 1)
+        public IActionResult ViewMummies(int pageItems = 10, int pageNum = 1)
         {
             //Dictionary to line up each mummy with location based on location
             Dictionary<Mummy, Location> dict = new Dictionary<Mummy, Location>();
@@ -103,7 +103,7 @@ namespace BYUFagElGamous1_5.Controllers
             {
                 dict.Add(x, context.Location.Where(y => y.LocationId == x.LocationId).First());
             }
-            int pageItems = ViewBag.numItems = 10;
+            ViewBag.numItems = pageItems;
 
             return View(new ViewMummyViewModel
             {
@@ -128,48 +128,47 @@ namespace BYUFagElGamous1_5.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ViewMummies([FromForm] ViewMummyViewModel viewMummy,
-            string searchFor, string inputDateFilter) //Dictionary<Mummy, Location> mumLocs, Mummy dummyMummy, PageNumberInfo pageNumberInfo,
+            string searchFor, DateTime DateFrom, DateTime DateTo) //Dictionary<Mummy, Location> mumLocs, Mummy dummyMummy, PageNumberInfo pageNumberInfo,
         {
             //Dictionary to line up each mummy with location based on location
             Dictionary<Mummy, Location> dict = new Dictionary<Mummy, Location>();
-
+            //create new dictionary because it's hard to pass dictionaries from view to model
             foreach (var x in context.Mummy)
             {
                 dict.Add(x, context.Location.Where(y => y.LocationId == x.LocationId).First());
             }
+
+            //save viewmodel objects passed in through form to easy to work with objects
             Mummy dummyMummy = viewMummy.mummy;
             PageNumberInfo pageNumberInfo = viewMummy.PageNumberInfo;
 
-            var field = searchFor; //Create variables and assign them values of parameter
-            var value = searchFor;
-
-            DateTime fromdate = new DateTime();
-            DateTime todate = new DateTime();
-            if (!string.IsNullOrEmpty(inputDateFilter))
+            //checks if datefrom and dateto have been entered & fills in logical missing other
+            if (DateFrom != null && DateTo == null)
             {
-                fromdate = DateTime.Parse(inputDateFilter.Split('-')[0].Trim());
-                todate = DateTime.Parse(inputDateFilter.Split('-')[1].Trim());
-                todate = new DateTime(todate.Year, todate.Month, todate.Day, 23, 59, 59);
-                if (fromdate == todate)
-                {
-                    fromdate = DateTime.Now.AddDays(-30);//last 30 days
-                    todate = DateTime.Now;
-                }
+                DateTo = DateTime.Now;
+            }
+            if (DateTo != null && DateFrom == null)
+            {
+                DateFrom = new DateTime(0000, 00, 00);
             }
 
+            //creates a results query from mummy db
             var results = (from m in context.Mummy
                            .Distinct()
                            select m);
 
-            if (!string.IsNullOrEmpty(inputDateFilter))
+            //if date pickers are left empty 
+            // else results are further narrowed by date found
+            if (DateFrom != null && DateTo != null)
             {
                 results = from m in results
-                           .Where(m => m.DayFound >= fromdate.Day && m.DayFound <= todate.Day)
-                           .Where(m => m.MonthFound >= fromdate.Month && m.MonthFound <= todate.Month)
-                           .Where(m => m.YearFound >= fromdate.Year && m.YearFound <= todate.Year)
+                           .Where(m => m.DayFound >= DateFrom.Day && m.DayFound <= DateTo.Day)
+                           .Where(m => m.MonthFound >= DateFrom.Month && m.MonthFound <= DateTo.Month)
+                           .Where(m => m.YearFound >= DateFrom.Year && m.YearFound <= DateTo.Year)
                           select m;
             }
 
+            //Checks all filter inputs > if changed then narrows the results by what has been entered
             if (dummyMummy.AdultChild != null) { results = from m in results.Where(x => x.AdultChild == dummyMummy.AdultChild) select m; }
             if (dummyMummy.AgeRange != null) { results = from m in results.Where(x => x.AgeRange == dummyMummy.AgeRange) select m; }
             if (dummyMummy.Artifacts != null) { results = from m in results.Where(x => x.Artifacts == dummyMummy.Artifacts) select m; }
@@ -188,13 +187,15 @@ namespace BYUFagElGamous1_5.Controllers
             if (dummyMummy.LengthOfRemains != null) { results = from m in results.Where(x => x.LengthOfRemains == dummyMummy.LengthOfRemains) select m; }
             if (dummyMummy.PhotoTaken != null) { results = from m in results.Where(x => x.PhotoTaken == dummyMummy.PhotoTaken) select m; }
 
+            //checks the search bar for search
+            // then searches remaining query result for text matching search
             if (!string.IsNullOrEmpty(searchFor))
             {
                 List<string> _search = searchFor.Split(' ').ToList();
 
                 results = (from c in results
-                           where _search.Contains(c.Location.LowPairNs.ToString())
-                           || _search.Contains(c.Location.HighPairNs.ToString())
+                           where _search.Contains(c.Location.LowPairNs.ToString()) // All location context is brought in by virtual object in mummy 
+                           || _search.Contains(c.Location.HighPairNs.ToString()) //ints and bools are converted to string to be compared to string search
                            || _search.Contains(c.Location.LowPairEw.ToString())
                            || _search.Contains(c.Location.HighPairEw.ToString())
                            || _search.Contains(c.Location.Subplot)
@@ -212,13 +213,23 @@ namespace BYUFagElGamous1_5.Controllers
                            || _search.Contains(c.Gender)
                            || _search.Contains(c.HairColor)
                            || _search.Contains(c.HeadDirection)
-                           || _search.Contains(c.LengthOfRemains.ToString()) //+add all colums that we need to search
+                           || _search.Contains(c.LengthOfRemains.ToString())
                            select c);
             }
+
+            ViewBag.DateFrom = DateFrom.ToString();
+            ViewBag.DateFrom = DateTo.ToString();
+            ViewBag.numItems = viewMummy.PageNumberInfo.numItems;
+
             return View("ViewMummies", new ViewMummyViewModel
             {
                 mumLocs = dict,
-                Mummies = results.ToList(),
+                Mummies = results
+                    .OrderBy(x => x.MummyId)
+                    .Skip((viewMummy.PageNumberInfo.CurrentPage - 1) * viewMummy.PageNumberInfo.NumItemsPerPage)
+                    .Take(viewMummy.PageNumberInfo.NumItemsPerPage)
+                    .ToList(),
+
                 PageNumberInfo = pageNumberInfo
             });
         }

@@ -5,7 +5,7 @@
 <div class="card-background p-3">
     <form asp-action="ViewMummies" method="get">
         <label>Select Number of Burials on Page: </label>
-        <select id="numberItems" name="numItems" class="form-select form-control col-1 numberItems" aria-label="Number of Mummies displayed"
+        <select id="numberItems" name="pageItems" class="form-select form-control col-1 numberItems" aria-label="Number of Mummies displayed"
                 onchange="javascript:this.form.submit()">
             @*<option selected>Num</option>*@
             <option value="10">10</option>
@@ -34,27 +34,32 @@
             </div>
             <div class="form-row text-left">
                 <!-- Date range -->
-                <div class="col">
-                    <label>Date range From:</label>
+                <div class="form-group col">
+                    <label for="DateFrom">Date range From:</label>
                     <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="far fa-calendar-alt"></i>
-                            </span>
-                        </div>
-                        @Html.TextBox("DateFrom", (String)ViewBag.DateFrom, new { @type = "text", @class = "form-control", @onchange = "onchangeFrom(this);" })
-                        @Html.Hidden("inputDateFilter", (String)ViewBag.DateFrom)
+                        @Html.TextBox("DateFrom", (string)ViewBag.DateFrom, new { @type = "date", @class = "form-control" }) @*, @onchange = "onchangeFrom(this);"*@
+                        @Html.Hidden("DateFrom", (string)ViewBag.DateFrom)
                     </div>
+                    <!-- /.input group -->
+                </div>
+                <div class="form-group col">
+                    <label for="DateFrom">Date range To:</label>
+                    <div class="input-group">
+                        @Html.TextBox("DateTo", (string)ViewBag.DateTo, new { @type = "date", @class = "form-control" })
+                        @Html.Hidden("DateTo", (string)ViewBag.DateTo)
+                    </div>
+                    <!-- /.input group -->
+                </div>
+            </div>
+            <div class="form-row text-left">
+                <div class="form-group col">
                     <label for="HeadDirection" asp-for="@Model.mummy.HeadDirection">Head Direction</label>
                     <select id="HeadDirection" class="form-control" asp-for="@Model.mummy.HeadDirection">
                         <option value="">Select</option>
                         <option value="E">E</option>
                         <option value="W">W</option>
                     </select>
-                    <!-- /.input group -->
                 </div>
-            </div>
-            <div class="form-row text-left">
                 <div class="form-group col">
                     <label for="Gender" asp-for="@Model.mummy.Gender">Gender</label>
                     <select id="Gender" class="custom-select" asp-for="@Model.mummy.Gender">
@@ -180,7 +185,6 @@
             <div class="row">
                 <div class="col mt-2">
                     <button type="submit" value="submit" onclick="filters();" class="btn btn-info">Search</button>
-                    <button type="submit" value="submit" class="btn btn-primary" onclick="SetTodayDate();">Today Orders</button>
                 </div>
             </div>
         </form>
@@ -240,9 +244,15 @@
 
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#numberItems option[value=@Model.PageNumberInfo.numItems]').prop('selected', 'selected').change());
-    });
-
-</script>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            @*$('#numberItems option[value=@Model.PageNumberInfo.numItems]').prop('selected', 'selected'));*@
+            $("#numberItems").val("@ViewBag.numItems"));
+        });
+    </script>
+    <!-- InputMask -->
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
+}
