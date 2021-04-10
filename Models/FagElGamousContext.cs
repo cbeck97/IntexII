@@ -198,8 +198,7 @@ namespace BYUFagElGamous1_5.Models
             modelBuilder.Entity<CarbonDated>(entity =>
             {
                 entity.Property(e => e.CarbonDatedId)
-                    .HasColumnName("CarbonDatedID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("CarbonDatedID");
 
                 entity.Property(e => e.C14sample).HasColumnName("C14Sample");
 

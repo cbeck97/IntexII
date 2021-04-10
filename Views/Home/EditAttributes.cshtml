@@ -107,13 +107,9 @@
                 </select>
             </div>
             <div class="form-group col">
-                <label for="FaceBundle" asp-for="@Model.FaceBundle">Burial Age Method</label>
+                <label for="FaceBundle" asp-for="@Model.FaceBundle">Face Bundle</label>
                 <select id="FaceBundle" class="custom-select" asp-for="@Model.FaceBundle">
-<<<<<<< Updated upstream
                     <option value="">Select</option>
-=======
-                    <option>Select</option>
->>>>>>> Stashed changes
                     <option value="Y">Y</option>
                     <option value="U">U</option>
                 </select>
@@ -151,8 +147,8 @@
                 <label for="Artifact" asp-for="@Model.Artifacts">Artifact</label>
                 <select id="Artifact" class="custom-select" asp-for="@Model.Artifacts">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">N</option>
                 </select>
             </div>
         </div>

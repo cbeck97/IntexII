@@ -210,7 +210,12 @@ namespace BYUFagElGamous1_5.Controllers
             else
             {
                 List<CarbonDated> carbons = context.CarbonDated.Where(x => x.MummyId == selector).ToList();
-                return PartialView(id, carbons);
+                return PartialView(id, new MummyCarbonViewModel
+                {
+                    Carbons = carbons,
+                    MummyId = selector,
+                    NewCarbon = null
+                });
             }
         }
 
@@ -448,6 +453,35 @@ namespace BYUFagElGamous1_5.Controllers
             catch
             {
                 sp = new List<Sample>();
+            }
+
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).FirstOrDefault();
+
+            return View("MummyProfile", new MummyProfileViewModel
+            {
+
+                Mummy = mum,
+                Location = context.Location.Where(x => x.LocationId == mum.LocationId).FirstOrDefault(),
+                Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).FirstOrDefault(),
+                //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
+            });
+        }
+
+        [HttpPost]
+        public IActionResult AddCarbon(int id, MummyCarbonViewModel carbon)
+        {
+            carbon.NewCarbon.MummyId = id;
+            context.Add(carbon.NewCarbon);
+            context.SaveChanges();
+
+            List<CarbonDated> carb;
+            try
+            {
+                carb = context.CarbonDated.Where(x => x.MummyId == id).ToList();
+            }
+            catch
+            {
+                carb = new List<CarbonDated>();
             }
 
             Mummy mum = context.Mummy.Where(x => x.MummyId == id).FirstOrDefault();

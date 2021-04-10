@@ -7,15 +7,15 @@
             <div class="form-row text-left">
                 <div class="form-group col">
                     <label for="DayFound" asp-for="Mummy.DayFound">Day Found: </label>
-                    <input id="DayFound" class="form-control" asp-for="Mummy.DayFound" placeholder="01"/>
+                    <input id="DayFound" class="form-control" asp-for="Mummy.DayFound" placeholder="01" />
                 </div>
                 <div class="form-group col">
                     <label for="MonthFound" asp-for="Mummy.MonthFound">Month Found: </label>
-                    <input id="MonthFound" class="form-control" asp-for="Mummy.MonthFound" placeholder="01"/>
+                    <input id="MonthFound" class="form-control" asp-for="Mummy.MonthFound" placeholder="01" />
                 </div>
                 <div class="form-group col">
                     <label for="YearFound" asp-for="Mummy.YearFound">Year Found:</label>
-                    <input id="YearFound" class="form-control" asp-for="Mummy.YearFound" placeholder="2021"/>
+                    <input id="YearFound" class="form-control" asp-for="Mummy.YearFound" placeholder="2021" />
                 </div>
                 <div class="form-group col">
                     <label for="HeadDirection" asp-for="Mummy.HeadDirection">Head Direction: </label>
@@ -29,7 +29,7 @@
             <div class="form-row text-left">
                 <div class="form-group col">
                     <label for="LowPairNs" asp-for="Location.LowPairNs">Low Pair North/South: </label>
-                    <input id="LowPairNs" class="form-control" asp-for="Location.LowPairNs" placeholder="190" />
+                    <input id="LowPairNs" class="form-control" asp-for="Location.LowPairNs" placeholder="i.e. 190" />
                 </div>
                 <div class="form-group col">
                     <label for="BurialLocationNs" asp-for="Location.BurialLocationNs">N/S</label>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group col">
                     <label for="LowPairEw" asp-for="Location.LowPairEw">Low Pair East/West: </label>
-                    <input id="LowPairEw" class="form-control" asp-for="Location.LowPairEw" placeholder="40" />
+                    <input id="LowPairEw" class="form-control" asp-for="Location.LowPairEw" placeholder="i.e. 40" />
                 </div>
                 <div class="form-group col">
                     <label for="BurialLocationEw" asp-for="Location.BurialLocationEw">E/W</label>
@@ -61,37 +61,51 @@
                 </div>
                 <div class="form-group col">
                     <label for="BurialNumber" asp-for="Location.BurialNumber">Burial Number: </label>
-                    <input id="BurialNumber" class="form-control" asp-for="Location.BurialNumber" placeholder="1"/>
+                    <input id="BurialNumber" class="form-control" asp-for="Location.BurialNumber" placeholder="Number" />
                 </div>
             </div>
             <div class="form-row text-left">
                 <div class="form-group col">
                     <label for="BurialDepth" asp-for="Location.BurialDepth">Burial Depth: </label>
-                    <input id="BurialDepth" class="form-control" asp-for="Location.BurialDepth" placeholder="1.90" />
+                    <input id="BurialDepth" class="form-control" asp-for="Location.BurialDepth" placeholder="Meters" />
                 </div>
                 <div class="form-group col">
                     <label for="SouthToHead" asp-for="Location.SouthToHead">South to Head: </label>
-                    <input id="SouthToHead" class="form-control" asp-for="Location.SouthToHead" placeholder="2.50" />
+                    <input id="SouthToHead" class="form-control" asp-for="Location.SouthToHead" placeholder="Meters" />
                 </div>
                 <div class="form-group col">
                     <label for="SouthToFeet" asp-for="Location.SouthToFeet">South to Feet:</label>
-                    <input id="SouthToFeet" class="form-control" asp-for="Location.SouthToFeet" placeholder="1.50" />
-                </div>
-                <div class="form-group col">
-                    <label for="EastToHead" asp-for="Location.EastToHead">East to Head: </label>
-                    <input id="EastToHead" class="form-control" asp-for="Location.EastToHead" placeholder="2.50" />
-                </div>
-                <div class="form-group col">
-                    <label for="EastToFeet" asp-for="Location.EastToFeet">East to Feet: </label>
-                    <input id="EastToFeet" class="form-control" asp-for="Location.EastToFeet" placeholder="2.30" />
+                    <input id="SouthToFeet" class="form-control" asp-for="Location.SouthToFeet" placeholder="Meters" />
                 </div>
                 <div class="form-group col">
                     <label for="WestToHead" asp-for="Location.WestToHead">West to Head: </label>
-                    <input id="WestToHead" class="form-control" asp-for="Location.WestToHead" placeholder="2.50"/>
+                    <input id="WestToHead" class="form-control" asp-for="Location.WestToHead" placeholder="Meters" />
                 </div>
                 <div class="form-group col">
                     <label for="WestToFeet" asp-for="Location.WestToFeet">West to Feet: </label>
-                    <input id="WestToFeet" class="form-control" asp-for="Location.WestToFeet" placeholder="2.70" />
+                    <input id="WestToFeet" class="form-control" asp-for="Location.WestToFeet" placeholder="Meters" />
+                </div>
+                <div class="form-group col">
+                    <label for="ClusterId" asp-for="Mummy.ClusterId">Cluster Number: </label>
+                    <input id="ClusterId" class="form-control" asp-for="Mummy.ClusterId" placeholder="#" />
+                </div>
+            </div>
+            <div class="form-row text-left">
+                <div class="form-group col">
+                    <label for="PhotoTaken" asp-for="Mummy.PhotoTaken">Photo Taken</label>
+                    <select id="PhotoTaken" class="custom-select" asp-for="Mummy.PhotoTaken">
+                        <option value="">Select</option>
+                        <option value="true">Y</option>
+                        <option value="false">N</option>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <label for="Artifact" asp-for="Mummy.Artifacts">Artifact</label>
+                    <select id="Artifact" class="custom-select" asp-for="Mummy.Artifacts">
+                        <option value="">Select</option>
+                        <option value="true">Y</option>
+                        <option value="false">N</option>
+                    </select>
                 </div>
             </div>
             <div class="form-row text-left">
