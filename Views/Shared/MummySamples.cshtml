@@ -112,6 +112,10 @@
                                 <p>Area: @x.Area</p>
                             </div>
                             <div class="modal-footer">
+                                <form asp-controller="Home" asp-action="EditSample" method="post">
+                                    <input type="hidden" name="id" value="@x.SampleId" />
+                                    <button class="btn btn-outline-dark" type="submit">Edit</button>
+                                </form>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                             </div>

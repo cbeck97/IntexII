@@ -647,6 +647,13 @@ namespace BYUFagElGamous1_5.Controllers
             return View(carbon);
         }
 
+        [HttpPost]
+        public IActionResult EditSample(int id)
+        {
+            Sample sample = context.Sample.Where(x => x.SampleId == id).First();
+            return View(sample);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
