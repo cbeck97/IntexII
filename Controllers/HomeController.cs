@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -338,7 +339,6 @@ namespace BYUFagElGamous1_5.Controllers
             else if (type == "files")
             {
                 IEnumerable<MummyImage> output = context.MummyImage.Where(x => x.MummyId == selector);
-                List<string> images = new List<string>();
                 Dictionary<string, string> returnDict = new Dictionary<string, string>();
                 foreach (var x in output)
                 {
@@ -346,7 +346,6 @@ namespace BYUFagElGamous1_5.Controllers
                     {
                         Images img = context.Images.Where(y => y.ImageId == x.ImageId && x.Type == "file").First();
                         returnDict.Add(img.ImageSource, x.Name);
-                        images.Add(img.ImageSource);
                     }
 
                     
@@ -364,7 +363,6 @@ namespace BYUFagElGamous1_5.Controllers
                     {
                         Images img = context.Images.Where(y => y.ImageId == x.ImageId).First();
                         returnDict.Add(img.ImageSource, x.Name);
-                        images.Add(img.ImageSource);
                     }
                     
                     
@@ -612,6 +610,8 @@ namespace BYUFagElGamous1_5.Controllers
             {
                 folderPath = $"documents/{upload.FormFile.FileName}";
                 mumImg.Type = "file";
+                string name = upload.FormFile.FileName;
+                name = GetUntilOrEmpty(name);
                 mumImg.Name = upload.FormFile.FileName;
             }
 
