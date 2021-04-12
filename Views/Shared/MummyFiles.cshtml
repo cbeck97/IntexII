@@ -1,13 +1,18 @@
-﻿@model FileUpload
+﻿@model IEnumerable<string>
 
-<form enctype="multipart/form-data" method="post" asp-action="FileUploadForm">
-    <dl>
-        <dt>
-            <label asp-for="FormFile"></label>
-        </dt>
-        <dd>
-            <input asp-for="FormFile" type="file">
-        </dd>
-    </dl>
-    <button type="submit">Submit</button>
-</form>
+<h3>Mummy Files</h3>
+
+<table>
+    <thead>
+        <th>File Name</th>
+    </thead>
+    <tbody>
+        @foreach(var x in Model)
+        {
+            <tr>
+                <td><a href="@x" target="_blank">Link</a></td>
+            </tr>
+        }
+    </tbody>
+    
+</table>

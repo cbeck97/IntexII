@@ -1,0 +1,15 @@
+﻿@model MummyUploadViewModel
+
+<form enctype="multipart/form-data" method="post" asp-action="FileUploadForm">
+    <dl>
+        <dt>
+            <label asp-for="@Model.upload.FormFile"></label>
+        </dt>
+        <dd>
+            <input asp-for="@Model.upload.FormFile" type="file">
+        </dd>
+    </dl>
+    <input type="hidden" name="id" value="@Model.MummyId" />
+    <button type="submit">Submit</button>
+</form>
+ 

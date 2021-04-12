@@ -339,7 +339,7 @@ namespace BYUFagElGamous1_5.Controllers
                     NewCarbon = null
                 });
             }
-            else if (type == "images")
+            else if (type == "upload")
             {
                 return PartialView(id, new MummyUploadViewModel {
                     MummyId = selector
@@ -347,7 +347,25 @@ namespace BYUFagElGamous1_5.Controllers
             }
             else if (type == "files")
             {
-                return PartialView(id);
+                IEnumerable<MummyImage> output = context.MummyImage.Where(x => x.MummyId == selector);
+                List<string> images = new List<string>();
+                foreach (var x in output)
+                {
+                    Images img = context.Images.Where(y => y.ImageId == x.ImageId).First();
+                    images.Add(img.ImageSource);
+                }
+                return PartialView(id, images);
+            }
+            else if (type == "images")
+            {
+                IEnumerable<MummyImage> output = context.MummyImage.Where(x => x.MummyId == selector);
+                List<string> images = new List<string>();
+                foreach(var x in output)
+                {
+                    Images img = context.Images.Where(y => y.ImageId == x.ImageId).First();
+                    images.Add(img.ImageSource);
+                }
+                return PartialView(id, images);
             }
             else
             {

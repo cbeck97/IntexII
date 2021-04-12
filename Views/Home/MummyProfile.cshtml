@@ -21,6 +21,7 @@
 }
 <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'images')" id="MummyImages">Images</button>
 <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'files')" id="MummyFiles">Files</button>
+<button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'upload')" id="MummyUpload">Upload</button>
 <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'manage')" id="MummyManage">Manage</button>
 <div id="partialView">
 </div>
@@ -54,6 +55,7 @@
         $('#MummyImages').removeClass('btn-link').css("color", "black")
         $('#MummyFiles').removeClass('btn-link').css("color", "black")
         $('#MummyManage').removeClass('btn-link').css("color", "black")
+        $('#MummyUpload').removeClass('btn-link').css("color", "black")
         $('#' + id).addClass('btn-link').css("color", "white");
     }
 </script>
