@@ -14,11 +14,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace BYUFagElGamous1_5.Controllers
 {
@@ -26,13 +28,7 @@ namespace BYUFagElGamous1_5.Controllers
     [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
-        private IWebHostEnvironment _hostingEnvironment;
-        //private IHostingEnvironment _hostingEnvironment; 
-        private static readonly string bucketName = "practice-bucket-abcdefg";
-        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
-        private static readonly string accesskey = "AKIAUFFI6OS7E2BABOGY";
-        private static readonly string secretkey = "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";
-
+        private IHostingEnvironment _hostingEnvironment;
 
         private readonly ILogger<HomeController> _logger;
         private FagElGamousContext context;
@@ -578,6 +574,17 @@ namespace BYUFagElGamous1_5.Controllers
         //          Image Uploading
         // --------------------------------------
 
+        //---------------------AWS Credentials------------------------------
+        //If we had more time we would figure out how to remove
+        //these from production
+
+        private static readonly string bucketName = "practice-bucket-abcdefg";
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
+        private static readonly string accesskey = "AKIAUFFI6OS7E2BABOGY";
+        private static readonly string secretkey = "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";
+
+        //-----------------------------------------------------------
+
         public static string GetUntilOrEmpty( string text, string stopAt = ".")
         {
             if (!String.IsNullOrEmpty(text))
@@ -596,6 +603,8 @@ namespace BYUFagElGamous1_5.Controllers
         [HttpPost]
         public IActionResult FileUploadForm(FileUpload upload, int id = 1)
         {
+            string config = ConfigurationManager.AppSettings["Test"];
+
             AmazonS3Client client = new AmazonS3Client(accesskey, secretkey, bucketRegion);
             string folderPath = "";
             MummyImage mumImg = new MummyImage();
