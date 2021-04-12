@@ -24,15 +24,7 @@ namespace BYUFagElGamous1_5.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        private IHostingEnvironment _hostingEnvironment;
-        //private AmazonS3Client _s3Client = new AmazonS3Client(RegionEndpoint.EUWest2);
-        //private string _bucketName = "mis-pdf-library";//this is my Amazon Bucket name
-        //private static string _bucketSubdirectory = String.Empty;
-
-        //upload creds
-        //private const string keyName = "updatedtestfile.txt";
-        //private const string filePath = null;
-        // Specify your bucket region (an example region is shown).  
+        private IHostingEnvironment _hostingEnvironment; 
         private static readonly string bucketName = "practice-bucket-abcdefg";
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
         private static readonly string accesskey = "AKIAUFFI6OS7E2BABOGY";
@@ -54,7 +46,9 @@ namespace BYUFagElGamous1_5.Controllers
             return View();
         }
 
-        //ADD MUMMY ----------------------------------------------------
+        //-----------------------------------------
+        //               ADD MUMMY
+        //-----------------------------------------
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, Researcher")]
         public IActionResult AddMummy()
@@ -103,7 +97,10 @@ namespace BYUFagElGamous1_5.Controllers
             });
         }
 
-        //VIEW MUMMIES -----------------------------------------
+
+        //-----------------------------------------
+        //               VIEW MUMMIES
+        //-----------------------------------------
         [HttpGet]
         public IActionResult ViewMummies(int pageItems = 10, int pageNum = 1)
         {
@@ -246,7 +243,9 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
 
-        //MUMMY PROFILE -------------------------------------------
+        //-----------------------------------------
+        //             MUMMY PROFILE
+        //-----------------------------------------
         [HttpPost]
         public IActionResult MummyProfile(int id)
         {
@@ -263,15 +262,6 @@ namespace BYUFagElGamous1_5.Controllers
                 //If no measurement is found, create a new measurement
                 msr = new Measurements();
             }
-
-            //try
-            //{
-            //    note = context.Notes.Where(x => x.MummyId == mum.MummyId).First();
-            //}
-            //catch
-            //{
-            //    note = new Notes();
-            //}
 
             return View(new MummyProfileViewModel
             {
@@ -413,6 +403,10 @@ namespace BYUFagElGamous1_5.Controllers
 
         }
 
+        //-----------------------------------------
+        //             DELETE MUMMY
+        //-----------------------------------------
+
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -446,6 +440,10 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
 
+
+        //-----------------------------------------
+        //               EDITS
+        //-----------------------------------------
         [HttpPost]
         public IActionResult EditAttributes(int id)
         {
@@ -577,13 +575,22 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         //---------------------------------------
-        // Image Uploading
+        //          Image Uploading
         // --------------------------------------
 
-        [HttpGet]
-        public ActionResult UploadFile()
+        public static string GetUntilOrEmpty( string text, string stopAt = ".")
         {
-            return View();
+            if (!String.IsNullOrEmpty(text))
+            {
+                int charLocation = text.IndexOf(stopAt, StringComparison.Ordinal);
+
+                if (charLocation > 0)
+                {
+                    return text.Substring(0, charLocation);
+                }
+            }
+
+            return String.Empty;
         }
 
         [HttpPost]
@@ -597,7 +604,9 @@ namespace BYUFagElGamous1_5.Controllers
             {
                 folderPath = $"images/{upload.FormFile.FileName}";
                 mumImg.Type = "image";
-                mumImg.Name = upload.FormFile.FileName;
+                string name = upload.FormFile.FileName;
+                name = GetUntilOrEmpty(name);
+                mumImg.Name = name; //here----------------------
             }
             else if (upload.FormFile.ContentType == "application/pdf")
             {
@@ -640,10 +649,9 @@ namespace BYUFagElGamous1_5.Controllers
                 Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).First()
             });
         }
-            // End Image Uploading
-            //----------------------------------------
 
-            [HttpPost]
+
+        [HttpPost]
         public IActionResult AddNote(int id, MummyNotesViewModel note)
         {
             note.NewNote.MummyId = id;
