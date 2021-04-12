@@ -137,7 +137,6 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ViewMummies([FromForm] ViewMummyViewModel viewMummy,
         [ValidateAntiForgeryToken]
         public IActionResult ViewMummies([FromForm] ViewMummyViewModel viewMummy,
             string searchFor, DateTime DateFrom, DateTime DateTo) //Dictionary<Mummy, Location> mumLocs, Mummy dummyMummy, PageNumberInfo pageNumberInfo,
