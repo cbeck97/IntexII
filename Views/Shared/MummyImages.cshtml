@@ -1,13 +1,43 @@
 ﻿@model Dictionary<string, string>
 
-<h3>Mummy Images</h3>
-
-@foreach(var x in Model)
+@foreach (var x in Model)
 {
-    <img src="@x.Key" width="300" height="300" />
+
+
+
+
+    <div class="col-3">
+        <a href="#Image-@x.Value" data-toggle="modal" data-target="#Image-@x.Value">
+            <img src="@x.Key" width="150" class="img-responsive img-rounded center-block" alt=""/>
+        </a>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade dialog1" id="Image-@x.Value" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-height" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">Image: </h5>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="@x.Key" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 }
-
-@*@foreach(var x in Model)
-{
-    <a href="@x" target="_blank">Photo</a>
-}*@
