@@ -6,35 +6,38 @@
 
 
 <div class="card-background p-3">
-    <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#FilterCollapse" aria-expanded="false" aria-controls="FilterCollapse">View Filter Options</button>
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="form-group">
+                <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#FilterCollapse"
+                        aria-expanded="false" aria-controls="multiCollapseExample2">
+                    View Filter Options
+                </button>
+            </div>
+            <form asp-action="ViewMummies" method="get">
+                <div class="form-group">
+                    <select id="numberItems" name="pageItems" class="form-select form-control" aria-label="Number of Mummies displayed"
+                            onchange="javascript:this.form.submit()">
+                        <option value="">Burials per Page:</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="35">35</option>
+                        <option value="50">50</option>
+                    </select>
+                    <input hidden name="pageNum" value="@Model.PageNumberInfo.CurrentPage" />
+                    <input hidden id="pageNumItems" type="submit" />
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="card-body collapse multi-collapse" id="FilterCollapse">
-        <form asp-action="ViewMummies" method="get">
-            <label>Select Number of Burials on Page: </label>
-            <select id="numberItems" name="pageItems" class="form-select form-control col-1 numberItems" aria-label="Number of Mummies displayed"
-                    onchange="javascript:this.form.submit()">
-                @*<option selected>Num</option>*@
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="35">35</option>
-                <option value="50">50</option>
-            </select>
-            <input hidden name="pageNum" value="@Model.PageNumberInfo.CurrentPage" />
-            <input id="pageNumItems" type="submit" hidden />
-        </form>
         <form asp-action="ViewMummies" method="post">
             <input hidden asp-for="@Model.PageNumberInfo.CurrentPage" />
             <input hidden asp-for="@Model.PageNumberInfo.NumItemsPerPage" />
             <input hidden asp-for="@Model.PageNumberInfo.numItems" />
             <input hidden asp-for="@Model.PageNumberInfo.TotalNumItems" />
-            <div class="form-row text-left">
-                <div class="col">
-                    <label for="searchFor">Search for</label>
-                    @Html.TextBox("searchFor", null, new { @type = "search", @class = "form-control", @placeholder = "Search for..." })
-                </div>
-                <div class="col"></div>
-            </div>
             <div class="form-row text-left">
                 <!-- Date range -->
                 <div class="form-group col">
@@ -52,6 +55,11 @@
                         @Html.Hidden("DateTo", (string)ViewBag.DateTo)
                     </div>
                     <!-- /.input group -->
+                </div>
+                <div class="col"></div>
+                <div class="form-group col">
+                    <label for="searchFor">Search</label>
+                    @Html.TextBox("searchFor", null, new { @type = "search", @class = "form-control", @placeholder = "Search for..." })
                 </div>
             </div>
             <div class="form-row text-left">
@@ -105,29 +113,6 @@
             </div>
             <div class="form-row text-left">
                 <div class="form-group col">
-                    <label for="BuriaAgeAtDeath" asp-for="@Model.mummy.BurialAgeAtDeath">Burial Age at Death</label>
-                    <input id="BurialAgeAtDeath" class="form-control" asp-for="@Model.mummy.BurialAgeAtDeath" placeholder="Age at Death" />
-                </div>
-                <div class="form-group col">
-                    <label for="BurialAgeMethod" asp-for="@Model.mummy.BurialAgeMethod">Burial Age Method</label>
-                    <select id="BurialAgeMethod" class="custom-select" asp-for="@Model.mummy.BurialAgeMethod">
-                        <option value="">Select</option>
-                        <option value="P">P</option>
-                        <option value="S">S</option>
-                        <option value="U">U</option>
-                    </select>
-                </div>
-                <div class="form-group col">
-                    <label for="Length" asp-for="@Model.mummy.LengthOfRemains">Length</label>
-                    <input id="Length" class="form-control" asp-for="@Model.mummy.LengthOfRemains" placeholder="Enter Length in Meters" />
-                </div>
-                <div class="form-group col">
-                    <label for="BurialPreservation" asp-for="@Model.mummy.BurialPreservation">Burial Preservations</label>
-                    <input id="BurialPreservation" class="form-control" asp-for="@Model.mummy.BurialPreservation" placeholder="Burial Preservation Notes" />
-                </div>
-            </div>
-            <div class="form-row text-left">
-                <div class="form-group col">
                     <label for="HairColor" asp-for="@Model.mummy.HairColor">Hair Color</label>
                     <select id="HairColor" class="custom-select" asp-for="@Model.mummy.HairColor">
                         <option value="">Select</option>
@@ -136,6 +121,15 @@
                         <option value="D">D</option>
                         <option value="K">K</option>
                         <option value="R">R</option>
+                        <option value="U">U</option>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <label for="BurialAgeMethod" asp-for="@Model.mummy.BurialAgeMethod">Burial Age Method</label>
+                    <select id="BurialAgeMethod" class="custom-select" asp-for="@Model.mummy.BurialAgeMethod">
+                        <option value="">Select</option>
+                        <option value="P">P</option>
+                        <option value="S">S</option>
                         <option value="U">U</option>
                     </select>
                 </div>
@@ -183,6 +177,18 @@
                         <option value="Y">Y</option>
                         <option value="U">U</option>
                     </select>
+                </div>
+                <div class="form-group col">
+                    <label for="Length" asp-for="@Model.mummy.LengthOfRemains">Length</label>
+                    <input id="Length" class="form-control" asp-for="@Model.mummy.LengthOfRemains" placeholder="Enter Length in Meters" />
+                </div>
+                <div class="form-group col">
+                    <label for="BurialPreservation" asp-for="@Model.mummy.BurialPreservation">Burial Preservations</label>
+                    <input id="BurialPreservation" class="form-control" asp-for="@Model.mummy.BurialPreservation" placeholder="Burial Preservation Notes" />
+                </div>
+                <div class="form-group col">
+                    <label for="BuriaAgeAtDeath" asp-for="@Model.mummy.BurialAgeAtDeath">Burial Age at Death</label>
+                    <input id="BurialAgeAtDeath" class="form-control" asp-for="@Model.mummy.BurialAgeAtDeath" placeholder="Age at Death" />
                 </div>
             </div>
             <div class="row">
