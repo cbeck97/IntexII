@@ -362,6 +362,35 @@ namespace BYUFagElGamous1_5.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            //find the corresponding tables for the specified mummy
+            var mummy = await context.Mummy.FindAsync(id);
+            var location = await context.Location.FindAsync(mummy.LocationId);
+            var measurement = await context.Measurements.FindAsync(mummy.MeasurementId);
+            var sample = await context.Sample.FindAsync(mummy.SampleId);
+            var carbon = await context.CarbonDated.Where(x => x.MummyId == mummy.MummyId).FirstOrDefaultAsync();
+
+            //find each note attatched to mummy
+            foreach (var note in context.Notes.Where(x => x.MummyId == mummy.MummyId))
+            {
+                var noteDel = await context.Notes.FindAsync(note.NotesId);
+                context.Notes.Remove(noteDel);
+            }
+
+            //remove each record from tables
+            //making sure to remove mummy last 
+            context.Location.Remove(location);
+            context.Measurements.Remove(measurement);
+            context.Sample.Remove(sample);
+            context.CarbonDated.Remove(carbon);
+            context.Mummy.Remove(mummy);
+
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(ViewMummies));
+        }
+
 
         [HttpPost]
         public IActionResult EditAttributes(int id)
@@ -461,7 +490,7 @@ namespace BYUFagElGamous1_5.Controllers
                     Location = context.Location.Where(x => x.LocationId == mummy.LocationId).First(),
                     Measurement = context.Measurements.Where(x => x.MeasurementId == mummy.MeasurementId).FirstOrDefault(),
                     //Notes = context.Notes.Where(x => x.MummyId == mummy.MummyId).FirstOrDefault()
-                }) ;
+                });
             }
             return View("UpdateMummy", carbon);
         }
