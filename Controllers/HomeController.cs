@@ -26,7 +26,8 @@ namespace BYUFagElGamous1_5.Controllers
     [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
-        private IHostingEnvironment _hostingEnvironment; 
+        private IWebHostEnvironment _hostingEnvironment;
+        //private IHostingEnvironment _hostingEnvironment; 
         private static readonly string bucketName = "practice-bucket-abcdefg";
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
         private static readonly string accesskey = "AKIAUFFI6OS7E2BABOGY";
@@ -36,7 +37,7 @@ namespace BYUFagElGamous1_5.Controllers
         private readonly ILogger<HomeController> _logger;
         private FagElGamousContext context;
 
-        public HomeController(ILogger<HomeController> logger, FagElGamousContext ctx, IHostingEnvironment environment)
+        public HomeController(ILogger<HomeController> logger, FagElGamousContext ctx, IWebHostEnvironment environment)
         {
             _logger = logger;
             context = ctx;
@@ -137,6 +138,8 @@ namespace BYUFagElGamous1_5.Controllers
 
         [HttpPost]
         public async Task<IActionResult> ViewMummies([FromForm] ViewMummyViewModel viewMummy,
+        [ValidateAntiForgeryToken]
+        public IActionResult ViewMummies([FromForm] ViewMummyViewModel viewMummy,
             string searchFor, DateTime DateFrom, DateTime DateTo) //Dictionary<Mummy, Location> mumLocs, Mummy dummyMummy, PageNumberInfo pageNumberInfo,
         {
             //Dictionary to line up each mummy with location based on location
@@ -592,7 +595,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> FileUploadForm(FileUpload upload, int id = 1)
+        public IActionResult FileUploadForm(FileUpload upload, int id = 1)
         {
             AmazonS3Client client = new AmazonS3Client(accesskey, secretkey, bucketRegion);
             string folderPath = "";
