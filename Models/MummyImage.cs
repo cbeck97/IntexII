@@ -9,6 +9,7 @@ namespace BYUFagElGamous1_5.Models
 {
     public partial class MummyImage
     {
+        public int MummyImageId { get; set; }
         public int? MummyId { get; set; }
         public int? ImageId { get; set; }
     }

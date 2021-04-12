@@ -533,30 +533,46 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> FileUploadForm(FileUpload upload)
+        public async Task<IActionResult> FileUploadForm(FileUpload upload, int id = 1)
         {
             AmazonS3Client client = new AmazonS3Client(accesskey, secretkey, bucketRegion);
-            string folderPath = "photos/img2";
+            string folderPath = "";
+            if (upload.FormFile.ContentType == "image/jpeg")
+            {
+                folderPath = $"images/{upload.FormFile.FileName}";
+            }
+            else if (upload.FormFile.ContentType == "application/pdf")
+            {
+                folderPath = $"documents/{upload.FormFile.FileName}";
+            }
+
+            MummyImage mumImg = new MummyImage();
+            Images img = new Images();
+            img.ImageSource = $"https://practice-bucket-abcdefg.s3.amazonaws.com/images/{upload.FormFile.FileName}";
+            context.Add(img);
+            context.SaveChanges();
+            mumImg.ImageId = context.Images.OrderByDescending(x => x.ImageId).Select(x => x.ImageId).First();
+            mumImg.MummyId = id;
+            context.Add(mumImg);
+            context.SaveChanges();
+
+
             PutObjectRequest request = new PutObjectRequest()
             {
                 BucketName = bucketName,
                 Key = folderPath
             };
 
-            using (FileStream stream = new FileStream("/Users/carterbeck/Downloads/Fag el-Gamous Student INTEX Data/Photos/Slide6.JPG", FileMode.Open))
+            using (Stream fileToUpload = upload.FormFile.OpenReadStream())
             {
-                request.InputStream = stream;
-
-                var test = upload.FormFile.ContentDisposition;
-                var test2 = upload.FormFile.ContentType;
-                var test3 = upload.FormFile.FileName;
+                request.InputStream = fileToUpload;
+                request.ContentType = upload.FormFile.ContentType;
 
                 var response = client.PutObjectAsync(request);
                 response.Wait();
-                Console.WriteLine(response.Result);
             }
 
-            return View();
+            return View("UploadFile");
         }
         // End Image Uploading
         //----------------------------------------

@@ -61,6 +61,8 @@
         </div>
     </div>
 }
+<button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'images')" id="MummyImages">Images</button>
+<button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'files')" id="MummyFiles">Files</button>
 <div id="partialView">
 </div>
 
@@ -90,6 +92,8 @@
         $('#MummyNotes').removeClass('btn-link').css("color", "black")
         $('#MummySamples').removeClass('btn-link').css("color", "black")
         $('#MummyCarbon').removeClass('btn-link').css("color", "black")
+        $('#MummyImages').removeClass('btn-link').css("color", "black")
+        $('#MummyFiles').removeClass('btn-link').css("color", "black")
         $('#' + id).addClass('btn-link').css("color", "white");
     }
 </script>

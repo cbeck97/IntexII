@@ -266,8 +266,7 @@ namespace BYUFagElGamous1_5.Models
                     .HasName("PK__Images__7516F4EC5A0B70B8");
 
                 entity.Property(e => e.ImageId)
-                    .HasColumnName("ImageID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("ImageID");
             });
 
             modelBuilder.Entity<Location>(entity =>
@@ -401,14 +400,11 @@ namespace BYUFagElGamous1_5.Models
 
             modelBuilder.Entity<MummyImage>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.HasIndex(e => new { e.MummyId, e.ImageId })
-                    .HasName("CPK");
-
                 entity.Property(e => e.ImageId).HasColumnName("ImageID");
 
                 entity.Property(e => e.MummyId).HasColumnName("MummyID");
+
+                entity.Property(e => e.MummyImageId).HasColumnName("MummyImageID");
             });
 
             modelBuilder.Entity<Notes>(entity =>
