@@ -1,10 +1,10 @@
-﻿@model IEnumerable<string>
+﻿@model Dictionary<string, string>
 
 <h3>Mummy Images</h3>
 
 @foreach(var x in Model)
 {
-    <img src="@x" width="300" height="300" />
+    <img src="@x.Key" width="300" height="300" />
 }
 
 @*@foreach(var x in Model)

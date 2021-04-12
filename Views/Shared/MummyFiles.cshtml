@@ -1,4 +1,4 @@
-﻿@model IEnumerable<string>
+﻿@model Dictionary<string, string>
 
 <h3>Mummy Files</h3>
 
@@ -10,7 +10,7 @@
         @foreach(var x in Model)
         {
             <tr>
-                <td><a href="@x" target="_blank">Link</a></td>
+                <td><a href="@x.Key" target="_blank">@x.Value</a></td>
             </tr>
         }
     </tbody>

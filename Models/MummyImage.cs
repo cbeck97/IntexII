@@ -12,5 +12,7 @@ namespace BYUFagElGamous1_5.Models
         public int MummyImageId { get; set; }
         public int? MummyId { get; set; }
         public int? ImageId { get; set; }
+        public string Type { get; set; }
+        public string Name { get; set; }
     }
 }

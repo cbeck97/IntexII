@@ -405,6 +405,8 @@ namespace BYUFagElGamous1_5.Models
                 entity.Property(e => e.MummyId).HasColumnName("MummyID");
 
                 entity.Property(e => e.MummyImageId).HasColumnName("MummyImageID");
+
+                entity.Property(e=>e.Type).HasColumnName("Type").HasMaxLength(124);
             });
 
             modelBuilder.Entity<Notes>(entity =>

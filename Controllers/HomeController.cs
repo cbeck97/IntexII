@@ -349,23 +349,37 @@ namespace BYUFagElGamous1_5.Controllers
             {
                 IEnumerable<MummyImage> output = context.MummyImage.Where(x => x.MummyId == selector);
                 List<string> images = new List<string>();
+                Dictionary<string, string> returnDict = new Dictionary<string, string>();
                 foreach (var x in output)
                 {
-                    Images img = context.Images.Where(y => y.ImageId == x.ImageId).First();
-                    images.Add(img.ImageSource);
+                    if(x.Type == "file")
+                    {
+                        Images img = context.Images.Where(y => y.ImageId == x.ImageId && x.Type == "file").First();
+                        returnDict.Add(img.ImageSource, x.Name);
+                        images.Add(img.ImageSource);
+                    }
+
+                    
                 }
-                return PartialView(id, images);
+                return PartialView(id, returnDict);
             }
             else if (type == "images")
             {
                 IEnumerable<MummyImage> output = context.MummyImage.Where(x => x.MummyId == selector);
+                Dictionary<string, string> returnDict = new Dictionary<string, string>();
                 List<string> images = new List<string>();
                 foreach(var x in output)
                 {
-                    Images img = context.Images.Where(y => y.ImageId == x.ImageId).First();
-                    images.Add(img.ImageSource);
+                    if(x.Type == "image")
+                    {
+                        Images img = context.Images.Where(y => y.ImageId == x.ImageId).First();
+                        returnDict.Add(img.ImageSource, x.Name);
+                        images.Add(img.ImageSource);
+                    }
+                    
+                    
                 }
-                return PartialView(id, images);
+                return PartialView(id, returnDict);
             }
             else
             {
@@ -577,18 +591,23 @@ namespace BYUFagElGamous1_5.Controllers
         {
             AmazonS3Client client = new AmazonS3Client(accesskey, secretkey, bucketRegion);
             string folderPath = "";
+            MummyImage mumImg = new MummyImage();
+            Images img = new Images();
             if (upload.FormFile.ContentType == "image/jpeg")
             {
                 folderPath = $"images/{upload.FormFile.FileName}";
+                mumImg.Type = "image";
+                mumImg.Name = upload.FormFile.FileName;
             }
             else if (upload.FormFile.ContentType == "application/pdf")
             {
                 folderPath = $"documents/{upload.FormFile.FileName}";
+                mumImg.Type = "file";
+                mumImg.Name = upload.FormFile.FileName;
             }
 
-            MummyImage mumImg = new MummyImage();
-            Images img = new Images();
-            img.ImageSource = $"https://practice-bucket-abcdefg.s3.amazonaws.com/images/{upload.FormFile.FileName}";
+            
+            img.ImageSource = $"https://practice-bucket-abcdefg.s3.amazonaws.com/{folderPath}";
             context.Add(img);
             context.SaveChanges();
             mumImg.ImageId = context.Images.OrderByDescending(x => x.ImageId).Select(x => x.ImageId).First();
