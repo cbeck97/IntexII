@@ -329,7 +329,7 @@ namespace BYUFagElGamous1_5.Controllers
                     NewSample = null
                 });
             }
-            else
+            else if (type == "carbon")
             {
                 List<CarbonDated> carbons = context.CarbonDated.Where(x => x.MummyId == selector).ToList();
                 return PartialView(id, new MummyCarbonViewModel
@@ -338,6 +338,18 @@ namespace BYUFagElGamous1_5.Controllers
                     MummyId = selector,
                     NewCarbon = null
                 });
+            }
+            else if (type == "images")
+            {
+                return PartialView(id);
+            }
+            else if (type == "files")
+            {
+                return PartialView(id);
+            }
+            else
+            {
+                return PartialView(id);
             }
         }
 
