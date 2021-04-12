@@ -176,7 +176,7 @@ namespace BYUFagElGamous1_5.Controllers
                            .Where(m => m.DayFound >= DateFrom.Day && m.DayFound <= DateTo.Day)
                            .Where(m => m.MonthFound >= DateFrom.Month && m.MonthFound <= DateTo.Month)
                            .Where(m => m.YearFound >= DateFrom.Year && m.YearFound <= DateTo.Year)
-                          select m;
+                          select m; 
             }
 
             //Checks all filter inputs > if changed then narrows the results by what has been entered
@@ -252,7 +252,7 @@ namespace BYUFagElGamous1_5.Controllers
         {
             Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
             Measurements msr;
-            Notes note;
+            //Notes note;
             Location loc = context.Location.Where(x => x.LocationId == mum.LocationId).First();
             try
             {

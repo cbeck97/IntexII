@@ -3,7 +3,7 @@
 @inject IAuthorizationService AuthorizationService
 
 <h1 class="display-4">
-    Mummy Profile: N @Model.Location.LowPairNs/@Model.Location.HighPairNs E @Model.Location.LowPairEw/@Model.Location.HighPairEw
+    Mummy Profile: @Model.Location.BurialLocationNs @Model.Location.LowPairNs/@Model.Location.HighPairNs @Model.Location.BurialLocationEw @Model.Location.LowPairEw/@Model.Location.HighPairEw
     @Model.Location.Subplot #@Model.Location.BurialNumber
 </h1>
 
@@ -18,6 +18,48 @@
     <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'notes')" id="MummyNotes">Field Notes</button>
     <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'sample')" id="MummySamples">Samples</button>
     <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'carbon')" id="MummyCarbon">Carbon Dating</button>
+    <button type="button" class="btn btn-danger btn-lg my-3" data-toggle="modal" data-target="#Delete-@Model.Mummy.MummyId">
+        Delete: @Model.Location.BurialLocationNs @Model.Location.LowPairNs/@Model.Location.HighPairNs @Model.Location.BurialLocationEw @Model.Location.LowPairEw/@Model.Location.HighPairEw
+        @Model.Location.Subplot #@Model.Location.BurialNumber
+    </button>
+
+    <div class="modal fade" id="Delete-@Model.Mummy.MummyId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-height" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Delete Mummy @Model.Location.BurialLocationNs @Model.Location.LowPairNs/@Model.Location.HighPairNs @Model.Location.BurialLocationEw @Model.Location.LowPairEw/@Model.Location.HighPairEw
+                        @Model.Location.Subplot #@Model.Location.BurialNumber
+                    </h5>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        By deleting Mummy : @Model.Location.BurialLocationNs @Model.Location.LowPairNs/@Model.Location.HighPairNs @Model.Location.BurialLocationEw @Model.Location.LowPairEw/@Model.Location.HighPairEw
+                        @Model.Location.Subplot #@Model.Location.BurialNumber, all information will be permanetly lost. 
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col">
+                            <form asp-controller="Home" asp-action="DeleteConfirmed" method="post">
+                                <input type="hidden" value="@Model.Mummy.MummyId" />
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 <div id="partialView">
 </div>
