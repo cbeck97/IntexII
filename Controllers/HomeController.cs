@@ -33,7 +33,7 @@ namespace BYUFagElGamous1_5.Controllers
         //private const string keyName = "updatedtestfile.txt";
         //private const string filePath = null;
         // Specify your bucket region (an example region is shown).  
-        private static readonly string bucketName = "intex-2";
+        private static readonly string bucketName = "practice-bucket-abcdefg";
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
         private static readonly string accesskey = "AKIAUFFI6OS7E2BABOGY";
         private static readonly string secretkey = "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";
@@ -504,24 +504,30 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile(FileUpload upload)
+        public async Task<IActionResult> FileUploadForm(FileUpload upload)
         {
-            using (var memoryStream = new MemoryStream())
+            AmazonS3Client client = new AmazonS3Client(accesskey, secretkey, bucketRegion);
+            string folderPath = "photos/img2";
+            PutObjectRequest request = new PutObjectRequest()
             {
-                await upload.FormFile.CopyToAsync(memoryStream);
+                BucketName = bucketName,
+                Key = folderPath
+            };
 
-                if (memoryStream.Length < 2097152)
-                {
-                    await S3Upload.UploadFileAsync(memoryStream, bucketName, accesskey);
-                }
-                else
-                {
-                    ModelState.AddModelError("File", "The file is too large.");
-                }
+            using (FileStream stream = new FileStream("/Users/carterbeck/Downloads/Fag el-Gamous Student INTEX Data/Photos/Slide6.JPG", FileMode.Open))
+            {
+                request.InputStream = stream;
+
+                var test = upload.FormFile.ContentDisposition;
+                var test2 = upload.FormFile.ContentType;
+                var test3 = upload.FormFile.FileName;
+
+                var response = client.PutObjectAsync(request);
+                response.Wait();
+                Console.WriteLine(response.Result);
             }
 
             return View();
-           
         }
         // End Image Uploading
         //----------------------------------------

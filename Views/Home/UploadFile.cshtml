@@ -1,6 +1,6 @@
 ﻿@model FileUpload
 
-<form asp-action="UploadFile" enctype="multipart/form-data" method="post">
+<form enctype="multipart/form-data" method="post" asp-action="FileUploadForm">
     <dl>
         <dt>
             <label asp-for="FormFile"></label>
@@ -9,5 +9,5 @@
             <input asp-for="FormFile" type="file">
         </dd>
     </dl>
-    <input asp-page-handler="Upload" class="btn" type="submit" value="Upload">
+    <button type="submit">Submit</button>
 </form>
