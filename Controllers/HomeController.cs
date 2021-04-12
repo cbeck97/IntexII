@@ -28,7 +28,7 @@ namespace BYUFagElGamous1_5.Controllers
     [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
-        private IHostingEnvironment _hostingEnvironment;
+        private IWebHostEnvironment _hostingEnvironment;
 
         private readonly ILogger<HomeController> _logger;
         private FagElGamousContext context;
