@@ -9,41 +9,41 @@
     <form asp-controller="Home" asp-action="UpdateSample" method="post" class="card-background p-3">
         <div class="form-row text-left">
             <div class="form-group col">
-                <label for="SampleNumber" asp-for="@Model.SampleNumber">Sample Number</label>
+                <label for="SampleNumber" asp-for="@Model.SampleNumber">Sample Number: </label>
                 <input type="number" id="SampleNumber" class="form-control" asp-for="@Model.SampleNumber" placeholder="i.e 10" />
             </div>
             <div class="form-group col">
-                <label for="RackNumber" asp-for="@Model.RackNumber">Rack Number</label>
+                <label for="RackNumber" asp-for="@Model.RackNumber">Rack Number: </label>
                 <input type="number" id="RackNumber" class="form-control" asp-for="@Model.RackNumber" placeholder="i.e 10" />
             </div>
             <div class="form-group col">
-                <label for="Bag" asp-for="@Model.Bag">Bag</label>
+                <label for="Bag" asp-for="@Model.Bag">Bag: </label>
                 <input type="number" id="Bag" class="form-control" asp-for="@Model.Bag" placeholder="i.e 10" />
             </div>
             <div class="form-group col">
-                <label for="Date" asp-for="@Model.Date">Date</label>
+                <label for="Date" asp-for="@Model.Date">Date: </label>
                 <input id="Date" class="form-control" asp-for="@Model.Date" placeholder="i.e 10" />
             </div>
         </div>
 
         <div class="form-row text-left">
             <div class="form-group col">
-                <label for="PreviouslySampled" asp-for="@Model.PreviouslySampled">Low Pair E/W</label>
+                <label for="PreviouslySampled" asp-for="@Model.PreviouslySampled">Low Pair E/W: </label>
                 <input id="PreviouslySampled" class="custom-select" asp-for="@Model.PreviouslySampled" placeholder="Enter if Previously Sampled" />
 
             </div>
             <div class="form-group col">
-                <label for="Initials" asp-for="@Model.Initials">High Pair E/W</label>
+                <label for="Initials" asp-for="@Model.Initials">High Pair E/W: </label>
                 <input id="Initials" class="custom-select" asp-for="@Model.Initials" placeholder="Enter Initials" />
 
             </div>
 
             <div class="form-group col">
-                <label for="ClusterNumber" asp-for="@Model.ClusterNumber">Cluster Number</label>
+                <label for="ClusterNumber" asp-for="@Model.ClusterNumber">Cluster Number: </label>
                 <input type="number" id="ClusterNumber" class="custom-select" asp-for="@Model.ClusterNumber" placeholder="i.e 10" />
             </div>
             <div class="form-group col">
-                <label for="Area" asp-for="@Model.Area">Area</label>
+                <label for="Area" asp-for="@Model.Area">Area: </label>
                 <input id="Area" class="custom-select" asp-for="@Model.Area" placeholder="Enter Area" />
             </div>
         </div>

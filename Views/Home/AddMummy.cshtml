@@ -32,7 +32,7 @@
                     <input id="LowPairNs" class="form-control" asp-for="Location.LowPairNs" placeholder="i.e. 190" />
                 </div>
                 <div class="form-group col">
-                    <label for="BurialLocationNs" asp-for="Location.BurialLocationNs">N/S</label>
+                    <label for="BurialLocationNs" asp-for="Location.BurialLocationNs">N/S: </label>
                     <select id="BurialLocationNs" class="custom-select" asp-for="Location.BurialLocationNs">
                         <option selected value="N">N</option>
                         <option value="S">S</option>
@@ -43,7 +43,7 @@
                     <input id="LowPairEw" class="form-control" asp-for="Location.LowPairEw" placeholder="i.e. 40" />
                 </div>
                 <div class="form-group col">
-                    <label for="BurialLocationEw" asp-for="Location.BurialLocationEw">E/W</label>
+                    <label for="BurialLocationEw" asp-for="Location.BurialLocationEw">E/W: </label>
                     <select id="BurialLocationEw" class="custom-select" asp-for="Location.BurialLocationEw">
                         <option selected value="E">E</option>
                         <option value="W">W</option>
@@ -74,7 +74,7 @@
                     <input id="SouthToHead" class="form-control" asp-for="Location.SouthToHead" placeholder="Meters" />
                 </div>
                 <div class="form-group col">
-                    <label for="SouthToFeet" asp-for="Location.SouthToFeet">South to Feet:</label>
+                    <label for="SouthToFeet" asp-for="Location.SouthToFeet">South to Feet: </label>
                     <input id="SouthToFeet" class="form-control" asp-for="Location.SouthToFeet" placeholder="Meters" />
                 </div>
                 <div class="form-group col">
@@ -92,7 +92,7 @@
             </div>
             <div class="form-row text-left">
                 <div class="form-group col">
-                    <label for="PhotoTaken" asp-for="Mummy.PhotoTaken">Photo Taken</label>
+                    <label for="PhotoTaken" asp-for="Mummy.PhotoTaken">Photo Taken: </label>
                     <select id="PhotoTaken" class="custom-select" asp-for="Mummy.PhotoTaken">
                         <option value="">Select</option>
                         <option value="true">Y</option>
@@ -100,7 +100,7 @@
                     </select>
                 </div>
                 <div class="form-group col">
-                    <label for="Artifact" asp-for="Mummy.Artifacts">Artifact</label>
+                    <label for="Artifact" asp-for="Mummy.Artifacts">Artifact: </label>
                     <select id="Artifact" class="custom-select" asp-for="Mummy.Artifacts">
                         <option value="">Select</option>
                         <option value="true">Y</option>
@@ -110,7 +110,7 @@
             </div>
             <div class="form-row text-left">
                 <div class="form-group col">
-                    <label for="BurialSituation" asp-for="Location.BurialSituation">Burial Situation</label>
+                    <label for="BurialSituation" asp-for="Location.BurialSituation">Burial Situation: </label>
                     <textarea id="BurialSituation" class="form-control" asp-for="Location.BurialSituation" placeholder="Notes about Burial Situation"></textarea>
                 </div>
             </div>

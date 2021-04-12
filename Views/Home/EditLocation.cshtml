@@ -8,36 +8,36 @@
     <form asp-controller="Home" asp-action="UpdateLocation" method="post" class="card-background p-3">
         <div class="form-row text-left">
             <div class="form-group col">
-                <label for="BurialLocationNs" asp-for="@Model.BurialLocationNs">Location N/S</label>
+                <label for="BurialLocationNs" asp-for="@Model.BurialLocationNs">Location N/S: </label>
                 <input id="BurialLocationNs" class="form-control" asp-for="@Model.BurialLocationNs" placeholder="Enter N/S Location Description"/>
             </div>
             <div class="form-group col">
-                <label for="BurialLocationEw" asp-for="@Model.BurialLocationEw">Location E/W</label>
+                <label for="BurialLocationEw" asp-for="@Model.BurialLocationEw">Location E/W: </label>
                 <input id="BurialLocationEw" class="form-control" asp-for="@Model.BurialLocationEw" placeholder="Enter E/W Location Description"/>
             </div>
             <div class="form-group col">
-                <label for="LowPairNs" asp-for="@Model.LowPairNs">Low Pair N/S</label>
+                <label for="LowPairNs" asp-for="@Model.LowPairNs">Low Pair N/S: </label>
                 <input type="number" id="LowPairNs" class="form-control" asp-for="@Model.LowPairNs" placeholder="i.e 10"/>
             </div>
             <div class="form-group col">
-                <label for="HighPairNs" asp-for="@Model.HighPairNs">High Pair N/S</label>
+                <label for="HighPairNs" asp-for="@Model.HighPairNs">High Pair N/S: </label>
                 <input type="number" id="HighPairNs" class="form-control" asp-for="@Model.HighPairNs" placeholder="i.e 10"/>  
             </div>
         </div>
 
         <div class="form-row text-left">
             <div class="form-group col">
-                <label for="LowPairEw" asp-for="@Model.LowPairEw">Low Pair E/W</label>
+                <label for="LowPairEw" asp-for="@Model.LowPairEw">Low Pair E/W: </label>
                 <input type="number" id="LowPairEw" class="custom-select" asp-for="@Model.LowPairEw" placeholder="i.e 10" />
 
             </div>
             <div class="form-group col">
-                <label for="HighPairEw" asp-for="@Model.HighPairEw">High Pair E/W</label>
+                <label for="HighPairEw" asp-for="@Model.HighPairEw">High Pair E/W: </label>
                 <input type="number" id="HighPairEw" class="custom-select" asp-for="@Model.HighPairEw" placeholder="i.e 10" />
 
             </div>
             <div class="form-group col">
-                <label for="Subplot" asp-for="@Model.Subplot">Subplot</label>
+                <label for="Subplot" asp-for="@Model.Subplot">Subplot: </label>
                 <select id="Subplot" class="custom-select" asp-for="@Model.Subplot" placeholder="Select Subplot">
                     <option>Select</option>
                     <option value="NE">NE</option>
@@ -49,55 +49,55 @@
 
             </div>
             <div class="form-group col">
-                <label for="BurialNumber" asp-for="@Model.BurialNumber">Burial Number</label>
+                <label for="BurialNumber" asp-for="@Model.BurialNumber">Burial Number: </label>
                 <input type="number" id="BurialNumber" class="custom-select" asp-for="@Model.BurialNumber" placeholder="i.e 10" />
             </div>
             <div class="form-group col">
-                <label for="BurialDepth" asp-for="@Model.BurialDepth">Burial Depth</label>
+                <label for="BurialDepth" asp-for="@Model.BurialDepth">Burial Depth: </label>
                 <input type="number" step="Any" id="BurialDepth" class="custom-select" asp-for="@Model.BurialDepth" placeholder="i.e 10" />
             </div>
         </div>
         <div class="form-row text-left">
             <div class="form-group col">
-                <label for="SouthToHead" asp-for="@Model.SouthToHead">South to Head</label>
+                <label for="SouthToHead" asp-for="@Model.SouthToHead">South to Head: </label>
                 <input type="number" step="Any" id="SouthToHead" class="form-control" asp-for="@Model.SouthToHead" placeholder="i.e 10"/>
             </div>
             <div class="form-group col">
-                <label for="SouthToFeet" asp-for="@Model.SouthToFeet">South to Feet</label>
+                <label for="SouthToFeet" asp-for="@Model.SouthToFeet">South to Feet: </label>
                 <input type="number" step="Any" id="SouthToFeet" class="form-control" asp-for="@Model.SouthToFeet" placeholder="i.e 10"/>
             </div>
             <div class="form-group col">
-                <label for="EastToHead" asp-for="@Model.EastToHead">East to Head</label>
+                <label for="EastToHead" asp-for="@Model.EastToHead">East to Head: </label>
                 <input type="number" step="Any" id="EastToHead" class="form-control" asp-for="@Model.EastToHead" placeholder="i.e 10"/>
             </div>
             <div class="form-group col">
-                <label for="EastToFeet" asp-for="@Model.EastToFeet">East to Feet</label>
+                <label for="EastToFeet" asp-for="@Model.EastToFeet">East to Feet: </label>
                 <input type="number" step="Any" id="EastToFeet" class="form-control" asp-for="@Model.EastToFeet" placeholder="i.e 10"/>
             </div>
         </div>
         <div class="form-row text-left">
             <div class="form-group col">
-                <label for="WestToHead" asp-for="@Model.WestToHead">West to Head</label>
+                <label for="WestToHead" asp-for="@Model.WestToHead">West to Head: </label>
                 <input id="HairColor" step="Any" class="custom-select" asp-for="@Model.WestToHead" placeholder="i.e 10" />
 
             </div>
             <div class="form-group col">
-                <label for="WestToFeet" asp-for="@Model.WestToFeet">West to Feet</label>
+                <label for="WestToFeet" asp-for="@Model.WestToFeet">West to Feet: </label>
                 <input id="WestToFeet" step="Any" class="custom-select" asp-for="@Model.WestToFeet" placeholder="i.e 10" />
 
             </div>
             <div class="form-group col">
-                <label for="BurialSituation" asp-for="@Model.BurialSituation">Burial Situation</label>
+                <label for="BurialSituation" asp-for="@Model.BurialSituation">Burial Situation: </label>
                 <input id="BurialSituation" class="custom-select" asp-for="@Model.BurialSituation" placeholder="Enter Burial Situation Info" />
 
             </div>
             <div class="form-group col">
-                <label for="Tomb" asp-for="@Model.Tomb">Tomb</label>
+                <label for="Tomb" asp-for="@Model.Tomb">Tomb: </label>
                 <input id="Tomb" class="custom-select" asp-for="@Model.Tomb" placeholder="Enter Tomb Info" />
 
             </div>
             <div class="form-group col">
-                <label for="Area" asp-for="@Model.Area">Area</label>
+                <label for="Area" asp-for="@Model.Area">Area: </label>
                 <input id="Area" class="custom-select" asp-for="@Model.Area" placeholder="Enter Area Info" />
 
             </div>
