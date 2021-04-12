@@ -585,6 +585,8 @@ namespace BYUFagElGamous1_5.Controllers
 
         //-----------------------------------------------------------
 
+        //This is a helper function that strips titles of their extensions
+        //to create file names
         public static string GetUntilOrEmpty( string text, string stopAt = ".")
         {
             if (!String.IsNullOrEmpty(text))
@@ -626,29 +628,51 @@ namespace BYUFagElGamous1_5.Controllers
                 mumImg.Name = upload.FormFile.FileName;
             }
 
+            string imageSource = $"https://practice-bucket-abcdefg.s3.amazonaws.com/{folderPath}";
+            List<Images> currentFiles = new List<Images>();
+
+            IEnumerable<MummyImage> mumImages = context.MummyImage.Where(x => x.MummyId == id);
+            foreach (MummyImage x in mumImages)
+            {
+                currentFiles.Add(context.Images.Where(y => y.ImageId == x.ImageId).First());
+            }
             
-            img.ImageSource = $"https://practice-bucket-abcdefg.s3.amazonaws.com/{folderPath}";
-            context.Add(img);
-            context.SaveChanges();
-            mumImg.ImageId = context.Images.OrderByDescending(x => x.ImageId).Select(x => x.ImageId).First();
-            mumImg.MummyId = id;
-            context.Add(mumImg);
-            context.SaveChanges();
 
+            //IEnumerable<Images> currentImages = context.Images.Select(x => x);
+            bool addFile = true;
 
-            PutObjectRequest request = new PutObjectRequest()
+            foreach (var x in currentFiles)
             {
-                BucketName = bucketName,
-                Key = folderPath
-            };
-
-            using (Stream fileToUpload = upload.FormFile.OpenReadStream())
+                if (x.ImageSource == imageSource)
+                {
+                    addFile = false;
+                    break;
+                }
+            }
+            if (addFile)
             {
-                request.InputStream = fileToUpload;
-                request.ContentType = upload.FormFile.ContentType;
+                img.ImageSource = imageSource;
+                context.Add(img);
+                context.SaveChanges();
+                mumImg.ImageId = context.Images.OrderByDescending(x => x.ImageId).Select(x => x.ImageId).First();
+                mumImg.MummyId = id;
+                context.Add(mumImg);
+                context.SaveChanges();
 
-                var response = client.PutObjectAsync(request);
-                response.Wait();
+                PutObjectRequest request = new PutObjectRequest()
+                {
+                    BucketName = bucketName,
+                    Key = folderPath
+                };
+
+                using (Stream fileToUpload = upload.FormFile.OpenReadStream())
+                {
+                    request.InputStream = fileToUpload;
+                    request.ContentType = upload.FormFile.ContentType;
+
+                    var response = client.PutObjectAsync(request);
+                    response.Wait();
+                }
             }
 
             Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
