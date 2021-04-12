@@ -176,7 +176,7 @@ namespace BYUFagElGamous1_5.Controllers
                            .Where(m => m.DayFound >= DateFrom.Day && m.DayFound <= DateTo.Day)
                            .Where(m => m.MonthFound >= DateFrom.Month && m.MonthFound <= DateTo.Month)
                            .Where(m => m.YearFound >= DateFrom.Year && m.YearFound <= DateTo.Year)
-                          select m; 
+                          select m;
             }
 
             //Checks all filter inputs > if changed then narrows the results by what has been entered
@@ -379,27 +379,30 @@ namespace BYUFagElGamous1_5.Controllers
         {
             //find the corresponding tables for the specified mummy
             var mummy = await context.Mummy.FindAsync(id);
-            var location = await context.Location.FindAsync(mummy.LocationId);
-            var measurement = await context.Measurements.FindAsync(mummy.MeasurementId);
-            var sample = await context.Sample.FindAsync(mummy.SampleId);
-            var carbon = await context.CarbonDated.Where(x => x.MummyId == mummy.MummyId).FirstOrDefaultAsync();
-
-            //find each note attatched to mummy
-            foreach (var note in context.Notes.Where(x => x.MummyId == mummy.MummyId))
+            if (mummy != null)
             {
-                var noteDel = await context.Notes.FindAsync(note.NotesId);
-                context.Notes.Remove(noteDel);
+                var location = await context.Location.FindAsync(mummy.LocationId);
+                var measurement = await context.Measurements.FindAsync(mummy.MeasurementId);
+                var sample = await context.Sample.FindAsync(mummy.SampleId);
+                var carbon = await context.CarbonDated.Where(x => x.MummyId == mummy.MummyId).FirstOrDefaultAsync();
+
+                //find each note attatched to mummy
+                foreach (var note in context.Notes.Where(x => x.MummyId == mummy.MummyId))
+                {
+                    var noteDel = await context.Notes.FindAsync(note.NotesId);
+                    context.Notes.Remove(noteDel);
+                }
+
+                //remove each record from tables
+                if (location != null) context.Location.Remove(location);
+                if (measurement != null) context.Measurements.Remove(measurement);
+                if (sample != null) context.Sample.Remove(sample);
+                if (carbon != null) context.CarbonDated.Remove(carbon);
+
+                context.Mummy.Remove(mummy);
+
+                await context.SaveChangesAsync();
             }
-
-            //remove each record from tables
-            //making sure to remove mummy last 
-            context.Location.Remove(location);
-            context.Measurements.Remove(measurement);
-            context.Sample.Remove(sample);
-            context.CarbonDated.Remove(carbon);
-            context.Mummy.Remove(mummy);
-
-            await context.SaveChangesAsync();
             return RedirectToAction(nameof(ViewMummies));
         }
 

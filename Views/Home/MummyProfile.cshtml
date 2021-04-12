@@ -47,8 +47,7 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col">
-                            <form asp-controller="Home" asp-action="DeleteConfirmed" method="post">
-                                <input type="hidden" value="@Model.Mummy.MummyId" />
+                            <form asp-controller="Home" asp-action="DeleteConfirmed" asp-route-id="@Model.Mummy.MummyId" method="post">
                                 <button class="btn btn-danger" type="submit">Delete</button>
                             </form>
                         </div>
