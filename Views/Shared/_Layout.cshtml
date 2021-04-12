@@ -27,16 +27,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-
-                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Delete)).Result.Succeeded)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Roles" asp-action="Index">Roles</a>
-                            </li>
-                        }
                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
                         {
                             <li class="nav-item">
@@ -46,11 +36,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewMummies">View Burials</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="UploadFile">Upload</a>
-                        </li>
-
-
                     </ul>
                 </div>
             </div>
