@@ -154,11 +154,11 @@ namespace BYUFagElGamous1_5.Controllers
             PageNumberInfo pageNumberInfo = viewMummy.PageNumberInfo;
 
             //checks if datefrom and dateto have been entered & fills in logical missing other
-            if (DateFrom != null && DateTo == null)
+            if (DateFrom != DateTime.MinValue && DateTo == DateTime.MinValue)
             {
                 DateTo = DateTime.Now;
             }
-            if (DateTo != null && DateFrom == null)
+            if (DateTo != DateTime.MinValue && DateFrom == DateTime.MinValue)
             {
                 DateFrom = new DateTime(0000, 00, 00);
             }
@@ -170,7 +170,7 @@ namespace BYUFagElGamous1_5.Controllers
 
             //if date pickers are left empty 
             // else results are further narrowed by date found
-            if (DateFrom != null && DateTo != null)
+            if (DateFrom != DateTime.MinValue && DateTo != DateTime.MinValue)
             {
                 results = from m in results
                            .Where(m => m.DayFound >= DateFrom.Day && m.DayFound <= DateTo.Day)
