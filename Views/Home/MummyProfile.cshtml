@@ -1,6 +1,7 @@
 ﻿@model MummyProfileViewModel
 
 @inject IAuthorizationService AuthorizationService
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery antiforgeryProvider 
 
 <h1 class="display-4">
     Mummy Profile: @Model.Location.BurialLocationNs @Model.Location.LowPairNs/@Model.Location.HighPairNs @Model.Location.BurialLocationEw @Model.Location.LowPairEw/@Model.Location.HighPairEw
@@ -34,7 +35,8 @@
             data: {
                 id: partialViewToInsert,
                 selector: id,
-                type: type
+                type: type,
+                '__RequestVerificationToken': '@antiforgeryProvider.GetAndStoreTokens(this.Context).RequestToken'
             },
             type: "POST",
             success: function(data) {

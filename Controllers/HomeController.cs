@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 namespace BYUFagElGamous1_5.Controllers
 {
     [AllowAnonymous]
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
         private IHostingEnvironment _hostingEnvironment; 
@@ -135,7 +136,6 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ViewMummies([FromForm] ViewMummyViewModel viewMummy,
             string searchFor, DateTime DateFrom, DateTime DateTo) //Dictionary<Mummy, Location> mumLocs, Mummy dummyMummy, PageNumberInfo pageNumberInfo,
         {
