@@ -594,12 +594,19 @@ namespace BYUFagElGamous1_5.Controllers
                 response.Wait();
             }
 
-            return View("UploadFile");
-        }
-        // End Image Uploading
-        //----------------------------------------
+            Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
 
-        [HttpPost]
+            return View("MummyProfile", new MummyProfileViewModel
+            {
+                Mummy = mum,
+                Location = context.Location.Where(x => x.LocationId == mum.LocationId).First(),
+                Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).First()
+            });
+        }
+            // End Image Uploading
+            //----------------------------------------
+
+            [HttpPost]
         public IActionResult AddNote(int id, MummyNotesViewModel note)
         {
             note.NewNote.MummyId = id;
