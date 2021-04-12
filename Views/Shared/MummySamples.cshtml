@@ -5,66 +5,66 @@
 <div class="card-background-dark p-3 my-2">
     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
     {
-    <form asp-action="AddSample" method="post">
+        <form asp-action="AddSample" method="post">
 
 
-        <div class="form-row justify-content-between">
-            <div class="col">
-                <label asp-for="@Model.NewSample.SampleNumber"><h5>Sample Number: </h5></label>
-                <br />
-                <input class="form-control" type="number" asp-for="@Model.NewSample.SampleNumber" />
-                
-            </div>
-            <div class="form-group col">
-                <label asp-for="@Model.NewSample.RackNumber"><h5>Rack Number: </h5></label>
-                <br />
-                <input class="form-control" type="number" asp-for="@Model.NewSample.RackNumber" />
+            <div class="form-row justify-content-between">
+                <div class="col">
+                    <label asp-for="@Model.NewSample.SampleNumber"><h5>Sample Number: </h5></label>
+                    <br />
+                    <input class="form-control" type="number" asp-for="@Model.NewSample.SampleNumber" />
 
-            </div>
-            <div class="form-group col">
-                <label asp-for="@Model.NewSample.Bag"><h5>Bag: </h5></label>
-                <br />
-                <input class="form-control" type="number" asp-for="@Model.NewSample.Bag" />
+                </div>
+                <div class="form-group col">
+                    <label asp-for="@Model.NewSample.RackNumber"><h5>Rack Number: </h5></label>
+                    <br />
+                    <input class="form-control" type="number" asp-for="@Model.NewSample.RackNumber" />
 
-            </div>
-            <div class="form-group col">
-                <label asp-for="@Model.NewSample.Date"><h5>Date: </h5></label>
-                <br />
-                <input class="form-control" asp-for="@Model.NewSample.Date" />
+                </div>
+                <div class="form-group col">
+                    <label asp-for="@Model.NewSample.Bag"><h5>Bag: </h5></label>
+                    <br />
+                    <input class="form-control" type="number" asp-for="@Model.NewSample.Bag" />
 
-            </div>
-        </div>
-        <div class="form-row justify-content-between">
-            <div class="form-group col">
-                <label asp-for="@Model.NewSample.PreviouslySampled"><h5>Previously Sampled: </h5></label>
-                <br />
-                <input class="form-control" asp-for="@Model.NewSample.PreviouslySampled" />
+                </div>
+                <div class="form-group col">
+                    <label asp-for="@Model.NewSample.Date"><h5>Date: </h5></label>
+                    <br />
+                    <input class="form-control" asp-for="@Model.NewSample.Date" />
 
+                </div>
             </div>
-            <div class="form-group col">
-                <label asp-for="@Model.NewSample.Initials"><h5>Initials: </h5></label>
-                <br />
-                <input class="form-control" asp-for="@Model.NewSample.Initials" />
-                
-            </div>
-            <div class="form-group col">
-                <label asp-for="@Model.NewSample.ClusterNumber"><h5>Cluster Number: </h5></label>
-                <br />
-                <input class="form-control" type="number" asp-for="@Model.NewSample.ClusterNumber" />
+            <div class="form-row justify-content-between">
+                <div class="form-group col">
+                    <label asp-for="@Model.NewSample.PreviouslySampled"><h5>Previously Sampled: </h5></label>
+                    <br />
+                    <input class="form-control" asp-for="@Model.NewSample.PreviouslySampled" />
 
-            </div>
-            <div class="form-group col">
-                <label asp-for="@Model.NewSample.Area"><h5>Area: </h5></label>
-                <br />
-                <input class="form-control" asp-for="@Model.NewSample.Area" />
+                </div>
+                <div class="form-group col">
+                    <label asp-for="@Model.NewSample.Initials"><h5>Initials: </h5></label>
+                    <br />
+                    <input class="form-control" asp-for="@Model.NewSample.Initials" />
 
+                </div>
+                <div class="form-group col">
+                    <label asp-for="@Model.NewSample.ClusterNumber"><h5>Cluster Number: </h5></label>
+                    <br />
+                    <input class="form-control" type="number" asp-for="@Model.NewSample.ClusterNumber" />
+
+                </div>
+                <div class="form-group col">
+                    <label asp-for="@Model.NewSample.Area"><h5>Area: </h5></label>
+                    <br />
+                    <input class="form-control" asp-for="@Model.NewSample.Area" />
+
+                </div>
             </div>
-        </div>
-        
+
             <button type="submit" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
             <input type="hidden" name="id" value="@Model.MummyId" />
-        
-    </form>
+
+        </form>
 
     }
 </div>
@@ -98,15 +98,79 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Sample ID: @x.SampleId</p>
-                                <p>Sample Number: @x.SampleNumber</p>
-                                <p>Rack Number: @x.RackNumber</p>
-                                <p>Bag: @x.Bag</p>
-                                <p>Date: @x.Date</p>
-                                <p>Previously Sampled: @x.PreviouslySampled</p>
-                                <p>Initials: @x.Initials</p>
-                                <p>Cluster: @x.ClusterNumber</p>
-                                <p>Area: @x.Area</p>
+
+
+                                <div class="row m-2 justify-content-between">
+                                    <div class="col">
+                                        <h5>Sample ID: </h5>
+                                        <p>@x.SampleId</p>
+                                    </div>
+                                    <div class="col">
+                                        <h5>Sample Number: </h5>
+                                        @if (x.SampleNumber == null)
+                                        {<p>Not Available</p>}
+                                        @if (x.SampleNumber != null)
+                                        {<p>@x.MummyId</p>}
+                                    </div>
+                                    <div class="col">
+                                        <h5>Rack Number: </h5>
+                                        @if (x.RackNumber == null)
+                                        {<p>Not Available</p>}
+                                        @if (x.RackNumber != null)
+                                        {<p>@x.RackNumber</p>}
+                                    </div>
+
+                                </div>
+                                <div class="row m-2 justify-content-between">
+                                    <div class="col">
+                                        <h5>Bag: </h5>
+                                        @if (x.Bag == null)
+                                        {<p>Not Available</p>}
+                                        @if (x.Bag != null)
+                                        {<p>@x.Bag</p>}
+                                    </div>
+                                    <div class="col">
+                                        <h5>Date: </h5>
+                                        @if (x.Date == null)
+                                        {<p>Not Available</p>}
+                                        @if (x.Date != null)
+                                        {<p>@x.Date</p>}
+                                    </div>
+                                    <div class="col">
+                                        <h5>Previously Sampled</h5>
+                                        @if (x.PreviouslySampled == null)
+                                        {<p>Not Available</p>}
+                                        @if (x.PreviouslySampled != null)
+                                        {<p>@x.PreviouslySampled</p>}
+                                    </div>
+
+                                </div>
+                                <div class="row m-2 justify-content-between">
+                                    <div class="col">
+                                        <h5>Initials</h5>
+                                        @if (x.Initials == null)
+                                        {<p>Not Available</p>}
+                                        @if (x.Initials != null)
+                                        {<p>@x.Initials</p>}
+                                    </div>
+                                    <div class="col">
+                                        <h5>Cluster Number</h5>
+                                        @if (x.ClusterNumber == null)
+                                        {<p>Not Available</p>}
+                                        @if (x.ClusterNumber != null)
+                                        {<p>@x.ClusterNumber</p>}
+                                    </div>
+                                    <div class="col">
+                                        <h5>Area</h5>
+                                        @if (x.Area == null)
+                                        {<p>Not Available</p>}
+                                        @if (x.Area != null)
+                                        {<p>@x.Area</p>}
+                                    </div>
+
+
+                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <form asp-controller="Home" asp-action="EditSample" method="post">
@@ -117,11 +181,15 @@
 
                             </div>
                         </div>
+
                     </div>
                 </div>
+
 
             }
         </div>
     </div>
+
 </div>
+
 

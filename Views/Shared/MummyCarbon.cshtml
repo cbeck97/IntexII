@@ -6,73 +6,85 @@
     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
     {
     <form asp-action="AddCarbon" method="post">
-        <div class="form-row justify-content=between my-1">
-            <div class="col">
+        <div class="form-row justify-content-between">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.RackNumber"><h5>Rack Number</h5></label>
-                <input type="number" step="any" asp-for="@Model.NewCarbon.RackNumber" />
+                <br />
+                <input class="form-control" type="number" step="any" asp-for="@Model.NewCarbon.RackNumber" />
             </div>
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.Size"><h5>Size</h5></label>
-                <input type="number" step="any" asp-for="@Model.NewCarbon.Size" />
+                <br />
+                <input class="form-control" type="number" step="any" asp-for="@Model.NewCarbon.Size" />
             </div>
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.Foci"><h5>Foci</h5></label>
-                <input type="number" step="any" asp-for="@Model.NewCarbon.Foci" />
+                <br />
+                <input class="form-control" type="number" step="any" asp-for="@Model.NewCarbon.Foci" />
             </div>
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.C14sample"><h5>C14Sample</h5></label>
-                <input type="number" step="any" asp-for="@Model.NewCarbon.C14sample" />
+                <br />
+                <input class="form-control" type="number" step="any" asp-for="@Model.NewCarbon.C14sample" />
             </div>
-            <div class="col">
+            
+        </div>
+        <div class="form-row justify-content-between">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.Location"><h5>Location</h5></label>
-                <input asp-for="@Model.NewCarbon.Location" />
+                <br />
+                <input class="form-control" asp-for="@Model.NewCarbon.Location" />
             </div>
-        </div>
-        <div class="form-row justify-content=between my-1">
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.Questions"><h5>Questions</h5></label>
-                <input asp-for="@Model.NewCarbon.Questions" />
+                <br />
+                <input class="form-control" asp-for="@Model.NewCarbon.Questions" />
             </div>
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.ConventionalAgeBp"><h5>Conventional Age BP</h5></label>
-                <input type="number" asp-for="@Model.NewCarbon.ConventionalAgeBp" />
+                <br />
+                <input class="form-control" type="number" asp-for="@Model.NewCarbon.ConventionalAgeBp" />
             </div>
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.CalendarDate"><h5>Calendar Date</h5></label>
-                <input type="number" step="any" asp-for="@Model.NewCarbon.CalendarDate" />
+                <br />
+                <input class="form-control" type="number" step="any" asp-for="@Model.NewCarbon.CalendarDate" />
             </div>
-            <div class="col">
+           
+        </div>
+        <div class="form-row justify-content-between">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.Calibrated95CalendarDateMin"><h5>Calibrated Min</h5></label>
-                <input type="number" step="any" asp-for="@Model.NewCarbon.Calibrated95CalendarDateMin" />
+                <br />
+                <input class="form-control" type="number" step="any" asp-for="@Model.NewCarbon.Calibrated95CalendarDateMin" />
             </div>
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.Calibrated95CalendarDateSpan"><h5>Calibrated Span</h5></label>
-                <input type="number" step="any" asp-for="@Model.NewCarbon.Calibrated95CalendarDateSpan" />
+                <br />
+                <input class="form-control" type="number" step="any" asp-for="@Model.NewCarbon.Calibrated95CalendarDateSpan" />
             </div>
-        </div>
-        <div class="form-row justify-content=between my-1">
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.Calibrated95CalendarDateAvg"><h5>Calibrated Avg</h5></label>
-                <input type="number" step="any" asp-for="@Model.NewCarbon.Calibrated95CalendarDateAvg" />
+                <br />
+                <input class="form-control" type="number" step="any" asp-for="@Model.NewCarbon.Calibrated95CalendarDateAvg" />
             </div>
-            <div class="col">
+            <div class="form-group col">
                 <label asp-for="@Model.NewCarbon.Category"><h5>Category</h5></label>
-                <input type="text" step="any" asp-for="@Model.NewCarbon.Category" />
+                <br />
+                <input class="form-control" type="text" step="any" asp-for="@Model.NewCarbon.Category" />
             </div>
-            <div class="col">
 
-            </div>
-            <div class="col p-auto">
-                <button type="submit" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
-                <input type="hidden" name="id" value="@Model.MummyId" />
-            </div>
         </div>
+        
+        <button type="submit" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+        <input type="hidden" name="id" value="@Model.MummyId" />
     </form>
 
     }
 </div>
 
 <div class="card-background p-3">
+    <h1 class="display-4">Carbon Dating: </h1>
     <div class="col">
         <div class="row text-center">
             @foreach (var x in Model.Carbons)
@@ -225,9 +237,9 @@
                                 </form>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             }
         </div>
