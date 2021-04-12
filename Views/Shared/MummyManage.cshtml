@@ -1,4 +1,6 @@
-﻿<button type="button" class="btn btn-danger btn-lg my-3" data-toggle="modal" data-target="#Delete-@Model.Mummy.MummyId">
+﻿@model MummyProfileViewModel
+
+<button type="button" class="btn btn-danger btn-lg my-3" data-toggle="modal" data-target="#Delete-@Model.Mummy.MummyId">
     Delete: @Model.Location.BurialLocationNs @Model.Location.LowPairNs/@Model.Location.HighPairNs @Model.Location.BurialLocationEw @Model.Location.LowPairEw/@Model.Location.HighPairEw
     @Model.Location.Subplot #@Model.Location.BurialNumber
 </button>

@@ -351,7 +351,12 @@ namespace BYUFagElGamous1_5.Controllers
             }
             else
             {
-                return PartialView(id);
+                Mummy mum = context.Mummy.Where(x => x.MummyId == selector).First();
+                return PartialView(id, new MummyProfileViewModel {
+                    Mummy = mum,
+                    Location = context.Location.Where(x=>x.LocationId == mum.LocationId).First(),
+                    Measurement = context.Measurements.Where(x=>x.MeasurementId == mum.MeasurementId).First()
+                });
             }
         }
 
