@@ -7,7 +7,7 @@ namespace BYUFagElGamous1_5.Models
     public class FileUpload
     {
         [Required]
-        [Display(Name = "File")]
+        [Display(Name = "Select Image or File")]
         public IFormFile FormFile { get; set; }
     }
 }

@@ -341,7 +341,9 @@ namespace BYUFagElGamous1_5.Controllers
             }
             else if (type == "images")
             {
-                return PartialView(id);
+                return PartialView(id, new MummyUploadViewModel {
+                    MummyId = selector
+                });
             }
             else if (type == "files")
             {

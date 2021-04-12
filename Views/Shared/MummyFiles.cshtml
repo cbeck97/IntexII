@@ -1,5 +1,13 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model FileUpload
+
+<form enctype="multipart/form-data" method="post" asp-action="FileUploadForm">
+    <dl>
+        <dt>
+            <label asp-for="FormFile"></label>
+        </dt>
+        <dd>
+            <input asp-for="FormFile" type="file">
+        </dd>
+    </dl>
+    <button type="submit">Submit</button>
+</form>
