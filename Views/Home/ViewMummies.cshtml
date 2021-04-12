@@ -2,24 +2,27 @@
 
 @inject IAuthorizationService AuthorizationService
 <h1 class="display-4">View Burials</h1>
-<div class="card-background p-3">
-    <form asp-action="ViewMummies" method="get">
-        <label>Select Number of Burials on Page: </label>
-        <select id="numberItems" name="pageItems" class="form-select form-control col-1 numberItems" aria-label="Number of Mummies displayed"
-                onchange="javascript:this.form.submit()">
-            @*<option selected>Num</option>*@
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-            <option value="35">35</option>
-            <option value="50">50</option>
-        </select>
-        <input hidden name="pageNum" value="@Model.PageNumberInfo.CurrentPage" />
-        <input id="pageNumItems" type="submit" hidden />
-    </form>
 
-    <div class="card-body">
+
+
+<div class="card-background p-3">
+    <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#FilterCollapse" aria-expanded="false" aria-controls="multiCollapseExample2">View Filter Options</button>
+    <div class="card-body collapse multi-collapse" id="FilterCollapse">
+        <form asp-action="ViewMummies" method="get">
+            <label>Select Number of Burials on Page: </label>
+            <select id="numberItems" name="pageItems" class="form-select form-control col-1 numberItems" aria-label="Number of Mummies displayed"
+                    onchange="javascript:this.form.submit()">
+                @*<option selected>Num</option>*@
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="35">35</option>
+                <option value="50">50</option>
+            </select>
+            <input hidden name="pageNum" value="@Model.PageNumberInfo.CurrentPage" />
+            <input id="pageNumItems" type="submit" hidden />
+        </form>
         <form asp-action="ViewMummies" method="post">
             <input hidden asp-for="@Model.PageNumberInfo.CurrentPage" />
             <input hidden asp-for="@Model.PageNumberInfo.NumItemsPerPage" />
@@ -189,7 +192,8 @@
             </div>
         </form>
     </div>
-    <br />
+</div>
+<div class="card-background p-3 my-2">
     <table class="table">
         <thead class="thead-secondary">
             <tr>
