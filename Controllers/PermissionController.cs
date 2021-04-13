@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PermissionManagement.MVC.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class PermissionController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BYUFagElGamous1_5.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class UsersController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

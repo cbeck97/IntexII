@@ -56,12 +56,12 @@ namespace BYUFagElGamous1_5
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseCookiePolicy(new CookiePolicyOptions
-            {
-                HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
-                Secure = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always,
-                MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None
-            });
+            //app.UseCookiePolicy(new CookiePolicyOptions
+            //{
+            //    HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
+            //    Secure = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always,
+            //    MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None
+            //});
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -25,7 +25,7 @@ using System.Web;
 namespace BYUFagElGamous1_5.Controllers
 {
     [AllowAnonymous]
-    [AutoValidateAntiforgeryToken]
+    //[AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
         private IWebHostEnvironment _hostingEnvironment;
@@ -49,14 +49,14 @@ namespace BYUFagElGamous1_5.Controllers
         //               ADD MUMMY
         //-----------------------------------------
         [HttpGet]
-        [Authorize(Roles = "SuperAdmin, Researcher")]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult AddMummy()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "SuperAdmin, Researcher")]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult AddMummy(AddMummyViewModel entry)
         {
             Measurements msr = new Measurements();
@@ -133,7 +133,6 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult ViewMummies([FromForm] ViewMummyViewModel viewMummy,
             string searchFor, DateTime DateFrom, DateTime DateTo) //Dictionary<Mummy, Location> mumLocs, Mummy dummyMummy, PageNumberInfo pageNumberInfo,
         {
@@ -404,6 +403,7 @@ namespace BYUFagElGamous1_5.Controllers
         //-----------------------------------------
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             //find the corresponding tables for the specified mummy
@@ -441,6 +441,7 @@ namespace BYUFagElGamous1_5.Controllers
         //               EDITS
         //-----------------------------------------
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult EditAttributes(int id)
         {
             Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
@@ -453,6 +454,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost("UpdateMummy")]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public async Task<IActionResult> UpdateMummy(Mummy mummy)
         {
             if (ModelState.IsValid)
@@ -479,6 +481,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult EditLocation(int id)
         {
             Location loc = context.Location.Where(x => x.LocationId == id).First();
@@ -490,6 +493,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost("UpdateLocation")]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public async Task<IActionResult> UpdateLocation(Location location)
         {
             if (ModelState.IsValid)
@@ -517,6 +521,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost("UpdateCarbon")]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public async Task<IActionResult> UpdateCarbon(CarbonDated carbon)
         {
             if (ModelState.IsValid)
@@ -544,6 +549,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost("UpdateSample")]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public async Task<IActionResult> UpdateSample(Sample sample)
         {
             if (ModelState.IsValid)
@@ -603,6 +609,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult FileUploadForm(FileUpload upload, int id = 1)
         {
             string config = ConfigurationManager.AppSettings["Test"];
@@ -687,6 +694,7 @@ namespace BYUFagElGamous1_5.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult AddNote(int id, MummyNotesViewModel note)
         {
             note.NewNote.MummyId = id;
@@ -716,6 +724,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult AddSample(int id, MummySamplesViewModel sample)
         {
             sample.NewSample.MummyId = id;
@@ -745,6 +754,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult AddCarbon(int id, MummyCarbonViewModel carbon)
         {
             carbon.NewCarbon.MummyId = id;
@@ -775,6 +785,7 @@ namespace BYUFagElGamous1_5.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult EditMeasurements(int id)
         {
             Measurements msr = context.Measurements.Where(x => x.MeasurementId == id).First();
@@ -782,6 +793,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost("UpdateMeasurements")]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public async Task<IActionResult> UpdateMeasurements(Measurements measurements)
         {
             if (ModelState.IsValid)
@@ -806,6 +818,7 @@ namespace BYUFagElGamous1_5.Controllers
             return View("UpdateMummy", measurements);
         }
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult EditCarbon(int id)
         {
             CarbonDated carbon = context.CarbonDated.Where(x => x.CarbonDatedId == id).First();
@@ -813,6 +826,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult EditSample(int id)
         {
             Sample sample = context.Sample.Where(x => x.SampleId == id).First();
