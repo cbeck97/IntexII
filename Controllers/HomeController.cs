@@ -816,7 +816,14 @@ namespace BYUFagElGamous1_5.Controllers
                     Measurement = context.Measurements.Where(x => x.MeasurementId == measurements.MeasurementId).FirstOrDefault()
                 });
             }
-            return View("UpdateMummy", measurements);
+            Mummy mummy = context.Mummy.Where(x => x.MeasurementId == measurements.MeasurementId).FirstOrDefault();
+            return View("MummyProfile", new MummyProfileViewModel
+            {
+
+                Mummy = mummy,
+                Location = context.Location.Where(x => x.LocationId == mummy.LocationId).FirstOrDefault(),
+                Measurement = context.Measurements.Where(x => x.MeasurementId == measurements.MeasurementId).FirstOrDefault()
+            });
         }
         [HttpPost]
         [Authorize(Roles = "SuperAdmin, Admin, Researcher")]

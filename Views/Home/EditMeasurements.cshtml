@@ -23,14 +23,14 @@
                 <label for="BYUSample" asp-for="@Model.Byusample">BYU Sample: </label>
                 <select id="BYUSample" class="custom-select" asp-for="@Model.Byusample">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-row text-left">
                 <div class="form-group col">
                     <label for="EstimateAge" asp-for="@Model.EstimateAge">Estimate Age: </label>
-                    <input id="EstimateAge" class="form-control" asp-for="@Model.EstimateAge" placeholder="Estimate Age" value="@Model.EstimateAge" />
+                    <input id="EstimateAge" type="number" step="any" class="form-control" asp-for="@Model.EstimateAge" placeholder="Estimate Age" value="@Model.EstimateAge" />
                 </div>
             </div>
         </div>
@@ -79,8 +79,8 @@
                 <label for="ToBeConfirmed" asp-for="@Model.ToBeConfirmed">BYU ToBeConfirmed: </label>
                 <select id="ToBeConfirmed" class="custom-select" asp-for="@Model.ToBeConfirmed">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
         </div>
@@ -104,14 +104,14 @@
             </div>
             <div class="form-group col">
                 <label for="AgeSkull2018" asp-for="@Model.AgeSkull2018">Age Skull: </label>
-                <input id="AgeSkull2018" class="form-control" asp-for="@Model.AgeSkull2018" placeholder="Age Skull" value="@Model.AgeSkull2018" />
+                <input type="number" id="AgeSkull2018" class="form-control" asp-for="@Model.AgeSkull2018" placeholder="Age Skull" value="@Model.AgeSkull2018" />
             </div>
             <div class="form-group col">
                 <label for="BasilarSutureOpen" asp-for="@Model.BasilarSutureOpen">Basilar Suture: </label>
                 <select id="BasilarSutureOpen" class="custom-select" asp-for="@Model.BasilarSutureOpen">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
@@ -136,21 +136,25 @@
                 <label for="ButtonOsteoma" asp-for="@Model.ButtonOsteomad">Button Osteoma: </label>
                 <select id="ButtonOsteoma" class="custom-select" asp-for="@Model.ButtonOsteomad">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
                 <label for="CranialSutureOpen" asp-for="@Model.CranialSutureOpen">Cranial Suture: </label>
                 <select id="CranialSutureOpen" class="custom-select" asp-for="@Model.CranialSutureOpen">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
                 <label for="EpiphysealUnion" asp-for="@Model.EpiphysealUnion">Epiphyseal Union: </label>
-                <input id="EpiphysealUnion" class="form-control" asp-for="@Model.EpiphysealUnion" placeholder="Epiphyseal Union" value="@Model.EpiphysealUnion" />
+                <select id="EpiphysealUnion" class="custom-select" asp-for="@Model.EpiphysealUnion">
+                    <option value="">Select</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
+                </select>
             </div>
         </div>
         <div class="form-row text-left">
@@ -174,8 +178,8 @@
                 <label for="MetopicSuture" asp-for="@Model.MetopicSuture">Metopic Suture: </label>
                 <select id="MetopicSuture" class="custom-select" asp-for="@Model.MetopicSuture">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
@@ -208,8 +212,8 @@
                 <label for="PostcraniaMagazine" asp-for="@Model.PostcraniaMagazine">Postcrania Magazine: </label>
                 <select id="PostcraniaMagazine" class="custom-select" asp-for="@Model.PostcraniaMagazine">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
         </div>
@@ -218,8 +222,8 @@
                 <label for="PostcraniaTrauma" asp-for="@Model.PostcraniaTrauma">Postcrania Trauma: </label>
                 <select id="PostcraniaTrauma" class="custom-select" asp-for="@Model.PostcraniaTrauma">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
@@ -230,16 +234,16 @@
                 <label for="SkullAtMagazine" asp-for="@Model.SkullAtMagazine">Skull At Magazine: </label>
                 <select id="SkullAtMagazine" class="custom-select" asp-for="@Model.SkullAtMagazine">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
                 <label for="SkullTrauma" asp-for="@Model.SkullTrauma">Skull Trauma: </label>
                 <select id="SkullTrauma" class="custom-select" asp-for="@Model.SkullTrauma">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
@@ -261,8 +265,8 @@
                 <label for="LinearHypoplasiaEnamel" asp-for="@Model.LinearHypoplasiaEnamel">Linear Hypoplasia Enamel: </label>
                 <select id="LinearHypoplasiaEnamel" class="custom-select" asp-for="@Model.LinearHypoplasiaEnamel">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
@@ -285,8 +289,8 @@
                 <label for="CribraOrbitala" asp-for="@Model.CribraOrbitala">Cribra Orbitala: </label>
                 <select id="CribraOrbitala" class="custom-select" asp-for="@Model.CribraOrbitala">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
         </div>
@@ -304,8 +308,8 @@
                 <label for="Tmjosteoarthritis" asp-for="@Model.Tmjosteoarthritis">TMJ Osteoarthritis: </label>
                 <select id="Tmjosteoarthritis" class="custom-select" asp-for="@Model.Tmjosteoarthritis">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
         </div>
@@ -406,7 +410,7 @@
             </div>
             <div class="form-group col">
                 <label for="PubicBone" asp-for="@Model.PubicBone">Pubic Bone: </label>
-                <input id="PubicBone" class="form-control" asp-for="@Model.PubicBone" placeholder="Pubic Bone" value="@Model.PubicBone" />
+                <input id="PubicBone" type="number" class="form-control" asp-for="@Model.PubicBone" placeholder="Pubic Bone" value="@Model.PubicBone" />
             </div>
             <div class="form-group col">
                 <label for="PubicSymphysis" asp-for="@Model.PubicSymphysis">Pubic Symphysis: </label>
@@ -440,8 +444,8 @@
                 <label for="ArtifactFound" asp-for="@Model.ArtifactFound">Artifact Found: </label>
                 <select id="ArtifactFound" class="custom-select" asp-for="@Model.ArtifactFound">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
@@ -466,40 +470,40 @@
                 <label for="BoneTaken" asp-for="@Model.BoneTaken">Bone Taken: </label>
                 <select id="BoneTaken" class="custom-select" asp-for="@Model.BoneTaken">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
                 <label for="HairTaken" asp-for="@Model.HairTaken">Hair Taken: </label>
                 <select id="HairTaken" class="custom-select" asp-for="@Model.HairTaken">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
                 <label for="SoftTissueTaken" asp-for="@Model.SoftTissueTaken">Soft Tissue Taken: </label>
                 <select id="SoftTissueTaken" class="custom-select" asp-for="@Model.SoftTissueTaken">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
                 <label for="TextileTaken" asp-for="@Model.TextileTaken">Textile Taken: </label>
                 <select id="TextileTaken" class="custom-select" asp-for="@Model.TextileTaken">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
             <div class="form-group col">
                 <label for="ToothTaken" asp-for="@Model.ToothTaken">Tooth Taken: </label>
                 <select id="ToothTaken" class="custom-select" asp-for="@Model.ToothTaken">
                     <option value="">Select</option>
-                    <option value="Y">Y</option>
-                    <option value="U">U</option>
+                    <option value="true">Y</option>
+                    <option value="false">U</option>
                 </select>
             </div>
         </div>
