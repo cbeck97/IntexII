@@ -25,7 +25,7 @@ using System.Web;
 namespace BYUFagElGamous1_5.Controllers
 {
     [AllowAnonymous]
-    //[AutoValidateAntiforgeryToken]
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
         private IWebHostEnvironment _hostingEnvironment;
