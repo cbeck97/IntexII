@@ -73,7 +73,7 @@
         <div class="form-row text-left">
             <div class="form-group col">
                 <label for="BuriaAgeAtDeath" asp-for="@Model.BurialAgeAtDeath">Burial Age at Death: </label>
-                <input id="BurialAgeAtDeath" class="form-control" asp-for="@Model.BurialAgeAtDeath" value="@Model.BurialGenderMethod" placeholder="Age at Death" />
+                <input type="number" id="BurialAgeAtDeath" class="form-control" asp-for="@Model.BurialAgeAtDeath" value="@Model.BurialGenderMethod" placeholder="Age at Death" />
             </div>
             <div class="form-group col">
                 <label for="BurialAgeMethod" asp-for="@Model.BurialAgeMethod">Burial Age Method: </label>
@@ -86,7 +86,7 @@
             </div>
             <div class="form-group col">
                 <label for="Length" asp-for="@Model.LengthOfRemains">Length: </label>
-                <input id="Length" class="form-control" asp-for="@Model.LengthOfRemains" placeholder="Enter Length in Meters" />
+                <input type="number" id="Length" class="form-control" asp-for="@Model.LengthOfRemains" placeholder="Enter Length in Meters" />
             </div>
             <div class="form-group col">
                 <label for="BurialPreservation" asp-for="@Model.BurialPreservation">Burial Preservations: </label>
