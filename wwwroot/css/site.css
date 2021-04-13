@@ -93,7 +93,8 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     background-image: url("../img/DSCN0004.jpg");
-    background-size: 100% auto;
+    background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-color: rgba(166,144,118,.75);
