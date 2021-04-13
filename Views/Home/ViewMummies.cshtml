@@ -224,7 +224,21 @@
                         <input type="hidden" name="id" value="@x.MummyId" />
                     </form>
                 </td>
-                <td class="my-2">@x.MonthFound/@x.DayFound/@x.YearFound</td>
+                <td class="my-2">
+                    @if (x.DayFound != null && x.MonthFound != null && x.YearFound != null)
+                    {
+                        {<p>@x.DayFound/@x.MonthFound/@x.YearFound</p>}
+                    }
+                    else if (x.DayFound == null && x.MonthFound != null && x.YearFound != null)
+                    {
+                        <p>@x.MonthFound/@x.YearFound</p>
+                    }
+                    else if (x.MonthFound == null)
+                    {
+                        <p>@x.YearFound</p>
+                    }
+                    else {<p>--</p>}
+                </td>
                 <td>@x.HeadDirection</td>
                 <td>@x.Gender</td>
                 <td>@x.HairColor</td>
