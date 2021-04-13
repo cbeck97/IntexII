@@ -121,16 +121,16 @@
         </div>
         <div class="form-row text-left">
             <div class="form-group col">
+                <label for="BasionProsthionLength" asp-for="@Model.BasionProsthionLength">Basion Prosthion Length: </label>
+                <input id="BasionProsthionLength" class="form-control" asp-for="@Model.BasionProsthionLength" placeholder="Basion Prosthion Length" value="@Model.BasionProsthionLength" />
+            </div>
+            <div class="form-group col">
                 <label for="BasionNasion" asp-for="@Model.BasionNasion">Basion Nasion: </label>
                 <input id="BasionNasion" class="form-control" asp-for="@Model.BasionNasion" placeholder="Basion Nasion" value="@Model.BasionNasion" />
             </div>
             <div class="form-group col">
                 <label for="BizygomaticDiameter" asp-for="@Model.BizygomaticDiameter">Bizygomatic Diameter: </label>
                 <input id="BizygomaticDiameter" class="form-control" asp-for="@Model.BizygomaticDiameter" placeholder="Bizygomatic Diameter" value="@Model.BizygomaticDiameter" />
-            </div>
-            <div class="form-group col">
-                <label for="ButtonOsteoma" asp-for="@Model.ButtonOsteomad">Button Osteoma: </label>
-                <input id="ButtonOsteoma" class="form-control" asp-for="@Model.ButtonOsteomad" placeholder="Button Osteoma" value="@Model.ButtonOsteomad" />
             </div>
             <div class="form-group col">
                 <label for="ButtonOsteoma" asp-for="@Model.ButtonOsteomad">Button Osteoma: </label>
@@ -171,7 +171,7 @@
                 <input id="MaximumNasalBreadth" class="form-control" asp-for="@Model.MaximumNasalBreadth" placeholder="Maximum Nasal Breadth" value="@Model.MaximumNasalBreadth" />
             </div>
             <div class="form-group col">
-                <label for="MetopicSuture" asp-for="@Model.MetopicSuture">MetopicSuture: </label>
+                <label for="MetopicSuture" asp-for="@Model.MetopicSuture">Metopic Suture: </label>
                 <select id="MetopicSuture" class="custom-select" asp-for="@Model.MetopicSuture">
                     <option value="">Select</option>
                     <option value="Y">Y</option>
