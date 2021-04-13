@@ -30,7 +30,7 @@ namespace BYUFagElGamous1_5.Models
         public int? DateOnSkull { get; set; }
         public string DescriptionOfTaken { get; set; }
         public double? DorsalPitting { get; set; }
-        public double? EpiphysealUnion { get; set; }
+        public bool? EpiphysealUnion { get; set; }
         public double? EstimateAge { get; set; }
         public double? FemurDiameter { get; set; }
         public double? FemurHead { get; set; }

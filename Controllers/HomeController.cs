@@ -608,6 +608,7 @@ namespace BYUFagElGamous1_5.Controllers
             return String.Empty;
         }
 
+        [DisableRequestSizeLimit]
         [HttpPost]
         [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult FileUploadForm(FileUpload upload, int id = 1)
@@ -626,7 +627,7 @@ namespace BYUFagElGamous1_5.Controllers
                 name = GetUntilOrEmpty(name);
                 mumImg.Name = name; //here----------------------
             }
-            else if (upload.FormFile.ContentType == "application/pdf")
+            else //if (upload.FormFile.ContentType == "application/pdf")
             {
                 folderPath = $"documents/{upload.FormFile.FileName}";
                 mumImg.Type = "file";
@@ -839,5 +840,7 @@ namespace BYUFagElGamous1_5.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+       
     }
 }

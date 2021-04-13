@@ -49,6 +49,7 @@ namespace BYUFagElGamous1_5
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseStatusCodePages("text/plain", "Maybe this page moved? Got deleted? Is hiding out in quarantine? Never existed in the first place? Status Code: {0}");
             }
             else
             {
@@ -62,6 +63,7 @@ namespace BYUFagElGamous1_5
             //    Secure = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always,
             //    MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None
             //});
+         
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
