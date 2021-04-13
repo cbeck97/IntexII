@@ -28,12 +28,18 @@
 
         <div class="form-row text-left">
             <div class="form-group col">
-                <label for="PreviouslySampled" asp-for="@Model.PreviouslySampled">Low Pair E/W: </label>
-                <input id="PreviouslySampled" class="custom-select" asp-for="@Model.PreviouslySampled" placeholder="Enter if Previously Sampled" />
+                <label for="PreviouslySampled" asp-for="@Model.PreviouslySampled">Previously Sampled: </label>
+                <select id="PreviouslySampled" class="custom-select" asp-for="@Model.PreviouslySampled" placeholder="Select Subplot">
+                <option>Select</option>
+                <option value="Y">Y</option>
+                <option value="N">N</option>
+                
+
+                </select>
 
             </div>
             <div class="form-group col">
-                <label for="Initials" asp-for="@Model.Initials">High Pair E/W: </label>
+                <label for="Initials" asp-for="@Model.Initials">Initials: </label>
                 <input id="Initials" class="custom-select" asp-for="@Model.Initials" placeholder="Enter Initials" />
 
             </div>
