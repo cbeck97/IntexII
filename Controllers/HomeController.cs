@@ -247,9 +247,9 @@ namespace BYUFagElGamous1_5.Controllers
         [HttpPost]
         public IActionResult MummyProfile(int id)
         {
+            //These are the objects that will get passed to the view
             Mummy mum = context.Mummy.Where(x => x.MummyId == id).First();
             Measurements msr;
-            //Notes note;
             Location loc = context.Location.Where(x => x.LocationId == mum.LocationId).First();
             try
             {
@@ -270,6 +270,7 @@ namespace BYUFagElGamous1_5.Controllers
             });
         }
 
+        //Determines which partial view to return based on type passed in
         [HttpPost]
         public ActionResult PartialView(string id, int selector, string type)
         {
@@ -335,6 +336,7 @@ namespace BYUFagElGamous1_5.Controllers
             }
             else if (type == "files")
             {
+                //returns the files for a specific mummy
                 IEnumerable<MummyImage> output = context.MummyImage.Where(x => x.MummyId == selector);
                 Dictionary<string, string> returnDict = new Dictionary<string, string>();
                 foreach (var x in output)
@@ -351,6 +353,7 @@ namespace BYUFagElGamous1_5.Controllers
             }
             else if (type == "images")
             {
+                //returns images for a specific mummy
                 IEnumerable<MummyImage> output = context.MummyImage.Where(x => x.MummyId == selector);
                 Dictionary<string, string> returnDict = new Dictionary<string, string>();
                 List<string> images = new List<string>();
@@ -377,6 +380,8 @@ namespace BYUFagElGamous1_5.Controllers
             }
         }
 
+        //This is the Partial View that is stored within the measurements partial view
+        //Allows to filter between head, body, and general
         [HttpPost]
         public ActionResult MeasurementPartialView(string id, int selector, string type)
         {
@@ -615,17 +620,20 @@ namespace BYUFagElGamous1_5.Controllers
         {
             string config = ConfigurationManager.AppSettings["Test"];
 
+            //Create a client to interact with AWS S3
             AmazonS3Client client = new AmazonS3Client(accesskey, secretkey, bucketRegion);
             string folderPath = "";
             MummyImage mumImg = new MummyImage();
             Images img = new Images();
+
+            //Filter images from files and store them in appropriate folder in S3
             if (upload.FormFile.ContentType == "image/jpeg")
             {
                 folderPath = $"images/{upload.FormFile.FileName}";
                 mumImg.Type = "image";
                 string name = upload.FormFile.FileName;
                 name = GetUntilOrEmpty(name);
-                mumImg.Name = name; //here----------------------
+                mumImg.Name = name;
             }
             else //if (upload.FormFile.ContentType == "application/pdf")
             {
@@ -646,7 +654,7 @@ namespace BYUFagElGamous1_5.Controllers
             }
             
 
-            //IEnumerable<Images> currentImages = context.Images.Select(x => x);
+            //Only add the file to the mummy if it is not already there
             bool addFile = true;
 
             foreach (var x in currentFiles)
@@ -694,6 +702,7 @@ namespace BYUFagElGamous1_5.Controllers
         }
 
 
+        //Add a note to a specific mummy
         [HttpPost]
         [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult AddNote(int id, MummyNotesViewModel note)
@@ -724,6 +733,7 @@ namespace BYUFagElGamous1_5.Controllers
             });
         }
 
+        //Add a sample to a specific mummy
         [HttpPost]
         [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult AddSample(int id, MummySamplesViewModel sample)
@@ -754,6 +764,7 @@ namespace BYUFagElGamous1_5.Controllers
             });
         }
 
+        //Add a carbon dating sample to a specific mummy
         [HttpPost]
         [Authorize(Roles = "SuperAdmin, Admin, Researcher")]
         public IActionResult AddCarbon(int id, MummyCarbonViewModel carbon)
