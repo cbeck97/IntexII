@@ -108,7 +108,7 @@ namespace BYUFagElGamous1_5.Controllers
 
             foreach (var x in context.Mummy)
             {
-                dict.Add(x, context.Location.Where(y => y.LocationId == x.LocationId).First());
+                dict.Add(x, context.Location.Where(y => y.LocationId == x.LocationId).FirstOrDefault());
             }
             ViewBag.numItems = pageItems;
 
@@ -128,6 +128,7 @@ namespace BYUFagElGamous1_5.Controllers
 
                     //return total count of mummies
                     TotalNumItems = context.Mummy.Count()
+
                 }
             });
         }
@@ -197,7 +198,7 @@ namespace BYUFagElGamous1_5.Controllers
             // then searches remaining query result for text matching search
             if (!string.IsNullOrEmpty(searchFor))
             {
-                List<string> _search = searchFor.Split(' ').ToList();
+                List<string> _search = searchFor.Trim().Split(' ').ToList();
 
                 results = (from c in results
                            where _search.Contains(c.Location.LowPairNs.ToString()) // All location context is brought in by virtual object in mummy 
@@ -232,11 +233,14 @@ namespace BYUFagElGamous1_5.Controllers
                 mumLocs = dict,
                 Mummies = results
                     .OrderBy(x => x.MummyId)
-                    .Skip((viewMummy.PageNumberInfo.CurrentPage - 1) * viewMummy.PageNumberInfo.NumItemsPerPage)
-                    .Take(viewMummy.PageNumberInfo.NumItemsPerPage)
                     .ToList(),
 
-                PageNumberInfo = pageNumberInfo
+                PageNumberInfo = new PageNumberInfo
+                {
+                    CurrentPage = 1,
+                    NumItemsPerPage = results.Count(),
+                    TotalNumItems = results.Count()
+                }
             });
         }
 
@@ -330,7 +334,8 @@ namespace BYUFagElGamous1_5.Controllers
             }
             else if (type == "upload")
             {
-                return PartialView(id, new MummyUploadViewModel {
+                return PartialView(id, new MummyUploadViewModel
+                {
                     MummyId = selector
                 });
             }
@@ -341,13 +346,13 @@ namespace BYUFagElGamous1_5.Controllers
                 Dictionary<string, string> returnDict = new Dictionary<string, string>();
                 foreach (var x in output)
                 {
-                    if(x.Type == "file")
+                    if (x.Type == "file")
                     {
                         Images img = context.Images.Where(y => y.ImageId == x.ImageId && x.Type == "file").First();
                         returnDict.Add(img.ImageSource, x.Name);
                     }
 
-                    
+
                 }
                 return PartialView(id, returnDict);
             }
@@ -357,25 +362,26 @@ namespace BYUFagElGamous1_5.Controllers
                 IEnumerable<MummyImage> output = context.MummyImage.Where(x => x.MummyId == selector);
                 Dictionary<string, string> returnDict = new Dictionary<string, string>();
                 List<string> images = new List<string>();
-                foreach(var x in output)
+                foreach (var x in output)
                 {
-                    if(x.Type == "image")
+                    if (x.Type == "image")
                     {
                         Images img = context.Images.Where(y => y.ImageId == x.ImageId).First();
                         returnDict.Add(img.ImageSource, x.Name);
                     }
-                    
-                    
+
+
                 }
                 return PartialView(id, returnDict);
             }
             else
             {
                 Mummy mum = context.Mummy.Where(x => x.MummyId == selector).First();
-                return PartialView(id, new MummyProfileViewModel {
+                return PartialView(id, new MummyProfileViewModel
+                {
                     Mummy = mum,
-                    Location = context.Location.Where(x=>x.LocationId == mum.LocationId).First(),
-                    Measurement = context.Measurements.Where(x=>x.MeasurementId == mum.MeasurementId).First()
+                    Location = context.Location.Where(x => x.LocationId == mum.LocationId).First(),
+                    Measurement = context.Measurements.Where(x => x.MeasurementId == mum.MeasurementId).First()
                 });
             }
         }
@@ -598,7 +604,7 @@ namespace BYUFagElGamous1_5.Controllers
 
         //This is a helper function that strips titles of their extensions
         //to create file names
-        public static string GetUntilOrEmpty( string text, string stopAt = ".")
+        public static string GetUntilOrEmpty(string text, string stopAt = ".")
         {
             if (!String.IsNullOrEmpty(text))
             {
@@ -652,7 +658,7 @@ namespace BYUFagElGamous1_5.Controllers
             {
                 currentFiles.Add(context.Images.Where(y => y.ImageId == x.ImageId).First());
             }
-            
+
 
             //Only add the file to the mummy if it is not already there
             bool addFile = true;
@@ -859,6 +865,6 @@ namespace BYUFagElGamous1_5.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-       
+
     }
 }
