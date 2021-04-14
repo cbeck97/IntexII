@@ -33,7 +33,6 @@ namespace BYUFagElGamous1_5.Models
         public string FaceBundle { get; set; }
         public int? Gamous { get; set; }
         public int? ClusterId { get; set; }
-        [CustomValidation(typeof(double), "Please enter a valid number")]
         public double? LengthOfRemains { get; set; }
         public bool? PhotoTaken { get; set; }
         public virtual Location Location { get; set; }
