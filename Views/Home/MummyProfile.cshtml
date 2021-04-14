@@ -25,7 +25,10 @@
 @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Create)).Result.Succeeded)
 {
     <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'upload')" id="MummyUpload">Upload</button>
-    <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'manage')" id="MummyManage">Manage</button>
+    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Burials.Delete)).Result.Succeeded)
+    {
+        <button class="btn" onclick="replaceContents(this.id, @Model.Mummy.MummyId, 'manage')" id="MummyManage">Manage</button>
+    }
 }
 <div id="partialView">
 </div>
